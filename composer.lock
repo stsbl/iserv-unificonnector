@@ -4,8 +4,87 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e77b7d594056580678fe7de815ac7270",
+    "content-hash": "9f44acc22ce319ea5fc6e96d5cdf3cf4",
     "packages": [
+        {
+            "name": "art-of-wifi/unifi-api-client",
+            "version": "v1.1.74",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Art-of-WiFi/UniFi-API-client.git",
+                "reference": "fbfd6a824628d2d45f7b5dadb211cb1191335156"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Art-of-WiFi/UniFi-API-client/zipball/fbfd6a824628d2d45f7b5dadb211cb1191335156",
+                "reference": "fbfd6a824628d2d45f7b5dadb211cb1191335156",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "ext-json": "*",
+                "php": ">=5.5.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "UniFi_API\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Art of WiFi",
+                    "email": "info@artofowifi.net",
+                    "homepage": "https://artofwifi.net"
+                }
+            ],
+            "description": "API client class for use with Ubiquiti's UniFi controller",
+            "homepage": "https://github.com/Art-of-WiFi/UniFi-API-client",
+            "keywords": [
+                "UBNT",
+                "api",
+                "client",
+                "controller",
+                "ubiquiti",
+                "unifi"
+            ],
+            "support": {
+                "issues": "https://github.com/Art-of-WiFi/UniFi-API-client/issues",
+                "source": "https://github.com/Art-of-WiFi/UniFi-API-client/tree/v1.1.74"
+            },
+            "time": "2021-11-08T09:30:22+00:00"
+        },
+        {
+            "name": "iserv/database",
+            "version": "v1.0.1",
+            "source": {
+                "type": "git",
+                "url": "git@git.iserv.eu:iserv/lib/database.git",
+                "reference": "7823b8fffe81d85efbe9541635347be3f560eba3"
+            },
+            "dist": {
+                "type": "tar",
+                "url": "https://composer.iserv.eu/dist/iserv/database/iserv-database-v1.0.1-f20456.tar",
+                "reference": "7823b8fffe81d85efbe9541635347be3f560eba3",
+                "shasum": "3e7eb42ddce1c070c16f3bd84436f43d431f84c2"
+            },
+            "require": {
+                "ext-pdo": "*",
+                "php": ">=7.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "IServ\\Library\\Database\\": "src/"
+                }
+            },
+            "description": "Library providing basic database functionality.",
+            "time": "2021-04-27T10:33:18+00:00"
+        },
         {
             "name": "psr/cache",
             "version": "2.0.0",

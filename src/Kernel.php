@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace Stsbl\IServ\Module\UnifiConnector;
 
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;

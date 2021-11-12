@@ -1,4 +1,10 @@
 {
+    "art-of-wifi/unifi-api-client": {
+        "version": "v1.1.74"
+    },
+    "iserv/database": {
+        "version": "v1.0.1"
+    },
     "psr/cache": {
         "version": "2.0.0"
     },

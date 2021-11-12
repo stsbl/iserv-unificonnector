@@ -1,7 +1,7 @@
-#!/usr/bin/env php
+#!/usr/bin/php
 <?php
 
-use App\Kernel;
+use Stsbl\IServ\Module\UnifiConnector\Kernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 
 if (!is_file(dirname(__DIR__).'/vendor/autoload_runtime.php')) {
