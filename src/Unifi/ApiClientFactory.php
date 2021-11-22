@@ -45,8 +45,9 @@ final class ApiClientFactory
 
     public function createApiClient(): Client
     {
-        $client = new Client($this->username, $this->password, 'https://' . $this->url . '/', '', '', true);
+        $client = new Client($this->username, $this->password, 'https://' . $this->url, '', '', true);
         $client->login();
+        //$client->set_debug(true);
 
         return $client;
     }

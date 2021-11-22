@@ -75,9 +75,11 @@ final class SyncCommand extends Command
             $client = $host->toClient();
 
             if (!isset($existingClients[$host->getMac()]) || !$existingClients[$host->getMac()]->equals($client)) {
-               $output->writeln(sprintf('Syncing host "%s" to UniFi...', $host->getName()));
+                $output->writeln(sprintf('Syncing host "%s" to UniFi...', $host->getName()), OutputInterface::VERBOSITY_VERBOSE);
+                $saveClient = $existingClients[$host->getMac()] ?? $client;
+                $saveClient->updateFrom($client);
 
-               $this->clientRepository->save($client);
+                $this->clientRepository->save($saveClient);
             }
         }
 

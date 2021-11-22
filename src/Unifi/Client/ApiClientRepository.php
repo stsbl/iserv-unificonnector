@@ -43,7 +43,7 @@ final class ApiClientRepository implements ClientRepository
 
     public function findAll(): iterable
     {
-        /** @var list<array{mac: string, hostname: string}>|false $userData */
+        /** @var list<object{mac: string, hostname: string, _id: string}>|false $userData */
         $userData = $this->apiClient->list_users();
 
         if (false === $userData) {
@@ -51,13 +51,18 @@ final class ApiClientRepository implements ClientRepository
         }
 
         foreach ($userData as $user) {
-            yield Client::fromApiResponse($user);
+            yield Client::fromApiResponse((array)$user);
         }
     }
 
     public function save(Client $client): void
     {
-        // @user_group_id: TODO
-        $this->apiClient->create_user($client->getMac(), '58d2e6b8edd72092af3a4731', $client->getHostname());
+        // Client already existent, only update the name
+        if (null !== $id = $client->getId()) {
+            $this->apiClient->edit_client_name($id, $client->getName());
+        } else {
+            // @user_group_id: TODO
+            $this->apiClient->create_user($client->getMac(), '58d2e6b8edd72092af3a4731', $client->getName());
+        }
     }
 }

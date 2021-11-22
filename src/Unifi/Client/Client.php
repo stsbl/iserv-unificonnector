@@ -34,20 +34,23 @@ namespace Stsbl\IServ\Module\UnifiConnector\Unifi\Client;
  */
 final class Client
 {
+    private ?array $apiData = null;
+
     public function __construct(
-        private string $hostname,
+        private ?string $name,
         private string $mac,
+        private ?string $id = null,
     ) {
     }
 
-    public function getHostname(): string
+    public function getId(): ?string
     {
-        return $this->hostname;
+        return $this->id;
     }
 
-    public function setHostname(string $hostname): void
+    public function getName(): ?string
     {
-        $this->hostname = $hostname;
+        return $this->name;
     }
 
     public function getMac(): string
@@ -55,24 +58,28 @@ final class Client
         return $this->mac;
     }
 
-    public function setMac(string $mac): void
-    {
-        $this->mac = $mac;
-    }
-
     public function equals(self $that): bool
     {
-        $this->hostname === $that->getHostname() && $this->mac === $that->getMac();
+        return $this->name === $that->getName() && strtolower($this->mac ?? '') === strtolower($that->getMac() ?? '');
+    }
+
+    public function updateFrom(self $that): void
+    {
+        $this->name = $that->getName();
     }
 
     /**
-     * @param array{hostname: string, mac: string} $user
+     * @param array{name: string, mac: string, _id: ?string} $user
      */
     public static function fromApiResponse(array $user): self
     {
-        return new self(
-            $user['hostname'],
-            $user['mac']
+        $instance = new self(
+            $user['name'] ?? null,
+            $user['mac'],
+            $user['_id'],
         );
+        $instance->apiData = $user;
+
+        return $instance;
     }
 }

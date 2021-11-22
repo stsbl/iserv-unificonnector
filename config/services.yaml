@@ -26,9 +26,9 @@ services:
 
     Stsbl\IServ\Module\UnifiConnector\Unifi\ApiClientFactory:
         bind:
-            $password: '%env(UNIFI_PASSWORD)'
-            $username: '%env(UNIFI_USERNAME)'
-            $url: '%env(UNIFI_URL)'
+            $password: '%env(UNIFI_PASSWORD)%'
+            $username: '%env(UNIFI_USERNAME)%'
+            $url: '%env(UNIFI_URL)%'
 
     UniFi_API\Client:
         factory: ['@Stsbl\IServ\Module\UnifiConnector\Unifi\ApiClientFactory', 'createApiClient']
