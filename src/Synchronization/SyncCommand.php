@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Stsbl\IServ\Module\UnifiConnector\Sychronisation;
+namespace Stsbl\IServ\Module\UnifiConnector\Synchronization;
 
 use Stsbl\IServ\Module\UnifiConnector\Host\HostRepository;
-use Stsbl\IServ\Module\UnifiConnector\Unifi\Client\User;
-use Stsbl\IServ\Module\UnifiConnector\Unifi\Client\UserRepository;
+use Stsbl\IServ\Module\UnifiConnector\Unifi\User\User;
+use Stsbl\IServ\Module\UnifiConnector\Unifi\User\UserRepository;
 use Stsbl\IServ\Module\UnifiConnector\Unifi\UserGroup\UserGroup;
 use Stsbl\IServ\Module\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
 use Symfony\Component\Console\Command\Command;

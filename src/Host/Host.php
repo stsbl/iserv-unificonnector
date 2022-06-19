@@ -28,7 +28,7 @@ namespace Stsbl\IServ\Module\UnifiConnector\Host;
  * THE SOFTWARE.
  */
 
-use Stsbl\IServ\Module\UnifiConnector\Unifi\Client\User;
+use Stsbl\IServ\Module\UnifiConnector\Unifi\User\User;
 
 /**
  * @author Felix Jacobi <felix.jacobi@stsbl.de>

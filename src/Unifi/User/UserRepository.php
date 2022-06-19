@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Stsbl\IServ\Module\UnifiConnector\Unifi\Client;
+namespace Stsbl\IServ\Module\UnifiConnector\Unifi\User;
 
 /*
  * The MIT License
