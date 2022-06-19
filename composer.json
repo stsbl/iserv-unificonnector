@@ -8,6 +8,7 @@
     "ext-ctype": "*",
     "ext-iconv": "*",
     "art-of-wifi/unifi-api-client": "^1.1",
+    "iserv/config": "^1.1",
     "iserv/database": "^1.0",
     "symfony/console": "5.4.*",
     "symfony/dotenv": "5.4.*",

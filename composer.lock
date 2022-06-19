@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7cff021c516e3711d0362c193688b67c",
+    "content-hash": "42a3b0054265981e131134d535f9639e",
     "packages": [
         {
             "name": "art-of-wifi/unifi-api-client",
@@ -57,6 +57,48 @@
                 "source": "https://github.com/Art-of-WiFi/UniFi-API-client/tree/v1.1.79"
             },
             "time": "2022-03-28T09:57:57+00:00"
+        },
+        {
+            "name": "iserv/config",
+            "version": "v1.1",
+            "source": {
+                "type": "git",
+                "url": "git@git.iserv.eu:iserv/lib/config.git",
+                "reference": "499534a2fcc821baf9d24df3470e35d83f7c1b53"
+            },
+            "dist": {
+                "type": "tar",
+                "url": "https://composer.iserv.eu/dist/iserv/config/iserv-config-v1.1-7cc3d8.tar",
+                "reference": "499534a2fcc821baf9d24df3470e35d83f7c1b53",
+                "shasum": "f71ebf78a30d534d1e17a181ab499c8b907a900c"
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "type": "library",
+            "extra": {
+                "cotor": {
+                    "friendsofphp/php-cs-fixer": "^3.1",
+                    "phpstan/phpstan": "^0.12",
+                    "phpunit/phpunit": "^9.5",
+                    "vimeo/psalm": "^4.10"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "IServ\\Library\\Config\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "IServ\\Library\\Config\\Test\\": "tests/"
+                }
+            },
+            "license": [
+                "proprietary"
+            ],
+            "description": "Library for reading the IServ configuration.",
+            "time": "2021-12-10T08:48:10+00:00"
         },
         {
             "name": "iserv/database",
