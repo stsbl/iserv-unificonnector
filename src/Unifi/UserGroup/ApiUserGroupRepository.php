@@ -44,15 +44,15 @@ final class ApiUserGroupRepository implements UserGroupRepository
 
     public function findByName(string $name): ?UserGroup
     {
-        /** @var list<array{_id: string, site_id: string, name: string}>|bool $userGroupData */
+        /** @var list<array{_id: string, site_id: string, name: string}>|false $userGroupData */
         $userGroupData = $this->apiClient->list_usergroups();
 
         if (false === $userGroupData) {
             return null;
         }
 
-        foreach ($userGroupData['data'] ?? [] as $groupData) {
-            $group = UserGroup::fromApiResponse($groupData);
+        foreach ($userGroupData as $groupData) {
+            $group = UserGroup::fromApiResponse((array)$groupData);
 
             if ($group->getName() === $name) {
                 return $group;

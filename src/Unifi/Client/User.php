@@ -34,11 +34,9 @@ namespace Stsbl\IServ\Module\UnifiConnector\Unifi\Client;
  */
 final class User
 {
-    private ?array $apiData = null;
-
     public function __construct(
         private readonly ?string $id,
-        private ?string $name,
+        private string $name,
         private string $mac,
         private ?string $groupId = null,
     ) {
@@ -49,7 +47,7 @@ final class User
         return $this->id;
     }
 
-    public function getName(): ?string
+    public function getName(): string
     {
         return $this->name;
     }
@@ -77,7 +75,7 @@ final class User
     public function equals(self $that): bool
     {
         return $this->name === $that->getName() &&
-            strtolower($this->mac ?? '') === strtolower($that->getMac() ?? '') &&
+            strtolower($this->mac) === strtolower($that->getMac()) &&
             $this->groupId === $that->getGroupId()
         ;
     }
@@ -95,14 +93,11 @@ final class User
     {
         $groupId = $user['groupId'] === '' ? null : $user['groupId'];
 
-        $instance = new self(
+        return new self(
             $user['_id'],
-            $user['name'] ?? null,
+            $user['name'],
             $user['mac'],
             $groupId,
         );
-        $instance->apiData = $user;
-
-        return $instance;
     }
 }

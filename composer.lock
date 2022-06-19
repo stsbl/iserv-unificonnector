@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "42a3b0054265981e131134d535f9639e",
+    "content-hash": "b6656b0768132f6357cdd4c7db6d49c5",
     "packages": [
         {
             "name": "art-of-wifi/unifi-api-client",
@@ -2639,7 +2639,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=8.0",
+        "php": ">=8.1",
         "ext-ctype": "*",
         "ext-iconv": "*"
     },

@@ -48,7 +48,7 @@ final class SyncCommand extends Command
     protected static $defaultName = 'app:sync';
 
     /**
-     * @var array{string: ?UserGroup}
+     * @var array<string, ?UserGroup>
      */
     private array $userGroups = [];
 
