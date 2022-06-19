@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Stsbl\IServ\Module\UnifiConnector\Unifi;
+namespace Stsbl\IServ\Module\UnifiConnector\Unifi\Client;
 
 /*
  * The MIT License
@@ -28,29 +28,16 @@ namespace Stsbl\IServ\Module\UnifiConnector\Unifi;
  * THE SOFTWARE.
  */
 
-use UniFi_API\Client;
-
 /**
  * @author Felix Jacobi <felix.jacobi@stsbl.de>
  * @license MIT license <https://opensource.org/licenses/MIT>
  */
-final class ApiClientFactory
+interface UserRepository
 {
-    public function __construct(
-        private readonly string $password,
-        private readonly string $username,
-        private readonly string $url,
-    ) {
-    }
+    /**
+     * @return iterable<User>
+     */
+    public function findAll(): iterable;
 
-    public function createApiClient(): Client
-    {
-        $client = new Client($this->username, $this->password, 'https://' . $this->url, '', '', true);
-        //$client->set_debug(true);
-        if (false === $client->login()) {
-            throw new \RuntimeException('Login failed.');
-        }
-
-        return $client;
-    }
+    public function save(User $user): void;
 }

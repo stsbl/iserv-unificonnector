@@ -5,8 +5,10 @@ declare(strict_types=1);
 namespace Stsbl\IServ\Module\UnifiConnector\Sychronisation;
 
 use Stsbl\IServ\Module\UnifiConnector\Host\HostRepository;
-use Stsbl\IServ\Module\UnifiConnector\Unifi\Client\Client;
-use Stsbl\IServ\Module\UnifiConnector\Unifi\Client\ClientRepository;
+use Stsbl\IServ\Module\UnifiConnector\Unifi\Client\User;
+use Stsbl\IServ\Module\UnifiConnector\Unifi\Client\UserRepository;
+use Stsbl\IServ\Module\UnifiConnector\Unifi\UserGroup\UserGroup;
+use Stsbl\IServ\Module\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -41,16 +43,20 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class SyncCommand extends Command
 {
+    private const DEFAULT_GROUP = 'Default';
+
     protected static $defaultName = 'app:sync';
 
-    private ClientRepository $clientRepository;
+    /**
+     * @var array{string: ?UserGroup}
+     */
+    private array $userGroups = [];
 
-    private HostRepository $hostRepository;
-
-    public function __construct(ClientRepository $clientRepository, HostRepository $hostRepository)
-    {
-        $this->clientRepository = $clientRepository;
-        $this->hostRepository = $hostRepository;
+    public function __construct(
+        private readonly UserGroupRepository $userGroupRepository,
+        private readonly HostRepository $hostRepository,
+        private readonly UserRepository $userRepository,
+    ) {
 
         parent::__construct();
     }
@@ -60,10 +66,10 @@ final class SyncCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        /** @var Client[] $existingClients */
+        /** @var User[] $existingClients */
         $existingClients = [];
 
-        foreach ($this->clientRepository->findAll() as $client) {
+        foreach ($this->userRepository->findAll() as $client) {
             $existingClients[$client->getMac()] = $client;
         }
 
@@ -73,16 +79,26 @@ final class SyncCommand extends Command
             }
 
             $client = $host->toClient();
+            $client->setGroupId($this->userGroup(self::DEFAULT_GROUP)?->getId());
 
             if (!isset($existingClients[$host->getMac()]) || !$existingClients[$host->getMac()]->equals($client)) {
                 $output->writeln(sprintf('Syncing host "%s" to UniFi...', $host->getName()), OutputInterface::VERBOSITY_VERBOSE);
                 $saveClient = $existingClients[$host->getMac()] ?? $client;
                 $saveClient->updateFrom($client);
 
-                $this->clientRepository->save($saveClient);
+                $this->userRepository->save($saveClient);
             }
         }
 
         return 0;
+    }
+
+    private function userGroup(string $name): ?UserGroup
+    {
+        if (!\array_key_exists($name, $this->userGroups)) {
+            $this->userGroups[$name] = $this->userGroupRepository->findByName($name);
+        }
+
+        return $this->userGroups[$name];
     }
 }

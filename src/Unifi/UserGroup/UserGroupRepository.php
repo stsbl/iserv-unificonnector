@@ -1,13 +1,11 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
-
-namespace Stsbl\IServ\Module\UnifiConnector\Unifi;
+namespace Stsbl\IServ\Module\UnifiConnector\Unifi\UserGroup;
 
 /*
  * The MIT License
  *
- * Copyright 2021 Felix Jacobi.
+ * Copyright 2022 Felix Jacobi.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -28,29 +26,11 @@ namespace Stsbl\IServ\Module\UnifiConnector\Unifi;
  * THE SOFTWARE.
  */
 
-use UniFi_API\Client;
-
 /**
  * @author Felix Jacobi <felix.jacobi@stsbl.de>
  * @license MIT license <https://opensource.org/licenses/MIT>
  */
-final class ApiClientFactory
+interface UserGroupRepository
 {
-    public function __construct(
-        private readonly string $password,
-        private readonly string $username,
-        private readonly string $url,
-    ) {
-    }
-
-    public function createApiClient(): Client
-    {
-        $client = new Client($this->username, $this->password, 'https://' . $this->url, '', '', true);
-        //$client->set_debug(true);
-        if (false === $client->login()) {
-            throw new \RuntimeException('Login failed.');
-        }
-
-        return $client;
-    }
+    public function findByName(string $name): ?UserGroup;
 }

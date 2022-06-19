@@ -37,7 +37,7 @@ use IServ\Library\Database\DatabaseConnection;
 final class DatabaseHostRepository implements HostRepository
 {
     public function __construct(
-        private DatabaseConnection $databaseConnection,
+        private readonly DatabaseConnection $databaseConnection,
     ) {
     }
 
@@ -49,8 +49,7 @@ final class DatabaseHostRepository implements HostRepository
         $statement = $this->databaseConnection->prepare('SELECT name, ip, mac FROM hosts ORDER BY mac');
 
         foreach ($statement->fetchAll([]) as $row) {
-            if (!array_key_exists('name', $row) || !array_key_exists('ip', $row) || !array_key_exists('mac', $row)
-            ) {
+            if (!array_key_exists('name', $row) || !array_key_exists('ip', $row) || !array_key_exists('mac', $row)) {
                 throw new \RuntimeException('Invalid row!');
             }
 

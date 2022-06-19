@@ -2,12 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Stsbl\IServ\Module\UnifiConnector\Unifi\Client;
+namespace Stsbl\IServ\Module\UnifiConnector\Unifi\UserGroup;
+
+use UniFi_API\Client as UniFiApiClient;
 
 /*
  * The MIT License
  *
- * Copyright 2021 Felix Jacobi.
+ * Copyright 2022 Felix Jacobi.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -32,12 +34,31 @@ namespace Stsbl\IServ\Module\UnifiConnector\Unifi\Client;
  * @author Felix Jacobi <felix.jacobi@stsbl.de>
  * @license MIT license <https://opensource.org/licenses/MIT>
  */
-interface ClientRepository
+final class ApiUserGroupRepository implements UserGroupRepository
 {
-    /**
-     * @return iterable<Client>
-     */
-    public function findAll(): iterable;
+    public function __construct(
+        private readonly UniFiApiClient $apiClient,
+    )
+    {
+    }
 
-    public function save(Client $client): void;
+    public function findByName(string $name): ?UserGroup
+    {
+        /** @var list<array{_id: string, site_id: string, name: string}>|bool $userGroupData */
+        $userGroupData = $this->apiClient->list_usergroups();
+
+        if (false === $userGroupData) {
+            return null;
+        }
+
+        foreach ($userGroupData['data'] ?? [] as $groupData) {
+            $group = UserGroup::fromApiResponse($groupData);
+
+            if ($group->getName() === $name) {
+                return $group;
+            }
+        }
+
+        return null;
+    }
 }

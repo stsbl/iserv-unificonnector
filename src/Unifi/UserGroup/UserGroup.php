@@ -2,14 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Stsbl\IServ\Module\UnifiConnector\Unifi\Client;
-
-use UniFi_API\Client as UniFiApiClient;
+namespace Stsbl\IServ\Module\UnifiConnector\Unifi\UserGroup;
 
 /*
  * The MIT License
  *
- * Copyright 2021 Felix Jacobi.
+ * Copyright 2022 Felix Jacobi.
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -34,35 +32,41 @@ use UniFi_API\Client as UniFiApiClient;
  * @author Felix Jacobi <felix.jacobi@stsbl.de>
  * @license MIT license <https://opensource.org/licenses/MIT>
  */
-final class ApiClientRepository implements ClientRepository
+final class UserGroup
 {
     public function __construct(
-        private UniFiApiClient $apiClient,
-    ) {
-    }
-
-    public function findAll(): iterable
+        private readonly string $id,
+        private readonly string $siteId,
+        private readonly string $name,
+    )
     {
-        /** @var list<object{mac: string, hostname: string, _id: string}>|false $userData */
-        $userData = $this->apiClient->list_users();
-
-        if (false === $userData) {
-            return;
-        }
-
-        foreach ($userData as $user) {
-            yield Client::fromApiResponse((array)$user);
-        }
     }
 
-    public function save(Client $client): void
+    public function getId(): string
     {
-        // Client already existent, only update the name
-        if (null !== $id = $client->getId()) {
-            $this->apiClient->edit_client_name($id, $client->getName());
-        } else {
-            // @user_group_id: TODO
-            $this->apiClient->create_user($client->getMac(), '58d2e6b8edd72092af3a4731', $client->getName());
-        }
+        return $this->id;
     }
+
+    public function getSiteId(): string
+    {
+        return $this->siteId;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param array{_id: string, site_id: string, name: string} $userGroup
+     */
+    public static function fromApiResponse(array $userGroup): self
+    {
+        return new self(
+            $userGroup['_id'],
+            $userGroup['site_id'],
+            $userGroup['name'],
+        );
+    }
+
 }

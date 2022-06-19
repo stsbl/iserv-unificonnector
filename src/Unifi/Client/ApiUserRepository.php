@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Stsbl\IServ\Module\UnifiConnector\Unifi\Client;
 
+use UniFi_API\Client as UniFiApiClient;
+
 /*
  * The MIT License
  *
@@ -32,54 +34,40 @@ namespace Stsbl\IServ\Module\UnifiConnector\Unifi\Client;
  * @author Felix Jacobi <felix.jacobi@stsbl.de>
  * @license MIT license <https://opensource.org/licenses/MIT>
  */
-final class Client
+final class ApiUserRepository implements UserRepository
 {
-    private ?array $apiData = null;
-
     public function __construct(
-        private ?string $name,
-        private string $mac,
-        private ?string $id = null,
+        private readonly UniFiApiClient $apiClient,
     ) {
     }
 
-    public function getId(): ?string
+    public function findAll(): iterable
     {
-        return $this->id;
+        /** @var list<object{mac: string, hostname: string, _id: string}>|false $userData */
+        $userData = $this->apiClient->list_users();
+
+        if (false === $userData) {
+            return;
+        }
+
+        foreach ($userData as $user) {
+            yield User::fromApiResponse((array)$user);
+        }
     }
 
-    public function getName(): ?string
+    public function save(User $user): void
     {
-        return $this->name;
-    }
+        // Client already existent, only update the name
+        if (null !== $id = $client->getId()) {
+            $this->apiClient->edit_client_name($id, $client->getName());
+        } else {
+            $groupId = $user->getGroupId();
 
-    public function getMac(): string
-    {
-        return $this->mac;
-    }
+            if (null === $groupId) {
+                $groupId = '';
+            }
 
-    public function equals(self $that): bool
-    {
-        return $this->name === $that->getName() && strtolower($this->mac ?? '') === strtolower($that->getMac() ?? '');
-    }
-
-    public function updateFrom(self $that): void
-    {
-        $this->name = $that->getName();
-    }
-
-    /**
-     * @param array{name: string, mac: string, _id: ?string} $user
-     */
-    public static function fromApiResponse(array $user): self
-    {
-        $instance = new self(
-            $user['name'] ?? null,
-            $user['mac'],
-            $user['_id'],
-        );
-        $instance->apiData = $user;
-
-        return $instance;
+            $this->apiClient->create_user($client->getMac(), $groupId, $client->getName());
+        }
     }
 }

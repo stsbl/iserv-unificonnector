@@ -28,7 +28,7 @@ namespace Stsbl\IServ\Module\UnifiConnector\Host;
  * THE SOFTWARE.
  */
 
-use Stsbl\IServ\Module\UnifiConnector\Unifi\Client\Client;
+use Stsbl\IServ\Module\UnifiConnector\Unifi\Client\User;
 
 /**
  * @author Felix Jacobi <felix.jacobi@stsbl.de>
@@ -37,9 +37,9 @@ use Stsbl\IServ\Module\UnifiConnector\Unifi\Client\Client;
 final class Host
 {
     public function __construct(
-        private string $name,
-        private string $ip,
-        private ?string $mac
+        private readonly string $name,
+        private readonly string $ip,
+        private readonly ?string $mac,
     ) {
     }
 
@@ -58,13 +58,13 @@ final class Host
         return $this->mac;
     }
 
-    public function toClient(): Client
+    public function toClient(): User
     {
         if (null === $this->mac) {
             throw new \RuntimeException('A host without MAC cannot be converted to a client.');
         }
 
-        return new Client($this->name, $this->mac);
+        return new User(null, $this->name, $this->mac);
     }
 
     /**
