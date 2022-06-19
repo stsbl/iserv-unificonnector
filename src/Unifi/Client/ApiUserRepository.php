@@ -58,8 +58,8 @@ final class ApiUserRepository implements UserRepository
     public function save(User $user): void
     {
         // Client already existent, only update the name
-        if (null !== $id = $client->getId()) {
-            $this->apiClient->edit_client_name($id, $client->getName());
+        if (null !== $id = $user->getId()) {
+            $this->apiClient->edit_client_name($id, $user->getName());
         } else {
             $groupId = $user->getGroupId();
 
@@ -67,7 +67,7 @@ final class ApiUserRepository implements UserRepository
                 $groupId = '';
             }
 
-            $this->apiClient->create_user($client->getMac(), $groupId, $client->getName());
+            $this->apiClient->create_user($user->getMac(), $groupId, $user->getName());
         }
     }
 }
