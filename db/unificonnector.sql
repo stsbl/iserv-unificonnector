@@ -2,7 +2,8 @@ CREATE USER unificonnector;
 
 CREATE TABLE unificonnector_usergroup (
     id              TEXT PRIMARY KEY,
-    name            TEXT NOT NULL
+    name            TEXT NOT NULL,
+    priority        INT  NOT NULL
 );
 
 CREATE TABLE unificonnector_usergroup_group (
