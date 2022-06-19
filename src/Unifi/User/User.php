@@ -36,7 +36,7 @@ final class User
 {
     public function __construct(
         private readonly ?string $id,
-        private string $name,
+        private ?string $name,
         private string $mac,
         private ?string $groupId = null,
     ) {
@@ -47,7 +47,7 @@ final class User
         return $this->id;
     }
 
-    public function getName(): string
+    public function getName(): ?string
     {
         return $this->name;
     }
@@ -87,17 +87,15 @@ final class User
     }
 
     /**
-     * @param array{_id: string, name: string, mac: string, groupId: string} $user
+     * @param array{_id: string, name?: string, mac: string, groupId?: string} $user
      */
     public static function fromApiResponse(array $user): self
     {
-        $groupId = $user['groupId'] === '' ? null : $user['groupId'];
-
         return new self(
             $user['_id'],
-            $user['name'],
+            $user['name'] ?? null,
             $user['mac'],
-            $groupId,
+            $user['usergroup_id'] ?? null,
         );
     }
 }

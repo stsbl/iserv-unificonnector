@@ -68,6 +68,7 @@ final class SyncCommand extends Command
     {
         /** @var User[] $existingClients */
         $existingClients = [];
+        $userGroup = $this->userGroup(self::DEFAULT_GROUP);
 
         foreach ($this->userRepository->findAll() as $client) {
             $existingClients[$client->getMac()] = $client;
@@ -79,7 +80,7 @@ final class SyncCommand extends Command
             }
 
             $client = $host->toClient();
-            $client->setGroupId($this->userGroup(self::DEFAULT_GROUP)?->getId());
+            $client->setGroupId($userGroup?->getId());
 
             if (!isset($existingClients[$host->getMac()]) || !$existingClients[$host->getMac()]->equals($client)) {
                 $output->writeln(sprintf('Syncing host "%s" to UniFi...', $host->getName()), OutputInterface::VERBOSITY_VERBOSE);

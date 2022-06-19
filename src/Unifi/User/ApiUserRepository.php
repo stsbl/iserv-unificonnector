@@ -43,7 +43,7 @@ final class ApiUserRepository implements UserRepository
 
     public function findAll(): iterable
     {
-        /** @var list<array{_id: string, mac: string, name: string, groupId: string}>|false $userData */
+        /** @var list<array{_id: string, mac: string, name?: string, groupId?: string}>|false $userData */
         $userData = $this->apiClient->list_users();
 
         if (false === $userData) {
@@ -60,6 +60,7 @@ final class ApiUserRepository implements UserRepository
         // Client already existent, only update the name
         if (null !== $id = $user->getId()) {
             $this->apiClient->edit_client_name($id, $user->getName());
+            $this->apiClient->set_usergroup($id, $user->getGroupId());
         } else {
             $groupId = $user->getGroupId();
 
