@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Stsbl\IServ\Module\UnifiConnector\Synchronization;
+namespace Stsbl\IServ\Module\UnifiConnector\Sychronisation;
 
 use Stsbl\IServ\Module\UnifiConnector\Host\HostRepository;
 use Stsbl\IServ\Module\UnifiConnector\Unifi\User\User;
