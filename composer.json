@@ -12,7 +12,7 @@
     "iserv/database": "^1.0",
     "symfony/console": "5.4.*",
     "symfony/dotenv": "5.4.*",
-    "symfony/flex": "^1.3.1",
+    "symfony/flex": "^2.0",
     "symfony/framework-bundle": "5.4.*",
     "symfony/runtime": "5.4.*",
     "symfony/yaml": "5.4.*"
@@ -46,7 +46,14 @@
   "repositories": [
     {
       "type": "composer",
-      "url": "https://composer.iserv.eu/"
+      "url": "https://repo.composer.iserv.eu/"
+    },
+    {
+      "type": "composer",
+      "url": "https://proxy.composer.iserv.eu/"
+    },
+    {
+      "packagist": false
     }
   ],
   "scripts": {
