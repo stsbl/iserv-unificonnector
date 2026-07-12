@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Sychronisation;
+namespace IServ\UnifiConnector\Synchronisation;
 
 use IServ\UnifiConnector\Configuration\FileConfigurationRepository;
 use IServ\UnifiConnector\Host\HostRepository;

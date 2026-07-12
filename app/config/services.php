@@ -54,4 +54,19 @@ return static function (ContainerConfigurator $configurator): void {
     $services->alias(IdmClientInterface::class, IdmClient::class);
 
     $services->alias(\IServ\UnifiConnector\Host\HostRepository::class, \IServ\UnifiConnector\Host\HostApiRepository::class);
+
+    if ('test' === $configurator->env()) {
+        $services->set(\IServ\Library\Config\Config::class)
+            ->args([['Servername' => 'iserv.test']]);
+        $services->set(\IServ\Bundle\Autocomplete\Endpoint\Domain\Endpoints::class)
+            ->factory([\IServ\Bundle\Autocomplete\Endpoint\Domain\Endpoints::class, 'fromArray'])
+            ->args([[
+                'autocomplete' => '/autocomplete',
+                'lookup' => '/autocomplete/lookup',
+                'learn' => '/autocomplete/learn',
+            ]]);
+        $services->set(\IServ\Bundle\Autocomplete\Endpoint\StaticEndpointsProvider::class)
+            ->arg('$endpoints', service(\IServ\Bundle\Autocomplete\Endpoint\Domain\Endpoints::class));
+        $services->alias(\IServ\Bundle\Autocomplete\Endpoint\EndpointsProviderInterface::class, \IServ\Bundle\Autocomplete\Endpoint\StaticEndpointsProvider::class);
+    }
 };

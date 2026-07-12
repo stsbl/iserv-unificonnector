@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace IServ\UnifiConnector\Tests\Unit\Host;
 
 use IServ\UnifiConnector\Host\Host;
+use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
 /*
@@ -38,6 +39,7 @@ use PHPUnit\Framework\TestCase;
  * @covers \IServ\UnifiConnector\Host\Host
  */
 
+#[CoversClass(Host::class)]
 final class HostTest extends TestCase
 {
     public function testGetIp(): void

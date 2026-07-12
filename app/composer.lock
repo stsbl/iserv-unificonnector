@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4f37e86c0cd1c39a706ddfebc98bf63",
+    "content-hash": "1f41945a97275b5dedf7ed6fb3e655a7",
     "packages": [
         {
             "name": "art-of-wifi/unifi-api-client",
@@ -7309,6 +7309,38 @@
         }
     ],
     "packages-dev": [
+        {
+            "name": "iserv/testbrowser-bundle",
+            "version": "1.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://repoflow.iserv.eu/api/composer/iserv/composer-internal/iserv/testbrowser-bundle/1.1.zip"
+            },
+            "require": {
+                "iserv/authentication-bundle": "^2.4",
+                "php": ">=8.1",
+                "symfony/browser-kit": "^5.4 || ^6.0",
+                "symfony/framework-bundle": "^5.4 || ^6.0"
+            },
+            "require-dev": {
+                "iserv/module-response": "^2.1",
+                "iserv/module-response-symfony-bridge": "^1.0",
+                "matthiasnoback/symfony-dependency-injection-test": "^4.3",
+                "roave/security-advisories": "dev-latest",
+                "symfony/http-kernel": "^5.4"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "IServ\\Bundle\\TestBrowser\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "IServ\\Bundle\\TestBrowser\\Tests\\": "tests/"
+                }
+            }
+        },
         {
             "name": "masterminds/html5",
             "version": "2.10.0",

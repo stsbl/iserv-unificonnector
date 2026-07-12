@@ -21,4 +21,5 @@ return [
     IServ\Bundle\IdmDataBroker\IdmDataBrokerBundle::class => ['all' => true],
     IServ\Bundle\Form\IServFormBundle::class => ['all' => true],
     IServ\Bundle\Autocomplete\IServAutocompleteBundle::class => ['all' => true],
+    IServ\Bundle\TestBrowser\IServTestBrowserBundle::class => ['test' => true],
 ];

@@ -1,0 +1,10 @@
+#!/bin/sh
+set -eu
+
+# Do not delay host updates while UniFi reconciliation performs API requests.
+# systemd tracks the long-running task independently of the newhosts invocation.
+exec systemd-run --quiet --collect --unit=iserv-unificonnector-sync \
+  --property=StandardOutput=append:/var/log/iserv/unificonnector/newhosts-sync.log \
+  --property=StandardError=append:/var/log/iserv/unificonnector/newhosts-sync.log \
+  /usr/bin/flock --nonblock /run/lock/iserv-unificonnector-sync.lock \
+  /usr/bin/iservunificonnector-console unificonnector:sync --no-interaction
