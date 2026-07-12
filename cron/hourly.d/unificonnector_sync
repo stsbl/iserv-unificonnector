@@ -1,0 +1,7 @@
+#!/bin/sh
+set -e
+/usr/bin/iservunificonnector-console unificonnector:sync --no-interaction
+if [ -d /var/lib/iserv/unificonnector/sessions ]
+then
+  find -O3 /var/lib/iserv/unificonnector/sessions -ignore_readdir_race -depth -mindepth 1 -name 'sess_*' -type f -cmin +1200 -delete
+fi

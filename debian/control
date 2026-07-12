@@ -1,0 +1,31 @@
+Source: iserv-unificonnector
+Section: non-free/misc
+Priority: optional
+Maintainer: IServ <info@iserv.eu>
+Build-Depends:
+  debhelper-compat (= 13),
+  dh-sequence-iserv,
+  dpkg-dev,
+Standards-Version: 4.5.0
+Homepage: ${iserv:Homepage}
+
+Package: iserv-unificonnector
+Architecture: all
+Xb-Private-Iserv-Revision: ${iserv:Revision}
+Depends: ${misc:Depends},
+  ${perl:Depends},
+  adduser,
+  iserv-portal-web,
+  iserv-server-nginx,
+  iserv-server-php,
+  iserv-server-postgresql,
+  iserv-update,
+  php-cli (>= 0),
+  php-fpm (>= 0),
+  php-intl (>= 0),
+  php-mbstring (>= 0),
+  php-pgsql (>= 0),
+  php-xml (>= 0),
+Description: IServ UniFi connector
+ Synchronisiert die verwalteten IServ-Geraete mit einem UniFi-Controller.
+Tag: suite::iserv, suite::iserv:bundle-cloud, suite::iserv:bundle-full, suite::iserv:portal, role::plugin

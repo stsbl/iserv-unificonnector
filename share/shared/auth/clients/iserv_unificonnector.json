@@ -1,0 +1,8 @@
+{
+  "name": "UniFi Connector host synchronization",
+  "systemGroup": "iserv-unificonnector",
+  "systemOwner": "iserv-unificonnector",
+  "allowedGrantTypes": ["client_credentials"],
+  "secretVisible": false,
+  "scopes": ["iserv:host:hosts:read", "iserv:idm:api-read"]
+}

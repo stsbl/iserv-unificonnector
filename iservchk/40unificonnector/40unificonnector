@@ -1,0 +1,7 @@
+MkDir 2770 iserv-unificonnector:iserv-unificonnector /var/log/iserv/unificonnector
+MkDir 2770 iserv-unificonnector:iserv-unificonnector /var/lib/iserv/unificonnector
+Touch /var/lib/iserv/unificonnector/config.json
+ChPerm 0660 iserv-unificonnector:iserv-unificonnector /var/lib/iserv/unificonnector/config.json
+
+Shell "clear administration menu cache"
+  iservunificonnector-console cache:pool:clear --quiet --no-interaction cache.app

@@ -1,7 +1,0 @@
-{
-    "require": {
-        "phpstan/phpstan": "^1.1",
-        "phpstan/phpstan-symfony": "^1.0",
-        "phpstan/extension-installer": "^1.1"
-    }
-}

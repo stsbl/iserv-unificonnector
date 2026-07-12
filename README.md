@@ -1,3 +1,5 @@
-# IServ to UniFi synchronisation
+# IServ UniFi Connector
 
-Adds all entries from IServ host management as a name and MAC address pair to a UniFi controller.
+Portal-Web module that synchronizes IServ-managed hosts to a UniFi controller.
+The configuration page is available in **Administration → Network** to users
+with the UniFi Connector administration privilege.

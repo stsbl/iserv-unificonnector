@@ -1,0 +1,9 @@
+location /iserv/unificonnector/ {
+    root /usr/share/iserv/unificonnector/app/public;
+
+    include fastcgi_module_params;
+    fastcgi_param SCRIPT_NAME /iserv/unificonnector/index.php;
+
+    fastcgi_pass unix:/run/php/php-fpm.iserv-unificonnector.sock;
+}
+

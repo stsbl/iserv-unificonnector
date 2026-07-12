@@ -1,0 +1,10 @@
+{
+  "module": {
+    "id": "iserv/unificonnector",
+    "name": "UniFi Connector",
+    "location": "http://localhost:982/iserv/unificonnector",
+    "assets": {
+      "manifestFile": "app/public/static/manifest.json"
+    }
+  }
+}

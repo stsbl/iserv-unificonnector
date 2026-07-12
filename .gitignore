@@ -1,13 +1,11 @@
-
-###> symfony/framework-bundle ###
-/.env.local
 /.env.local.php
-/.env.*.local
-/config/secrets/prod/prod.decrypt.private.php
-/public/bundles/
+/Makefile.iservmake
 /var/
 /vendor/
-###< symfony/framework-bundle ###
 
-/.php-cs-fixer.cache
-/.phpunit.cache
+# Symfony's development artefacts belong to app/ after the Portal-Web move.
+/app/.env.local.php
+/app/var/cache/
+/app/var/log/
+/app/vendor/
+/app/public/bundles/

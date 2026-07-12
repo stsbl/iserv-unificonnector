@@ -1,0 +1,15 @@
+#!/bin/bash
+
+set -e
+
+mapfile -t user_uuids < <(jq -r 'map(select(.user_uuid) | .user_uuid) | unique[]' "/dev/fd/$1")
+if [ "${#user_uuids[@]}" -gt 0 ]; then
+    iservunificonnector-console iserv:idm-data-broker:invalidate-data user "${user_uuids[@]}" || true
+    iservunificonnector-console iserv:idm-data-broker:invalidate-tags user.filter || true
+fi
+
+mapfile -t group_uuids < <(jq -r 'map(select(.group_uuid) | .group_uuid) | unique[]' "/dev/fd/$1")
+if [ "${#group_uuids[@]}" -gt 0 ]; then
+    iservunificonnector-console iserv:idm-data-broker:invalidate-data group "${group_uuids[@]}" || true
+    iservunificonnector-console iserv:idm-data-broker:invalidate-tags group.filter || true
+fi

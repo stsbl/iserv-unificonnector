@@ -1,0 +1,355 @@
+## Start: (automatic configuration) ##
+
+export PHPROOT := .
+BIN_SYMFONY_CONSOLE=bin/console
+LOCALE_ROOT=translations
+LOCALE_EXCLUDES = "(?^:^./tests(?:$|/))" "(?^:^./var(?:$|/))"
+
+## End: (automatic configuration) ##
+
+## Start: /usr/lib/iserv/buildtools/mk/php.mk ##
+
+ifndef COMPOSER_CLASSMAP_ARGUMENTS
+ifdef PROD
+COMPOSER_CLASSMAP_ARGUMENTS = --optimize-autoloader --classmap-authoritative
+endif
+endif
+COMPOSERFLAGS+= $(COMPOSER_CLASSMAP_ARGUMENTS)
+
+ifdef PROD
+COMPOSERFLAGS+= --no-dev
+endif
+
+PHP_VENDOR_DIR=vendor
+
+phpdependencies += $(PHPROOT)/$(PHP_VENDOR_DIR)
+
+DISTCLEAN_TARGETS += clean_composer
+DEPENDENCY_TARGETS += $(phpdependencies)
+
+./vendor: ./composer.lock
+	cd "." && composer install --no-interaction --ignore-platform-req='ext-*' $(COMPOSERFLAGS) $(COMPOSER_INTERNAL_ARGS) && touch "vendor"
+
+./composer.lock: 
+	cd "." && composer install --no-interaction --ignore-platform-req='ext-*' $(COMPOSERFLAGS) $(COMPOSER_INTERNAL_ARGS) && touch "composer.lock"
+
+.PHONY: composer
+composer: ## Installs composer dependencies and creates composer.lock
+composer: ./composer.json ./composer.lock ./vendor
+	@true
+
+.PHONY: clean_composer
+clean_composer: ## Removes Composer vendor folder
+clean_composer:
+	rm -rf "./vendor"
+
+## End: /usr/lib/iserv/buildtools/mk/php.mk ##
+
+## Start: /usr/lib/iserv/buildtools/mk/symfony.mk ##
+
+SYMFONY=1
+BIN_SYMFONY_CONSOLE=bin/console
+SYMFONY_CACHE_DIR=var/cache
+SYMFONY_LOG_DIR=var/log
+SYMFONY_ASSETS_DIR=public
+SYMFONY_TRANSLATIONS_DIR=var/translations
+SYMFONY_ENABLE_TRANSLATION_INSTALL=
+SYMFONY_USER=
+SUPPORTED_LOCALES=de
+
+CLEAN_TARGETS += clean_symfony
+DEPENDENCY_TARGETS += ./var/cache
+DEPENDENCY_TARGETS += ./var/log
+DEPENDENCY_TARGETS += ./.env.local.php
+TOOL_DEPENDENCIES += symfony
+PHPUNIT_DEPENDENCIES += test_set_dotenv
+PHPUNIT_POST_DEPENDENCIES += test_reset_dotenv
+
+.PHONY: test_set_dotenv
+test_set_dotenv:
+ifdef PROD
+	cd "." && COMPOSER_ALLOW_SUPERUSER=1 composer $(COMPOSER_INTERNAL_ARGS) dump-env test
+	cd "." && sed -i "1s/^/<?php unset(\$$_SERVER['APP_ENV'], \$$_ENV['APP_ENV']); ?>/" .env.local.php
+else
+	cd "." && COMPOSER_ALLOW_SUPERUSER=1 composer $(COMPOSER_INTERNAL_ARGS) dump-env test
+endif
+
+.PHONY: test_reset_dotenv
+test_reset_dotenv:
+ifdef PROD
+	cd "." && COMPOSER_ALLOW_SUPERUSER=1 composer $(COMPOSER_INTERNAL_ARGS) dump-env prod
+	cd "." && sed -i "1s/^/<?php unset(\$$_SERVER['APP_ENV'], \$$_ENV['APP_ENV']); ?>/" .env.local.php
+else
+	cd "." && COMPOSER_ALLOW_SUPERUSER=1 composer $(COMPOSER_INTERNAL_ARGS) dump-env dev
+endif
+
+./.env.local.php: ./vendor ./.env 
+ifdef PROD
+	cd "." && COMPOSER_ALLOW_SUPERUSER=1 composer $(COMPOSER_INTERNAL_ARGS) dump-env prod
+	cd "." && sed -i "1s/^/<?php unset(\$$_SERVER['APP_ENV'], \$$_ENV['APP_ENV']); ?>/" .env.local.php
+else
+	cd "." && COMPOSER_ALLOW_SUPERUSER=1 composer $(COMPOSER_INTERNAL_ARGS) dump-env dev
+endif
+
+./var/cache: ./.env.local.php ./vendor $(SYMFONY_CONTAINER_DEPENDENCIES) | ./var/log
+ifndef PROD
+	/usr/lib/iserv/buildtools/mksymfonydir "" "./var/cache"
+	cd "." && /usr/lib/iserv/buildtools/symfony_console_wrapper "" "bin/console" $(SYMFONY_CONSOLE_INTERNAL_ARGS) -n cache:clear && touch "var/cache"
+else
+	mkdir -p "./var/cache"
+	cd "." && /usr/lib/iserv/buildtools/symfony_secret_wrapper "bin/console" $(SYMFONY_CONSOLE_INTERNAL_ARGS) -n cache:clear
+endif
+
+./var/log:
+ifndef PROD
+	/usr/lib/iserv/buildtools/mksymfonydir "" "./var/log"
+else
+	mkdir -p "./var/log"
+endif
+
+./public/bundles: ./vendor ./var/cache
+ifndef PROD
+	/usr/lib/iserv/buildtools/mksymfonydir "" "./public/bundles" 2775
+	cd "." && /usr/lib/iserv/buildtools/symfony_console_wrapper "" "bin/console" $(SYMFONY_CONSOLE_INTERNAL_ARGS) -n assets:install "public" && touch "public/bundles"
+else
+	mkdir -p "./public/bundles"
+	cd "." && /usr/lib/iserv/buildtools/symfony_secret_wrapper "bin/console" $(SYMFONY_CONSOLE_INTERNAL_ARGS) -n assets:install "public" && touch "public/bundles"
+endif
+
+
+.PHONY: symfony
+symfony: ## Builds Symfony container and installs assets and translations
+symfony: ./public/bundles ./var/cache ./var/log ./.env.local.php
+	@true
+
+.PHONY: clean_symfony
+clean_symfony: ## Removes the Symfony log and cache folder
+clean_symfony:
+	rm -rf "./var/cache"
+	rm -rf "./var/log"
+	rm -f "./.env.local.php"
+	rm -rf "./public/bundles"
+	rm -rf "./var/translations"
+
+## End: /usr/lib/iserv/buildtools/mk/symfony.mk ##
+
+## Start: /usr/lib/iserv/buildtools/mk/extract_translations.mk ##
+
+LOCALE_ROOT = translations
+LOCALE_TARGET_ROOT = locale
+.PHONY: extract_translations
+extract_translations: ## Extract all gettext strings from source code into .pot files
+extract_translations:
+	@true
+
+## End: /usr/lib/iserv/buildtools/mk/extract_translations.mk ##
+
+## Start: /usr/lib/iserv/buildtools/mk/deploy_translations.mk ##
+
+.PHONY: deploy_translations
+deploy_translations: ## Push translations to dev3.iserv.eu
+deploy_translations:
+	@true
+
+## End: /usr/lib/iserv/buildtools/mk/deploy_translations.mk ##
+
+## Start: /usr/lib/iserv/buildtools/mk/phpunit.mk ##
+
+CLEAN_TARGETS += clean_phpunit
+TEST_TARGETS += phpunit
+REPORT_TARGETS += coverage
+
+ifndef BIN_PHPUNIT
+BIN_PHPUNIT=tools/phpunit
+endif
+
+PHPUNIT_TESTSUITES=
+
+.PHONY: run-phpunit-coverage
+run-phpunit-coverage: $(phpdependencies) $(TOOL_DEPENDENCIES) $(PHPUNIT_DEPENDENCIES)
+	cd "$(PHPROOT)" && "$(BIN_PHPUNIT)" --configuration phpunit.xml --log-junit reports/phpunit/junit.xml --stderr --coverage-cobertura=reports/phpunit/cobertura.xml --coverage-text=reports/phpunit/coverage.txt --colors=never $(shell [ -n "$(PHPUNIT_TESTSUITES)" ] && echo --testsuite=$(PHPUNIT_TESTSUITES))
+	grep '^\s*Lines:' "$(PHPROOT)/reports/phpunit/coverage.txt"
+
+.PHONY: phpunit-coverage
+phpunit-coverage: ## runs PHPUnit tests with code coverage and saves the report into reports/phpunit/coverage/
+phpunit-coverage: run-phpunit-coverage $(PHPUNIT_POST_DEPENDENCIES)
+	@true
+
+.PHONY: coverage
+coverage: ## [DEPRECATED, use phpunit-coverage instead] runs PHPUnit tests with code coverage and saves the report into reports/phpunit/coverage/
+coverage: phpunit-coverage
+
+.PHONY: run-phpunit
+run-phpunit: $(phpdependencies) $(TOOL_DEPENDENCIES) $(PHPUNIT_DEPENDENCIES)
+	cd "$(PHPROOT)" && "$(BIN_PHPUNIT)" --configuration phpunit.xml --log-junit reports/phpunit/junit.xml --stderr $(shell [ -n "$(PHPUNIT_TESTSUITES)" ] && echo --testsuite=$(PHPUNIT_TESTSUITES))
+
+.PHONY: phpunit
+phpunit: ## runs all PHPUnit tests
+phpunit: run-phpunit $(PHPUNIT_POST_DEPENDENCIES)
+	@true
+
+.PHONY: clean_phpunit
+clean_phpunit: ## Removes generated reports by PHPUnit
+clean_phpunit:
+	rm -rf "$(PHPROOT)/reports/phpunit"
+	! [ -d "$(PHPROOT)/reports" ] || rmdir --ignore-fail-on-non-empty "$(PHPROOT)/reports"
+
+## End: /usr/lib/iserv/buildtools/mk/phpunit.mk ##
+
+## Start: /usr/lib/iserv/buildtools/mk/phpcsfixer.mk ##
+
+FIX_CS_TARGETS += php-fix-cs
+LINT_TARGETS += php-check-cs
+REPORT_TARGETS += php-check-cs-report
+BIN_PHP_CS_FIXER=tools/php-cs-fixer
+
+php-check-cs: ## Checks codestyle for php files
+php-check-cs:
+	cd "$(PHPROOT)" && "$(BIN_PHP_CS_FIXER)" fix --diff --dry-run
+
+php-fix-cs: ## Automatically fixes code style for php files
+php-fix-cs:
+	cd "$(PHPROOT)" && "$(BIN_PHP_CS_FIXER)" fix --diff
+
+php-check-cs-report: ## Checks codestyle for php files and generates codeclimate report
+php-check-cs-report:
+	@mkdir -p "$(PHPROOT)/reports"
+	set -o pipefail && cd "$(PHPROOT)" && "$(BIN_PHP_CS_FIXER)" fix --dry-run --format=gitlab | tee reports/php-cs-fixer.codeclimate.json
+
+## End: /usr/lib/iserv/buildtools/mk/phpcsfixer.mk ##
+
+## Start: /usr/lib/iserv/buildtools/mk/phpstan.mk ##
+
+CLEAN_TARGETS += clean_phpstan
+LINT_TARGETS += phpstan
+REPORT_TARGETS += phpstan-report
+
+ifndef BIN_PHPSTAN
+BIN_PHPSTAN=tools/phpstan
+endif
+
+phpstan: ## Runs the static analysis tool PHPStan
+phpstan: $(phpdependencies) $(TOOL_DEPENDENCIES)
+	cd "$(PHPROOT)" && "$(BIN_PHPSTAN)" analyze --no-progress -c phpstan.neon
+
+phpstan-report: ## runs the static analysis tool PHPStan and generates codeclimate report
+phpstan-report: $(phpdependencies) $(TOOL_DEPENDENCIES)
+	@mkdir -p "$(PHPROOT)/reports"
+	set -o pipefail && cd "$(PHPROOT)" && "$(BIN_PHPSTAN)" analyze --no-progress --error-format=gitlab -c phpstan.neon | tee reports/phpstan.codeclimate.json
+
+.PHONY: clean_phpstan
+clean_phpstan:
+	rm -rf "$(PHPROOT)/reports/phpstan"
+	! [ -d "$(PHPROOT)/reports" ] || rmdir --ignore-fail-on-non-empty "$(PHPROOT)/reports"
+
+## End: /usr/lib/iserv/buildtools/mk/phpstan.mk ##
+
+## Start: /usr/lib/iserv/buildtools/mk/psalm.mk ##
+
+CLEAN_TARGETS += clean_psalm
+LINT_TARGETS += psalm
+REPORT_TARGETS += psalm-report
+BIN_PSALM=tools/psalm
+
+psalm: ## runs the static analysis tool Psalm
+psalm: $(phpdependencies) $(TOOL_DEPENDENCIES)
+	cd "$(PHPROOT)" && "$(BIN_PSALM)" --no-progress --show-info=false
+
+psalm-report: ## runs the static analysis tool Psalm and generates codeclimate report
+psalm-report: $(phpdependencies) $(TOOL_DEPENDENCIES)
+	@mkdir -p "$(PHPROOT)/reports"
+	cd "$(PHPROOT)" && "$(BIN_PSALM)" --no-progress --monochrome --show-info=false --report=reports/psalm.codeclimate.json
+
+.PHONY: clean_psalm
+clean_psalm:
+	rm -rf "$(PHPROOT)/reports/psalm"
+	! [ -d "$(PHPROOT)/reports" ] || rmdir --ignore-fail-on-non-empty "$(PHPROOT)/reports"
+
+## End: /usr/lib/iserv/buildtools/mk/psalm.mk ##
+
+## Start: /usr/lib/iserv/buildtools/mk/clean.mk ##
+
+.PHONY: clean
+clean: ## Removes all built caches
+clean: $(CLEAN_TARGETS)
+	@true
+
+.PHONY: distclean
+distclean: ## Removes all built artifacts
+distclean: clean $(DISTCLEAN_TARGETS)
+	@true
+
+## End: /usr/lib/iserv/buildtools/mk/clean.mk ##
+
+## Start: /usr/lib/iserv/buildtools/mk/help.mk ##
+
+.PHONY: help
+help: ## display help messages
+	@cat $(MAKEFILE_LIST) | egrep '^([a-zA-Z0-9_-]*:).*?##(.*)$$' | sort | awk -F "##" '{printf "%-30s %s\n", $$1, $$2}'
+
+.PHONY: list
+list: ## list all supported targets
+	@cat $(MAKEFILE_LIST) | egrep '^([a-zA-Z0-9_-]*:).*?##(.*)$$' | sort | awk -F ": ##" '{ print $$1 }'
+
+## End: /usr/lib/iserv/buildtools/mk/help.mk ##
+
+## Start: /usr/lib/iserv/buildtools/mk/debug.mk ##
+
+.PHONY:	debug
+debug: ## display local make variables defined
+	@$(foreach V, $(sort $(.VARIABLES)), \
+		$(if $(filter-out environment% default automatic,\
+			$(origin $V)), \
+			$(warning $V = $($V) )) \
+	)
+
+.PHONY:	debug-all
+debug-all: ## display all make variables defined
+	@$(foreach V, $(sort $(.VARIABLES)), \
+		$(warning $V = $($V) ) \
+	)
+
+## End: /usr/lib/iserv/buildtools/mk/debug.mk ##
+
+# To allow using "set -o pipefail" in targets
+export SHELL := /bin/bash
+
+.PHONY: run_tools
+run_tools: ## Run all tools (linters and test frameworks)
+run_tools: lint tests
+
+.PHONY: reports
+reports: ## Run all tools (linters and test frameworks) and generate reports
+reports: $(REPORT_TARGETS)
+
+.PHONY: tests
+tests: ## Run all test frameworks
+tests: $(TEST_TARGETS)
+
+.PHONY: lint
+lint: ## Run all linters
+lint: $(LINT_TARGETS)
+
+.PHONY: fix-cs
+fix-cs: ## Run all CS fixers
+fix-cs: $(FIX_CS_TARGETS)
+
+.PHONY: dependencies
+dependencies: ## Build all artifacts
+dependencies: $(DEPENDENCY_TARGETS)
+
+.PHONY: heile
+heile: ## makes the iserv heile
+heile:
+	igit pull
+	igit make fetch_translations
+	igit install
+	aptitude install -f
+	symfony cache:clear
+	iservchk
+
+.DEFAULT_GOAL := default
+.PHONY: default
+default:
+	@echo "Please run a more specific command such as 'make help'" >&2
+	@exit 1

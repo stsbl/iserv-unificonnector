@@ -1,0 +1,6 @@
+unificonnector_admin:
+title           Configure UniFi Connector
+description     Allows configuring UniFi synchronization and group mappings.
+module          UniFi Connector
+uuid            4ca1d38d-3ff8-4131-a6ef-a07f7994a3c1
+assignroles     admin
