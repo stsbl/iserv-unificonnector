@@ -5,19 +5,23 @@ declare(strict_types=1);
 namespace IServ\UnifiConnector\OAuth;
 
 use IServ\Library\Config\Config;
+use Psr\Clock\ClockInterface;
 use Psr\Container\ContainerExceptionInterface;
 use Psr\Container\ContainerInterface;
 use Psr\Container\NotFoundExceptionInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
+use Symfony\Contracts\Service\ResetInterface;
 use Symfony\Contracts\Service\Attribute\SubscribedService;
 
-final class OAuthTokenProvider
+final class OAuthTokenProvider implements ResetInterface
 {
     private ?string $token = null;
+    private ?\DateTimeImmutable $expiresAt = null;
 
     public function __construct(
         private readonly HttpClientInterface $client,
+        private readonly ClockInterface $clock,
         #[AutowireLocator([new SubscribedService(type: Config::class)])]
         private readonly ContainerInterface $locator,
     )
@@ -26,7 +30,7 @@ final class OAuthTokenProvider
 
     public function token(): string
     {
-        if (null !== $this->token) {
+        if (null !== $this->token && null !== $this->expiresAt && $this->expiresAt > $this->clock->now()->modify('+30 seconds')) {
             return $this->token;
         }
 
@@ -40,7 +44,20 @@ final class OAuthTokenProvider
             'scope' => 'iserv:host:hosts:read iserv:idm:api-read',
         ]])->toArray();
 
-        return $this->token = $response['access_token'];
+        if (!isset($response['access_token'], $response['expires_in']) || !is_string($response['access_token']) || !is_numeric($response['expires_in'])) {
+            throw new \RuntimeException('OAuth token endpoint returned an invalid token response.');
+        }
+
+        $this->token = $response['access_token'];
+        $this->expiresAt = $this->clock->now()->modify(sprintf('+%d seconds', (int) $response['expires_in']));
+
+        return $this->token;
+    }
+
+    public function reset(): void
+    {
+        $this->token = null;
+        $this->expiresAt = null;
     }
 
     /** @return array{clientId: string, clientSecret: string} */

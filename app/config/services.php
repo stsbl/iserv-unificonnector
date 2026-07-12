@@ -6,6 +6,10 @@ namespace Symfony\Component\DependencyInjection\Loader\Configurator;
 
 use IServ\Library\IdmApiClient\IdmClient;
 use IServ\Library\IdmApiClient\IdmClientInterface;
+use IServ\Library\Zeit\Clock\Clock;
+use IServ\Library\Zeit\Clock\SystemClock;
+use IServ\UnifiConnector\OAuth\OAuthCredentials;
+use Psr\Clock\ClockInterface;
 
 // This file is the entry point to configure your own services.
 // Files in the packages/ subdirectory configure your dependencies.
@@ -29,6 +33,11 @@ return static function (ContainerConfigurator $configurator): void {
         ->exclude(['../src/{DependencyInjection,Entity,Tests}/', '../src/Kernel.php'])
     ;
 
+    $services->set(SystemClock::class)
+        ->factory([SystemClock::class, 'create']);
+    $services->alias(Clock::class, SystemClock::class);
+    $services->alias(ClockInterface::class, SystemClock::class);
+
     $services->set(\UniFi_API\Client::class)
         ->factory([service(\IServ\UnifiConnector\Unifi\ApiClientFactory::class), 'createApiClient'])
         ->lazy()
@@ -36,15 +45,13 @@ return static function (ContainerConfigurator $configurator): void {
 
     $services->set(IdmClient::class)
         ->args([
-            '$baseUrl' => 'http://localhost:987/',
-            '$credentials' => null,
+            '$baseUrl' => 'http://localhost:987/iserv/idm/api/v1',
+            '$credentials' => service(OAuthCredentials::class),
             '$defaultHeaders' => ['User-Agent' => 'IServ/UniFiConnector'],
         ])
     ;
 
-    $services->set(\IServ\UnifiConnector\OAuth\OAuthIdmClient::class)
-        ->arg('$client', service(IdmClient::class));
-    $services->alias(IdmClientInterface::class, \IServ\UnifiConnector\OAuth\OAuthIdmClient::class);
+    $services->alias(IdmClientInterface::class, IdmClient::class);
 
     $services->alias(\IServ\UnifiConnector\Host\HostRepository::class, \IServ\UnifiConnector\Host\HostApiRepository::class);
 };

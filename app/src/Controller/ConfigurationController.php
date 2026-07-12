@@ -40,7 +40,7 @@ final class ConfigurationController extends AbstractAdminController
         Packages $packages,
         TranslationAssetLoader $translationAssets,
     ): ResponseContent|RedirectResponse {
-        $this->denyAccessUnlessGranted(AdminAuthenticatedVoter::ATTR_IS_ADMIN, message: 'Required privilege not granted.');
+        $this->denyAccessUnlessGranted(AdminAuthenticatedVoter::ATTR_IS_ADMIN);
 
         $connectionForm = $this->createConnectionForm($configurationRepository, $request);
         if ($connectionForm->isSubmitted() && $connectionForm->isValid()) {
