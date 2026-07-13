@@ -6,6 +6,7 @@ namespace IServ\UnifiConnector\Infrastructure\Form;
 
 use IServ\UnifiConnector\Application\Configuration\ConnectionSettings;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -19,8 +20,10 @@ final class ConnectionSettingsType extends AbstractType
     {
         $builder
             ->add('url', TextType::class, ['label' => _('UniFi URL')])
-            ->add('username', TextType::class, ['label' => _('Username')])
-            ->add('password', PasswordType::class, ['label' => _('Password')])
+            ->add('authenticationMode', ChoiceType::class, ['label' => _('Authentication'), 'choices' => [_('Username and password') => 'password', _('API key') => 'api_key']])
+            ->add('username', TextType::class, ['label' => _('Username'), 'required' => false])
+            ->add('password', PasswordType::class, ['label' => _('Password'), 'required' => false])
+            ->add('apiKey', PasswordType::class, ['label' => _('API key'), 'required' => false])
             ->add('fallbackGroup', TextType::class, ['label' => _('Fallback group')])
             ->add('save', SubmitType::class, ['label' => _('Save'), 'icon' => 'ok', 'attr' => ['class' => 'btn-success']])
         ;

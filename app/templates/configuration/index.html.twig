@@ -5,11 +5,27 @@
     <h1>{{ _('UniFi Connector') }}</h1>
     {{ form_start(connectionForm) }}
     {{ form_row(connectionForm.url) }}
-    {{ form_row(connectionForm.username) }}
-    {{ form_row(connectionForm.password) }}
+    {{ form_row(connectionForm.authenticationMode) }}
+    <div data-unificonnector-credentials="password">
+        {{ form_row(connectionForm.username) }}
+        {{ form_row(connectionForm.password) }}
+    </div>
+    <div data-unificonnector-credentials="api_key">
+        {{ form_row(connectionForm.apiKey) }}
+    </div>
     {{ form_row(connectionForm.fallbackGroup) }}
     {{ form_row(connectionForm.save) }}
     {{ form_end(connectionForm) }}
+    <script>
+        (() => {
+            const mode = document.getElementById('{{ connectionForm.authenticationMode.vars.id }}');
+            const update = () => document.querySelectorAll('[data-unificonnector-credentials]').forEach((element) => {
+                element.hidden = element.dataset.unificonnectorCredentials !== mode.value;
+            });
+            mode.addEventListener('change', update);
+            update();
+        })();
+    </script>
 
     <h2>{{ _('Mappings') }}</h2>
     <table class="table">

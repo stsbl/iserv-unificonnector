@@ -16,10 +16,10 @@ final class FileConfigurationRepository
             return null;
         }
 
-        /** @var array{url: string, username: string, password: string, fallbackGroup: string} $data */
+        /** @var array{url: string, username: string, password: string, fallbackGroup: string, authenticationMode?: string, apiKey?: string} $data */
         $data = json_decode((string) file_get_contents($this->path), true, 512, JSON_THROW_ON_ERROR);
 
-        return new ConnectionConfiguration($data['url'], $data['username'], $data['password'], $data['fallbackGroup']);
+        return new ConnectionConfiguration($data['url'], $data['username'], $data['password'], $data['fallbackGroup'], $data['authenticationMode'] ?? 'password', $data['apiKey'] ?? '');
     }
 
     public function store(ConnectionConfiguration $configuration): void

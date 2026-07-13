@@ -48,11 +48,19 @@ final class ConfigurationController extends AbstractAdminController
         if ($connectionForm->isSubmitted() && $connectionForm->isValid()) {
             /** @var ConnectionSettings $settings */
             $settings = $connectionForm->getData();
-            $configurationRepository->store(new ConnectionConfiguration($settings->url, $settings->username, $settings->password, $settings->fallbackGroup));
-            $syncRunner->run();
-            $this->addFlash('success', _('Configuration saved and synchronization started.'));
+            $existing = $configurationRepository->find();
+            if ('api_key' === $settings->authenticationMode && '' === $settings->apiKey && null !== $existing) {
+                $settings->apiKey = $existing->apiKey;
+            }
+            if (('api_key' === $settings->authenticationMode && '' === $settings->apiKey) || ('password' === $settings->authenticationMode && ('' === $settings->username || '' === $settings->password))) {
+                $this->addFlash('error', _('Please provide credentials for the selected authentication method.'));
+            } else {
+                $configurationRepository->store(new ConnectionConfiguration($settings->url, $settings->username, $settings->password, $settings->fallbackGroup, $settings->authenticationMode, $settings->apiKey));
+                $syncRunner->run();
+                $this->addFlash('success', _('Configuration saved and synchronization started.'));
 
-            return $this->redirectToRoute('unificonnector_configuration');
+                return $this->redirectToRoute('unificonnector_configuration');
+            }
         }
 
         $mappingForm = $this->createForm(MappingSettingsType::class, new MappingSettings());
@@ -133,7 +141,7 @@ final class ConfigurationController extends AbstractAdminController
         if (null !== $existing = $repository->find()) {
             $settings->url = $existing->url;
             $settings->username = $existing->username;
-            $settings->password = $existing->password;
+            $settings->authenticationMode = $existing->authenticationMode;
             $settings->fallbackGroup = $existing->fallbackGroup;
         }
         $form = $this->createForm(ConnectionSettingsType::class, $settings);

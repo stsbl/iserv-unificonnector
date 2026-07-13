@@ -11,12 +11,14 @@ final readonly class ConnectionConfiguration
         public string $username,
         public string $password,
         public string $fallbackGroup,
+        public string $authenticationMode = 'password',
+        public string $apiKey = '',
     ) {
     }
 
-    /** @return array{url: string, username: string, password: string, fallbackGroup: string} */
+    /** @return array{url: string, username: string, password: string, fallbackGroup: string, authenticationMode: string, apiKey: string} */
     public function toArray(): array
     {
-        return ['url' => $this->url, 'username' => $this->username, 'password' => $this->password, 'fallbackGroup' => $this->fallbackGroup];
+        return ['url' => $this->url, 'username' => $this->username, 'password' => $this->password, 'fallbackGroup' => $this->fallbackGroup, 'authenticationMode' => $this->authenticationMode, 'apiKey' => $this->apiKey];
     }
 }
