@@ -1,6 +1,6 @@
 {
   "name": "iserv/unificonnector",
-  "description": "The IServ Portal-Web Skeleton. Change me.",
+  "description": "IServ UniFi Connector",
   "license": "proprietary",
   "type": "project",
   "require": {

@@ -1,4 +1,4 @@
-// Ändere mich! - Toolchain
+// UniFi Connector asset toolchain
 
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -16,8 +16,8 @@ const __dirname = path.dirname(__filename);
 const config = {
     mode: 'production',
     entry: {
-        'css/skeleton': globSync('./assets/css/*.*', {dotRelative: true}),
-        'js/skeleton': globSync('./assets/js/*.*', {dotRelative: true}),
+        'css/unificonnector': globSync('./assets/css/*.*', {dotRelative: true}),
+        'js/unificonnector': globSync('./assets/js/*.*', {dotRelative: true}),
     },
     output: {
         filename: "[name].[chunkhash:8].js",

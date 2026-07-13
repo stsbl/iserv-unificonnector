@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Ändere mich! - Psalm -->
+<!-- UniFi Connector Psalm configuration -->
 <psalm
     errorLevel="1"
     resolveFromConfigFile="true"

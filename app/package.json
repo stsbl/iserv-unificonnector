@@ -1,6 +1,6 @@
 {
   "name": "iserv-unificonnector",
-  "description": "The Portal Web Skeleton",
+  "description": "IServ UniFi Connector",
   "author": "IServ GmbH <info@iserv.de>",
   "homepage": "https://git.iserv.eu/iserv/unificonnector/",
   "license": "proprietary",

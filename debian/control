@@ -1,4 +1,4 @@
-Source: iserv-unificonnector
+Source: stsbl-iserv-unificonnector
 Section: non-free/misc
 Priority: optional
 Maintainer: IServ <info@iserv.eu>
@@ -9,7 +9,7 @@ Build-Depends:
 Standards-Version: 4.5.0
 Homepage: ${iserv:Homepage}
 
-Package: iserv-unificonnector
+Package: stsbl-iserv-unificonnector
 Architecture: all
 Xb-Private-Iserv-Revision: ${iserv:Revision}
 Depends: ${misc:Depends},
