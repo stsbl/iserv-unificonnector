@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "dedf16a27c49331dc48cc04dd07812c2",
+    "content-hash": "cc26c4a595774261ea039833424a2219",
     "packages": [
         {
             "name": "art-of-wifi/unifi-api-client",
