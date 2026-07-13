@@ -1,13 +1,8 @@
 {
     "require": {
-        "phpstan/phpstan": "^2.0",
+        "phpstan/phpstan": "^1.9",
         "phpstan/extension-installer": "^1.2",
-        "phpstan/phpstan-doctrine": "^2.0",
-        "phpstan/phpstan-symfony": "^2.0"
-    },
-    "config": {
-        "allow-plugins": {
-            "phpstan/extension-installer": true
-        }
+        "phpstan/phpstan-doctrine": "^1.3",
+        "phpstan/phpstan-symfony": "^1.2"
     }
 }

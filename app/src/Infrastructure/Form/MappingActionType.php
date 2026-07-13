@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/** @psalm-suppress MissingTemplateParam Symfony's generic FormType stub is not shared by PHPStan. */
 final class MappingActionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

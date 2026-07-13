@@ -6,15 +6,18 @@ namespace IServ\UnifiConnector\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+/** @psalm-suppress ClassMustBeFinal Doctrine creates proxies for entities. */
 #[ORM\Entity]
 #[ORM\Table(name: 'unificonnector_usergroup_group')]
-final class GroupAssignment
+class GroupAssignment
 {
+    /** @psalm-suppress UnusedProperty Doctrine hydrates this association. */
     #[ORM\Id]
     #[ORM\ManyToOne(targetEntity: UniFiGroupMapping::class, inversedBy: 'groupAssignments')]
     #[ORM\JoinColumn(name: 'usergroup_id', referencedColumnName: 'id', onDelete: 'CASCADE')]
     private UniFiGroupMapping $mapping;
 
+    /** @psalm-suppress UnusedProperty Doctrine queries this identifier. */
     #[ORM\Id]
     #[ORM\Column(name: 'group_uuid', type: 'guid')]
     private string $groupUuid;
@@ -23,5 +26,17 @@ final class GroupAssignment
     {
         $this->mapping = $mapping;
         $this->groupUuid = $groupUuid;
+    }
+
+    /** @psalm-suppress PossiblyUnusedMethod Exposed by the persistence entity. */
+    public function groupUuid(): string
+    {
+        return $this->groupUuid;
+    }
+
+    /** @psalm-suppress PossiblyUnusedMethod Exposed by the persistence entity. */
+    public function mapping(): UniFiGroupMapping
+    {
+        return $this->mapping;
     }
 }

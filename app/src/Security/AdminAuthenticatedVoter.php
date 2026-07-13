@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 
 /** Requires both an authenticated admin session and the module's privilege. */
+/** @extends Voter<string, null> */
 final class AdminAuthenticatedVoter extends Voter
 {
     public const ATTR_IS_ADMIN = 'unificonnector-admin';

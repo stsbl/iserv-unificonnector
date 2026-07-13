@@ -51,7 +51,7 @@ final class ApiUserRepository implements UserRepository
         }
 
         foreach ($userData as $user) {
-            yield User::fromApiResponse((array)$user);
+            yield User::fromApiResponse($user);
         }
     }
 

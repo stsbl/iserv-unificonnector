@@ -24,8 +24,7 @@ final class OAuthTokenProvider implements ResetInterface
         private readonly ClockInterface $clock,
         #[AutowireLocator([new SubscribedService(type: Config::class)])]
         private readonly ContainerInterface $locator,
-    )
-    {
+    ) {
     }
 
     public function token(): string
@@ -37,7 +36,11 @@ final class OAuthTokenProvider implements ResetInterface
         $credentials = $this->credentials();
         $servername = $this->servername();
         $discovery = $this->client->request('GET', sprintf('https://%s/.well-known/openid-configuration', $servername))->toArray();
-        $response = $this->client->request('POST', $discovery['token_endpoint'], ['body' => [
+        $tokenEndpoint = $discovery['token_endpoint'] ?? null;
+        if (!is_string($tokenEndpoint)) {
+            throw new \RuntimeException('OpenID discovery document has no token endpoint.');
+        }
+        $response = $this->client->request('POST', $tokenEndpoint, ['body' => [
             'grant_type' => 'client_credentials',
             'client_id' => $credentials['clientId'],
             'client_secret' => $credentials['clientSecret'],
@@ -72,10 +75,13 @@ final class OAuthTokenProvider implements ResetInterface
     private function servername(): string
     {
         try {
-            /** @var Config $config */
+            /** @psalm-suppress PrivateService Config is exposed through this service locator. */
             $config = $this->locator->get(Config::class);
         } catch (ContainerExceptionInterface|NotFoundExceptionInterface $exception) {
             throw new \RuntimeException('Could not load IServ configuration.', previous: $exception);
+        }
+        if (!$config instanceof Config) {
+            throw new \RuntimeException('IServ configuration service has an unexpected type.');
         }
 
         return $config->getString('Servername');

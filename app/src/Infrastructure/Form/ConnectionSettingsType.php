@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/** @psalm-suppress MissingTemplateParam Symfony's generic FormType stub is not shared by PHPStan. */
 final class ConnectionSettingsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

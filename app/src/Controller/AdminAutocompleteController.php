@@ -32,7 +32,7 @@ final class AdminAutocompleteController extends AbstractController
         $suggestions = [];
         if (in_array('userid', $types, true)) {
             foreach (['user', 'firstname', 'lastname'] as $field) {
-                foreach ($idm->performRequest('GET', sprintf('/users?%s[icontains]=%s&deleted=false&_attributes=hexUuid,user,firstname,lastname', $field, rawurlencode($query)), new RawHydrator()) as $user) {
+                foreach (self::attributesList($idm->performRequest('GET', sprintf('/users?%s[icontains]=%s&deleted=false&_attributes=hexUuid,user,firstname,lastname', $field, rawurlencode($query)), new RawHydrator())) as $user) {
                     $id = $user['hexUuid'] ?? null;
                     if (!is_string($id)) {
                         continue;
@@ -46,7 +46,7 @@ final class AdminAutocompleteController extends AbstractController
             }
         }
         if (in_array('groupid', $types, true)) {
-            foreach ($idm->performRequest('GET', sprintf('/groups?group[icontains]=%s&_attributes=hexUuid,group', rawurlencode($query)), new RawHydrator()) as $group) {
+            foreach (self::attributesList($idm->performRequest('GET', sprintf('/groups?group[icontains]=%s&_attributes=hexUuid,group', rawurlencode($query)), new RawHydrator())) as $group) {
                 $id = $group['hexUuid'] ?? null;
                 if (!is_string($id)) {
                     continue;
@@ -73,7 +73,7 @@ final class AdminAutocompleteController extends AbstractController
             }
             $resource = 'userid' === $source ? 'users' : 'groups';
             $attributes = 'userid' === $source ? 'hexUuid,user,firstname,lastname' : 'hexUuid,group';
-            $item = $idm->performRequest('GET', sprintf('/%s/%s?_attributes=%s', $resource, rawurlencode($id), $attributes), new RawHydrator());
+            $item = self::attributes($idm->performRequest('GET', sprintf('/%s/%s?_attributes=%s', $resource, rawurlencode($id), $attributes), new RawHydrator()));
             $label = 'userid' === $source
                 ? trim(implode(' ', array_filter([(string) ($item['firstname'] ?? ''), (string) ($item['lastname'] ?? '')]))) ?: (string) ($item['user'] ?? $id)
                 : (string) ($item['group'] ?? $id);
@@ -81,5 +81,59 @@ final class AdminAutocompleteController extends AbstractController
         }
 
         return $suggestions;
+    }
+
+    /** @return array<string, scalar|null> */
+    private static function attributes(mixed $item): array
+    {
+        if (!is_array($item)) {
+            return [];
+        }
+
+        return self::attributesFromArray($item);
+    }
+
+    /**
+     * @param array<array-key, mixed> $item
+     * @return array<string, scalar|null>
+     */
+    private static function attributesFromArray(array $item): array
+    {
+        $attributes = [];
+        foreach (array_keys($item) as $key) {
+            if (!is_string($key)) {
+                continue;
+            }
+            $value = self::scalarOrNull($item[$key]);
+            if (null === $item[$key] || null !== $value) {
+                $attributes[$key] = $value;
+            }
+        }
+
+        return $attributes;
+    }
+
+    /** @return list<array<string, scalar|null>> */
+    private static function attributesList(mixed $items): array
+    {
+        if (!is_iterable($items)) {
+            return [];
+        }
+
+        return self::attributesFromIterable($items);
+    }
+
+    /**
+     * @param iterable<mixed> $items
+     * @return list<array<string, scalar|null>>
+     */
+    private static function attributesFromIterable(iterable $items): array
+    {
+        return array_values(array_map(self::attributes(...), is_array($items) ? $items : iterator_to_array($items)));
+    }
+
+    private static function scalarOrNull(mixed $value): int|float|string|bool|null
+    {
+        return is_scalar($value) ? $value : null;
     }
 }

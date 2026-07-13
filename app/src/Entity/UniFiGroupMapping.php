@@ -9,9 +9,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use IServ\UnifiConnector\Repository\UniFiGroupMappingRepository;
 
+/** @psalm-suppress ClassMustBeFinal Doctrine creates proxies for entities. */
 #[ORM\Entity(repositoryClass: UniFiGroupMappingRepository::class)]
 #[ORM\Table(name: 'unificonnector_usergroup')]
-final class UniFiGroupMapping
+class UniFiGroupMapping
 {
     #[ORM\Id]
     #[ORM\Column(type: 'text')]
@@ -27,7 +28,10 @@ final class UniFiGroupMapping
     #[ORM\OneToMany(mappedBy: 'mapping', targetEntity: GroupAssignment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $groupAssignments;
 
-    /** @var Collection<int, RoleAssignment> */
+    /**
+     * @psalm-suppress UnusedProperty Doctrine owns this association.
+     * @var Collection<int, RoleAssignment>
+     */
     #[ORM\OneToMany(mappedBy: 'mapping', targetEntity: RoleAssignment::class, cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $roleAssignments;
 
@@ -45,10 +49,38 @@ final class UniFiGroupMapping
         $this->userAssignments = new ArrayCollection();
     }
 
-    public function id(): string { return $this->id; }
-    public function name(): string { return $this->name; }
-    public function priority(): int { return $this->priority; }
-    public function setPriority(int $priority): void { $this->priority = $priority; }
-    public function addGroupAssignment(string $groupUuid): void { $this->groupAssignments->add(new GroupAssignment($this, $groupUuid)); }
-    public function addUserAssignment(string $userUuid): void { $this->userAssignments->add(new UserAssignment($this, $userUuid)); }
+    public function id(): string
+    {
+        return $this->id;
+    }
+    /** @psalm-suppress PossiblyUnusedMethod Rendered by Twig. */
+    public function name(): string
+    {
+        return $this->name;
+    }
+    public function priority(): int
+    {
+        return $this->priority;
+    }
+    public function setPriority(int $priority): void
+    {
+        $this->priority = $priority;
+    }
+    public function addGroupAssignment(string $groupUuid): void
+    {
+        $this->groupAssignments->add(new GroupAssignment($this, $groupUuid));
+    }
+    public function addUserAssignment(string $userUuid): void
+    {
+        $this->userAssignments->add(new UserAssignment($this, $userUuid));
+    }
+
+    /**
+     * @return Collection<int, RoleAssignment>
+     * @psalm-suppress PossiblyUnusedMethod Exposed by the persistence entity.
+     */
+    public function roleAssignments(): Collection
+    {
+        return $this->roleAssignments;
+    }
 }

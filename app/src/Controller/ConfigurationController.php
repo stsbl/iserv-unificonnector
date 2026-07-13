@@ -22,6 +22,7 @@ use IServ\UnifiConnector\Security\AdminAuthenticatedVoter;
 use IServ\UnifiConnector\Synchronisation\SyncRunner;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
@@ -39,6 +40,7 @@ final class ConfigurationController extends AbstractAdminController
         AdminBreadcrumbs $breadcrumbs,
         Packages $packages,
         TranslationAssetLoader $translationAssets,
+        FormFactoryInterface $forms,
     ): ResponseContent|RedirectResponse {
         $this->denyAccessUnlessGranted(AdminAuthenticatedVoter::ATTR_IS_ADMIN);
 
@@ -68,14 +70,13 @@ final class ConfigurationController extends AbstractAdminController
         foreach ($mappings->findBy([], ['priority' => 'ASC']) as $mapping) {
             $mappingViews[] = [
                 'mapping' => $mapping,
-                'moveUpForm' => $this->createActionForm('move_up_' . $mapping->id(), $mapping->id(), _('Move up'), 'arrow-up', 'up', $request),
-                'moveDownForm' => $this->createActionForm('move_down_' . $mapping->id(), $mapping->id(), _('Move down'), 'arrow-down', 'down', $request),
-                'deleteForm' => $this->createActionForm('delete_' . $mapping->id(), $mapping->id(), _('Delete'), 'trash', null, $request),
+                'moveUpForm' => $this->createActionForm($forms, 'move_up_' . $mapping->id(), $mapping->id(), _('Move up'), 'arrow-up', 'up', $request),
+                'moveDownForm' => $this->createActionForm($forms, 'move_down_' . $mapping->id(), $mapping->id(), _('Move down'), 'arrow-down', 'down', $request),
+                'deleteForm' => $this->createActionForm($forms, 'delete_' . $mapping->id(), $mapping->id(), _('Delete'), 'trash', null, $request),
             ];
         }
         foreach ($mappingViews as $item) {
             foreach (['moveUpForm', 'moveDownForm', 'deleteForm'] as $formName) {
-                /** @var FormInterface $actionForm */
                 $actionForm = $item[$formName];
                 if ($actionForm->isSubmitted() && $actionForm->isValid()) {
                     $mapping = $mappings->find($actionForm->get('id')->getData());
@@ -84,7 +85,10 @@ final class ConfigurationController extends AbstractAdminController
                             $mappingManager->delete($mapping);
                             $this->addFlash('success', _('Mapping deleted.'));
                         } else {
-                            $mappingManager->move($mapping, (string) $actionForm->get('direction')->getData());
+                            $direction = self::stringOrNull($actionForm->get('direction')->getData());
+                            if (null !== $direction) {
+                                $mappingManager->move($mapping, $direction);
+                            }
                         }
                     }
 
@@ -96,7 +100,7 @@ final class ConfigurationController extends AbstractAdminController
         $content = $this->renderView('configuration/index.html.twig', [
             'connectionForm' => $connectionForm->createView(),
             'mappingForm' => $mappingForm->createView(),
-            'mappings' => array_map(static fn (array $item): array => [
+            'mappings' => array_map(static fn(array $item): array => [
                 'mapping' => $item['mapping'],
                 'moveUpForm' => $item['moveUpForm']->createView(),
                 'moveDownForm' => $item['moveDownForm']->createView(),
@@ -138,12 +142,17 @@ final class ConfigurationController extends AbstractAdminController
         return $form;
     }
 
-    private function createActionForm(string $name, string $id, string $label, string $icon, ?string $direction, Request $request): FormInterface
+    private function createActionForm(FormFactoryInterface $forms, string $name, string $id, string $label, string $icon, ?string $direction, Request $request): FormInterface
     {
-        $form = $this->createNamed($name, MappingActionType::class, ['id' => $id], ['label' => $label, 'icon' => $icon, 'direction' => $direction]);
+        $form = $forms->createNamed($name, MappingActionType::class, ['id' => $id], ['label' => $label, 'icon' => $icon, 'direction' => $direction]);
         $form->handleRequest($request);
 
         return $form;
+    }
+
+    private static function stringOrNull(mixed $value): ?string
+    {
+        return is_string($value) ? $value : null;
     }
 
 }

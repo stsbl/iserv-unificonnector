@@ -6,10 +6,7 @@ namespace IServ\UnifiConnector\Tests\Integration;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
-use IServ\UnifiConnector\Entity\GroupAssignment;
-use IServ\UnifiConnector\Entity\RoleAssignment;
 use IServ\UnifiConnector\Entity\UniFiGroupMapping;
-use IServ\UnifiConnector\Entity\UserAssignment;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

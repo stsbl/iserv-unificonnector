@@ -11,6 +11,7 @@ use IServ\UnifiConnector\Entity\UniFiGroupMapping;
 /** @extends ServiceEntityRepository<UniFiGroupMapping> */
 final class UniFiGroupMappingRepository extends ServiceEntityRepository
 {
+    /** @psalm-suppress UnusedParam Passed to Doctrine's parent repository constructor. */
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, UniFiGroupMapping::class);

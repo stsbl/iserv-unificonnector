@@ -38,8 +38,7 @@ final class ApiUserGroupRepository implements UserGroupRepository
 {
     public function __construct(
         private readonly UniFiApiClient $apiClient,
-    )
-    {
+    ) {
     }
 
     public function findByName(string $name): ?UserGroup
@@ -52,7 +51,7 @@ final class ApiUserGroupRepository implements UserGroupRepository
         }
 
         foreach ($userGroupData as $groupData) {
-            $group = UserGroup::fromApiResponse((array)$groupData);
+            $group = UserGroup::fromApiResponse($groupData);
 
             if ($group->getName() === $name) {
                 return $group;

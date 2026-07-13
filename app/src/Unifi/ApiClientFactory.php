@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace IServ\UnifiConnector\Unifi;
 
 use IServ\UnifiConnector\Configuration\FileConfigurationRepository;
-
 /*
  * The MIT License
  *

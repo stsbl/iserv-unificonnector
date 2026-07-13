@@ -13,7 +13,10 @@ final readonly class MappingRepository
     {
     }
 
-    /** @param list<string> $groupUuids @param list<string> $roleUuids */
+    /**
+     * @param list<string> $groupUuids
+     * @param list<string> $roleUuids
+     */
     public function groupForMemberships(?string $userUuid, array $groupUuids, array $roleUuids): ?string
     {
         $query = $this->mappings->createQueryBuilder('mapping')
@@ -41,8 +44,20 @@ final readonly class MappingRepository
             return null;
         }
 
-        $result = $query->where(implode(' OR ', $predicates))->getQuery()->getOneOrNullResult();
+        return self::idFrom($query->where(implode(' OR ', $predicates))->getQuery()->getOneOrNullResult());
+    }
 
-        return null === $result ? null : (string) $result['id'];
+    private static function idFrom(mixed $result): ?string
+    {
+        if (!is_array($result)) {
+            return null;
+        }
+
+        return self::stringOrNull($result['id'] ?? null);
+    }
+
+    private static function stringOrNull(mixed $value): ?string
+    {
+        return is_string($value) ? $value : null;
     }
 }

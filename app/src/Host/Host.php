@@ -33,6 +33,7 @@ use IServ\UnifiConnector\Unifi\User\User;
 /**
  * @author Felix Jacobi <felix.jacobi@stsbl.de>
  * @license MIT license <https://opensource.org/licenses/MIT>
+ * @psalm-api
  */
 final class Host
 {

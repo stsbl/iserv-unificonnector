@@ -2,15 +2,17 @@
 <!-- UniFi Connector Psalm configuration -->
 <psalm
     errorLevel="1"
+    cacheDirectory="var/cache/psalm"
+    threads="1"
     resolveFromConfigFile="true"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns="https://getpsalm.org/schema/config"
     xsi:schemaLocation="https://getpsalm.org/schema/config tools/.psalm/vendor/vimeo/psalm/config.xsd"
 >
     <projectFiles>
-        <directory name="src" />
+        <directory name="src"/>
         <ignoreFiles>
-            <directory name="vendor" />
+            <directory name="vendor"/>
         </ignoreFiles>
     </projectFiles>
     <plugins>
@@ -18,6 +20,7 @@
             <!-- for local execution: run app/bin/console first to generate this file (iservmake iservinstall does it as well) -->
             <containerXml>var/cache/dev/IServ_UnifiConnector_KernelDevDebugContainer.xml</containerXml>
         </pluginClass>
+        <pluginClass class="Weirdan\DoctrinePsalmPlugin\Plugin"/>
     </plugins>
 
     <forbiddenFunctions>
@@ -26,6 +29,6 @@
     </forbiddenFunctions>
 
     <issueHandlers>
-        <MissingOverrideAttribute errorLevel="suppress" />
+        <MissingOverrideAttribute errorLevel="suppress"/>
     </issueHandlers>
 </psalm>

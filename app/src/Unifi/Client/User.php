@@ -31,6 +31,7 @@ namespace IServ\UnifiConnector\Unifi\Client;
 /**
  * @author Felix Jacobi <felix.jacobi@stsbl.de>
  * @license MIT license <https://opensource.org/licenses/MIT>
+ * @psalm-api
  */
 final class User
 {
@@ -74,9 +75,9 @@ final class User
 
     public function equals(self $that): bool
     {
-        return $this->name === $that->getName() &&
-            strtolower($this->mac) === strtolower($that->getMac()) &&
-            $this->groupId === $that->getGroupId()
+        return $this->name === $that->getName()
+            && strtolower($this->mac) === strtolower($that->getMac())
+            && $this->groupId === $that->getGroupId()
         ;
     }
 

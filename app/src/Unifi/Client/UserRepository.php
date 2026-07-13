@@ -31,6 +31,7 @@ namespace IServ\UnifiConnector\Unifi\Client;
 /**
  * @author Felix Jacobi <felix.jacobi@stsbl.de>
  * @license MIT license <https://opensource.org/licenses/MIT>
+ * @psalm-api
  */
 interface UserRepository
 {

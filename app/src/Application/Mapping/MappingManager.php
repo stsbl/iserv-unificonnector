@@ -46,7 +46,10 @@ final readonly class MappingManager
         if (false === $index) {
             return;
         }
-        $other = 'up' === $direction ? $ordered[$index - 1] ?? null : $ordered[$index + 1] ?? null;
+        if ('up' === $direction && 0 === $index) {
+            return;
+        }
+        $other = 'up' === $direction ? $ordered[$index - 1] : $ordered[$index + 1] ?? null;
         if (!$other instanceof UniFiGroupMapping) {
             return;
         }

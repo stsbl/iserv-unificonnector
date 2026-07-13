@@ -31,6 +31,7 @@ namespace IServ\UnifiConnector\Unifi\UserGroup;
 /**
  * @author Felix Jacobi <felix.jacobi@stsbl.de>
  * @license MIT license <https://opensource.org/licenses/MIT>
+ * @psalm-api
  */
 final class UserGroup
 {
@@ -38,8 +39,7 @@ final class UserGroup
         private readonly string $id,
         private readonly string $siteId,
         private readonly string $name,
-    )
-    {
+    ) {
     }
 
     public function getId(): string

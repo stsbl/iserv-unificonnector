@@ -9,10 +9,10 @@ use IServ\UnifiConnector\Host\HostRepository;
 use IServ\UnifiConnector\Mapping\MappingRepository;
 use IServ\Bundle\IdmDataBroker\Service\UserGroupMembershipFetcher;
 use IServ\Bundle\IdmDataBroker\Service\UserRolesFetcher;
+use IServ\Bundle\IdmDataBroker\Dto\UserRolesDto;
 use IServ\Library\Uuid\Uuid;
 use IServ\UnifiConnector\Unifi\User\User;
 use IServ\UnifiConnector\Unifi\User\UserRepository;
-use IServ\UnifiConnector\Unifi\UserGroup\UserGroup;
 use IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -82,7 +82,8 @@ final class SyncCommand extends Command
         }
 
         foreach ($this->hostRepository->findAll() as $host) {
-            if (null === $host->getMac()) {
+            $mac = $host->getMac();
+            if (null === $mac) {
                 continue;
             }
 
@@ -92,15 +93,19 @@ final class SyncCommand extends Command
             if (null !== $ownerUuid = $host->getOwnerUuid()) {
                 $owner = Uuid::createFromString($ownerUuid);
                 $groupUuids = array_map(static fn($uuid): string => $uuid->toNormalizedString(), $this->groupMemberships->fetch($owner)->groupUuids);
-                $roleUuids = array_values($this->roles->getUserRoles($owner)->roles);
+                $roles = $this->roles->getUserRoles($owner);
+                if (!$roles instanceof UserRolesDto) {
+                    throw new \LogicException('User roles fetcher returned an unexpected DTO.');
+                }
+                $roleUuids = $roles->roles();
             }
             $configuredGroup = $this->mappingRepository->groupForMemberships($ownerUuid, $groupUuids, $roleUuids);
             $userGroup = null === $configuredGroup ? $fallbackGroup : $this->userGroupRepository->findByName($configuredGroup);
             $client->setGroupId($userGroup?->getId());
 
-            if (!isset($existingClients[$host->getMac()]) || !$existingClients[$host->getMac()]->equals($client)) {
+            if (!isset($existingClients[$mac]) || !$existingClients[$mac]->equals($client)) {
                 $output->writeln(sprintf('Syncing host "%s" to UniFi...', $host->getName()), OutputInterface::VERBOSITY_VERBOSE);
-                $saveClient = $existingClients[$host->getMac()] ?? $client;
+                $saveClient = $existingClients[$mac] ?? $client;
                 $saveClient->updateFrom($client);
 
                 $this->userRepository->save($saveClient);
