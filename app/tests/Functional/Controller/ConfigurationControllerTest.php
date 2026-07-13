@@ -47,5 +47,6 @@ final class ConfigurationControllerTest extends WebTestCase
         $client->request('GET', '/admin/unificonnector/');
 
         self::assertResponseIsSuccessful();
+        self::assertStringContainsString('UniFi Connector', (string) $client->getResponse()->getContent());
     }
 }
