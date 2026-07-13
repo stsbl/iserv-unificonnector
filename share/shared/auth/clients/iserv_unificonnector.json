@@ -1,5 +1,6 @@
 {
   "name": "UniFi Connector host synchronization",
+  "type": "unificonnector",
   "systemGroup": "iserv-unificonnector",
   "systemOwner": "iserv-unificonnector",
   "allowedGrantTypes": ["client_credentials"],

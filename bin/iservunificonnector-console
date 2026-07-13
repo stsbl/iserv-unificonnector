@@ -1,2 +1,2 @@
 #!/bin/sh
-exec /usr/share/iserv/unificonnector/app/bin/console "$@"
+exec /usr/share/iserv/stsbl-iserv-unificonnector/app/bin/console "$@"

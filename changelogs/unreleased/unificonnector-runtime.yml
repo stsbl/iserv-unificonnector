@@ -1,0 +1,6 @@
+---
+text: "Die UniFi-Anbindung kann wieder korrekt gestartet und mit den benötigten OAuth-Zugangsdaten eingerichtet werden."
+audience: "admins"
+type: "fixed"
+urgency: "medium"
+highlight: false

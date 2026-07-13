@@ -12,7 +12,7 @@ CACHE_DIR_CURRENT="$CACHE_DIR/$CURRENT_VERSION"
 
 if [ "$1" = "configure" ]
 then
-  adduser --system --group --disabled-password --home /usr/share/iserv/unificonnector \
+  adduser --system --group --disabled-password --home /usr/share/iserv/stsbl-iserv-unificonnector \
   --no-create-home --shell /bin/false iserv-unificonnector ||:
 
   LAST_VERSION="$2"

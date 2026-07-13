@@ -1,0 +1,5 @@
+unificonnector:
+  module: UniFi Connector
+  name: UniFi Connector host synchronization
+  delete: false
+  invert: false

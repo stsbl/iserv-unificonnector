@@ -1,5 +1,5 @@
 location ^~ /iserv/unificonnector/static/ {
-    alias /usr/share/iserv/unificonnector/app/public/static/;
+    alias /usr/share/iserv/stsbl-iserv-unificonnector/app/public/static/;
 
     location ~* "\.(?:ico|png|svg|woff|woff2|ttf)$" {
         gzip on;
@@ -19,7 +19,7 @@ location ^~ /iserv/unificonnector/static/ {
 }
 
 location ^~ /iserv/unificonnector/bundles/ {
-    alias /usr/share/iserv/unificonnector/app/public/bundles/;
+    alias /usr/share/iserv/stsbl-iserv-unificonnector/app/public/bundles/;
 
     location ~* "\.(?:ico|png|svg|woff|woff2|ttf)$" {
         gzip on;
