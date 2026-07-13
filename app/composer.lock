@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cc26c4a595774261ea039833424a2219",
+    "content-hash": "507f4944a47e93fa1f92aef70aa33938",
     "packages": [
         {
             "name": "art-of-wifi/unifi-api-client",
@@ -1330,6 +1330,36 @@
             "autoload": {
                 "psr-4": {
                     "IServ\\Library\\AppKernel\\": "src/"
+                }
+            }
+        },
+        {
+            "name": "iserv/asset-bundle",
+            "version": "1.5",
+            "dist": {
+                "type": "zip",
+                "url": "https://repoflow.iserv.eu/api/composer/iserv/composer-internal/iserv/asset-bundle/1.5.zip"
+            },
+            "require": {
+                "php": ">=8.1",
+                "symfony/asset": "^5.4 || ^6.0",
+                "symfony/config": "^5.4 || ^6.0",
+                "symfony/dependency-injection": "^5.4 || ^6.0",
+                "symfony/http-kernel": "^5.4 || ^6.0"
+            },
+            "require-dev": {
+                "matthiasnoback/symfony-config-test": "^4.3",
+                "matthiasnoback/symfony-dependency-injection-test": "^4.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "IServ\\Bundle\\Asset\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "IServ\\Bundle\\Asset\\Tests\\": "tests/"
                 }
             }
         },

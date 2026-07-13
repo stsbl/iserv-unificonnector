@@ -120,16 +120,11 @@ final class ConfigurationController extends AbstractAdminController
             ->addBreadcrumb($breadcrumbs->root())
             ->addBreadcrumb(_('Network'))
             ->addBreadcrumb(_('UniFi Connector'))
-            ->addStylesheet($packages->getUrl('js/iserv.css', 'iserv-js'))
-            ->addStylesheet($packages->getUrl('css/bootstrap.css', 'iserv-bootstrap'))
             ->addStylesheet($packages->getUrl('js/form.css', 'iserv-form'))
             ->addStylesheet($packages->getUrl('js/autocomplete.css', 'iserv-autocomplete'))
-            ->addScript($packages->getUrl('js/jquery.js', 'iserv-js'))
-            ->addScript($packages->getUrl('js/bootstrap.js', 'iserv-js'))
-            ->addScript($packages->getUrl('js/iserv.js', 'iserv-js'))
-            ->addScript($packages->getUrl('js/bootstrap.js', 'iserv-bootstrap'))
             ->addScript($packages->getUrl('js/form.js', 'iserv-form'))
-            ->addScript($packages->getUrl('js/autocomplete.js', 'iserv-autocomplete'));
+            ->addScript($packages->getUrl('js/autocomplete.js', 'iserv-autocomplete'))
+            ->addScript($packages->getUrl('js/unificonnector.js'));
         $translationAssets->loadIntoBuilder($response, ['iserv-js', 'iserv-bootstrap', 'iserv-form', 'iserv-autocomplete']);
 
         return $response->getResponseContent();

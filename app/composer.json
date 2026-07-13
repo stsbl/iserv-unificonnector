@@ -15,6 +15,7 @@
     "doctrine/orm": "^2.20",
     "iserv/admin-integration-bundle": "^1.0",
     "iserv/appkernel": "^1.4",
+    "iserv/asset-bundle": "^1.5",
     "iserv/authentication-bundle": "^2.10",
     "iserv/autocomplete-bundle": "^1.9",
     "iserv/doctrine-bundle": "^1.3",

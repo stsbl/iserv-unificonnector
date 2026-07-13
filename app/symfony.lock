@@ -71,6 +71,9 @@
     "iserv/admin-integration-bundle": {
         "version": "1.2.3"
     },
+    "iserv/asset-bundle": {
+        "version": "v1.5"
+    },
     "iserv/authentication-bundle": {
         "version": "v1.1"
     },

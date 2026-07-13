@@ -16,16 +16,6 @@
     {{ form_row(connectionForm.fallbackGroup) }}
     {{ form_row(connectionForm.save) }}
     {{ form_end(connectionForm) }}
-    <script>
-        (() => {
-            const mode = document.getElementById('{{ connectionForm.authenticationMode.vars.id }}');
-            const update = () => document.querySelectorAll('[data-unificonnector-credentials]').forEach((element) => {
-                element.hidden = element.dataset.unificonnectorCredentials !== mode.value;
-            });
-            mode.addEventListener('change', update);
-            update();
-        })();
-    </script>
 
     <h2>{{ _('Mappings') }}</h2>
     <table class="table">
