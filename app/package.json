@@ -8,31 +8,23 @@
   "private": true,
   "type": "module",
   "dependencies": {
-    "@iserv/polyfill": "^1.0.0"
+    "@iserv/fontawesome-provider": "^1.0.0",
+    "@iserv/polyfill": "^1.0.0",
+    "@iserv/web-assets": "^2.7.0",
+    "@iserv/web-assets-integration": "^1.0.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.5",
-    "@babel/preset-env": "^7.24.5",
-    "@iserv/babel": "^1.1.0",
     "@iserv/browserslist-config": "^1.0.0",
-    "babel-loader": "^10.0.0",
-    "clean-webpack-plugin": "^4.0.0",
-    "copy-webpack-plugin": "^14.0.0",
-    "css-loader": "^7.1.1",
-    "css-minimizer-webpack-plugin": "^8.0.0",
-    "glob": "^13.0.0",
-    "less-loader": "^13.0.0",
-    "mini-css-extract-plugin": "^2.9.0",
-    "webpack": "^5.52.0",
-    "webpack-cli": "^7.0.0",
-    "webpack-manifest-plugin": "^6.0.1"
+    "less": "^4.2.2",
+    "vite": "^6.2.0"
   },
   "browserslist": [
     "extends @iserv/browserslist-config"
   ],
   "scripts": {
-    "build": "webpack",
-    "build:dev": "webpack --mode=development",
-    "watch": "webpack --mode=development --watch"
+    "build": "vite build --mode production",
+    "build:dev": "vite build --mode development",
+    "build:iservmake": "npm ci && npm run build",
+    "watch": "vite build --mode development --watch"
   }
 }
