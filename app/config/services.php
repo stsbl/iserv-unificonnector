@@ -33,6 +33,14 @@ return static function (ContainerConfigurator $configurator): void {
         ->exclude(['../src/{DependencyInjection,Entity,Tests}/', '../src/Kernel.php'])
     ;
 
+    $services->set(\IServ\UnifiConnector\Asset\ViteAssetVersionStrategy::class)
+        ->args([
+            '$manifestPath' => '%kernel.project_dir%/public/static/.vite/manifest.json',
+            '$basePath' => '/iserv/unificonnector/static/',
+            '$strictMode' => true,
+        ])
+    ;
+
     $services->set(SystemClock::class)
         ->factory([SystemClock::class, 'create']);
     $services->alias(Clock::class, SystemClock::class);

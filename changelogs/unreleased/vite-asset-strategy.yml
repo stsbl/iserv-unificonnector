@@ -1,0 +1,6 @@
+---
+text: "Die Asset-Verwaltung wurde auf die ViteAssetVersionStrategy umgestellt, um die Kompatibilität mit der Plattform zu gewährleisten."
+audience: "technical"
+type: "changed"
+urgency: "medium"
+highlight: false
