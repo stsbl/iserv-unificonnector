@@ -9,3 +9,5 @@
 /app/var/log/
 /app/vendor/
 /app/public/bundles/
+/system-locale/
+

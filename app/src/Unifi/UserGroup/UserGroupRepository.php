@@ -34,5 +34,8 @@ namespace IServ\UnifiConnector\Unifi\UserGroup;
  */
 interface UserGroupRepository
 {
+    /** @return iterable<UserGroup> */
+    public function all(): iterable;
+
     public function findByName(string $name): ?UserGroup;
 }

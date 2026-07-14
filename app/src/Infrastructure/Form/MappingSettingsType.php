@@ -7,7 +7,9 @@ namespace IServ\UnifiConnector\Infrastructure\Form;
 use IServ\Bundle\Autocomplete\Domain\AutocompleteType;
 use IServ\Bundle\Autocomplete\Form\Type\AutocompleteTagsType;
 use IServ\UnifiConnector\Application\Mapping\MappingSettings;
+use IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,14 +20,14 @@ use Symfony\Component\Routing\RouterInterface;
 /** @psalm-suppress MissingTemplateParam Symfony's generic FormType stub is not shared by PHPStan. */
 final class MappingSettingsType extends AbstractType
 {
-    public function __construct(private readonly RouterInterface $router)
+    public function __construct(private readonly RouterInterface $router, private readonly UserGroupRepository $userGroups)
     {
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('id', TextType::class, ['label' => _('UniFi group'), 'required' => true])
+            ->add('id', ChoiceType::class, ['label' => _('UniFi group'), 'choices' => $this->groupChoices(), 'placeholder' => _('Choose a UniFi group'), 'attr' => ['data-live-search' => 'true']])
             ->add('name', TextType::class, ['label' => _('Name'), 'required' => true])
             ->add('priority', IntegerType::class, ['label' => _('Priority'), 'required' => true])
             ->add('subjects', AutocompleteTagsType::class, [
@@ -37,10 +39,22 @@ final class MappingSettingsType extends AbstractType
                 'multiple' => true,
                 'required' => false,
             ])
-            ->add('save', SubmitType::class, [
-                'label' => _('Add mapping'),
-                'attr' => ['icon' => 'fa-plus'],
-            ]);
+            ->add('save', SubmitType::class, ['label' => _('Add mapping')]);
+    }
+
+    /** @return array<string, string> */
+    private function groupChoices(): array
+    {
+        try {
+            $choices = [];
+            foreach ($this->userGroups->all() as $group) {
+                $choices[$group->getName()] = $group->getName();
+            }
+
+            return $choices;
+        } catch (\Throwable) {
+            return [];
+        }
     }
 
     public function configureOptions(OptionsResolver $resolver): void

@@ -45,7 +45,7 @@ return static function (ContainerConfigurator $configurator): void {
 
     $services->set(IdmClient::class)
         ->args([
-            '$baseUrl' => 'http://localhost:987/iserv/idm/api/v1',
+            '$baseUrl' => 'http://localhost:987/',
             '$credentials' => service(OAuthCredentials::class),
             '$defaultHeaders' => ['User-Agent' => 'IServ/UniFiConnector'],
         ])

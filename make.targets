@@ -10,7 +10,7 @@ js
 extract_translations
 locale
 translations
-deploy_translations
+-deploy_translations
 iservinstall
 help
 debug

@@ -63,7 +63,7 @@ final class ConfigurationController extends AbstractAdminController
             }
         }
 
-        $mappingForm = $this->createForm(MappingSettingsType::class, new MappingSettings());
+        $mappingForm = $this->createForm(MappingSettingsType::class, new MappingSettings(), ['action' => $this->generateUrl('unificonnector_configuration')]);
         $mappingForm->handleRequest($request);
         if ($mappingForm->isSubmitted() && $mappingForm->isValid()) {
             /** @var MappingSettings $settings */
@@ -139,7 +139,7 @@ final class ConfigurationController extends AbstractAdminController
             $settings->authenticationMode = $existing->authenticationMode;
             $settings->fallbackGroup = $existing->fallbackGroup;
         }
-        $form = $this->createForm(ConnectionSettingsType::class, $settings);
+        $form = $this->createForm(ConnectionSettingsType::class, $settings, ['action' => $this->generateUrl('unificonnector_configuration')]);
         $form->handleRequest($request);
 
         return $form;

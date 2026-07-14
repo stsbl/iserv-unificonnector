@@ -14,7 +14,7 @@
             {{ form_row(connectionForm.apiKey) }}
         </div>
         {{ form_row(connectionForm.fallbackGroup) }}
-        {{ form_row(connectionForm.save) }}
+        {{ form_widget(connectionForm.save, {icon: 'fa-floppy-disk'}) }}
         {{ form_end(connectionForm) }}
     </twig:Panel>
 
@@ -46,7 +46,7 @@
         {{ form_row(mappingForm.name) }}
         {{ form_row(mappingForm.priority) }}
         {{ form_row(mappingForm.subjects) }}
-        {{ form_row(mappingForm.save) }}
+        {{ form_widget(mappingForm.save, {icon: 'fa-plus'}) }}
         {{ form_end(mappingForm) }}
     </twig:Panel>
 {% endblock %}

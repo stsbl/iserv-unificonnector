@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,13 +20,13 @@ final class ConnectionSettingsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('url', TextType::class, ['label' => _('UniFi URL')])
+            ->add('url', UrlType::class, ['label' => _('UniFi URL')])
             ->add('authenticationMode', ChoiceType::class, ['label' => _('Authentication'), 'choices' => [_('Username and password') => 'password', _('API key') => 'api_key']])
             ->add('username', TextType::class, ['label' => _('Username'), 'required' => false, 'empty_data' => ''])
             ->add('password', PasswordType::class, ['label' => _('Password'), 'required' => false, 'empty_data' => ''])
             ->add('apiKey', PasswordType::class, ['label' => _('API key'), 'required' => false, 'empty_data' => ''])
             ->add('fallbackGroup', TextType::class, ['label' => _('Fallback group')])
-            ->add('save', SubmitType::class, ['label' => _('Save'), 'attr' => ['class' => 'btn-success', 'icon' => 'fa-floppy-disk']])
+            ->add('save', SubmitType::class, ['label' => _('Save'), 'attr' => ['class' => 'btn-success']])
         ;
     }
 
