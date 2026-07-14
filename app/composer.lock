@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "507f4944a47e93fa1f92aef70aa33938",
+    "content-hash": "725d4163335686dea7a16c5f4d70b12c",
     "packages": [
         {
             "name": "art-of-wifi/unifi-api-client",
@@ -1902,10 +1902,10 @@
         },
         {
             "name": "iserv/translation-gettext",
-            "version": "1.9",
+            "version": "1.10.1",
             "dist": {
                 "type": "zip",
-                "url": "https://repoflow.iserv.eu/api/composer/iserv/composer-internal/iserv/translation-gettext/1.9.zip"
+                "url": "https://repoflow.iserv.eu/api/composer/iserv/composer-internal/iserv/translation-gettext/1.10.1.zip"
             },
             "require": {
                 "ext-gettext": "*",

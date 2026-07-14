@@ -2,45 +2,51 @@
 {% extends '@IServAdminIntegration/admin_base.html.twig' %}
 
 {% block admin_content %}
-    <h1>{{ _('UniFi Connector') }}</h1>
-    {{ form_start(connectionForm) }}
-    {{ form_row(connectionForm.url) }}
-    {{ form_row(connectionForm.authenticationMode) }}
-    <div data-unificonnector-credentials="password">
-        {{ form_row(connectionForm.username) }}
-        {{ form_row(connectionForm.password) }}
-    </div>
-    <div data-unificonnector-credentials="api_key">
-        {{ form_row(connectionForm.apiKey) }}
-    </div>
-    {{ form_row(connectionForm.fallbackGroup) }}
-    {{ form_row(connectionForm.save) }}
-    {{ form_end(connectionForm) }}
+    <twig:Panel title="{{ _('Connection') }}" icon="fa-plug">
+        {{ form_start(connectionForm) }}
+        {{ form_row(connectionForm.url) }}
+        {{ form_row(connectionForm.authenticationMode) }}
+        <div data-unificonnector-credentials="password">
+            {{ form_row(connectionForm.username) }}
+            {{ form_row(connectionForm.password) }}
+        </div>
+        <div data-unificonnector-credentials="api_key">
+            {{ form_row(connectionForm.apiKey) }}
+        </div>
+        {{ form_row(connectionForm.fallbackGroup) }}
+        {{ form_row(connectionForm.save) }}
+        {{ form_end(connectionForm) }}
+    </twig:Panel>
 
-    <h2>{{ _('Mappings') }}</h2>
-    <table class="table">
-        <thead><tr><th>{{ _('Priority') }}</th><th>{{ _('UniFi group') }}</th><th>{{ _('Name') }}</th><th>{{ _('Actions') }}</th></tr></thead>
-        <tbody>
-        {% for item in mappings %}
-            <tr>
-                <td>{{ item.mapping.priority() }}</td><td>{{ item.mapping.id() }}</td><td>{{ item.mapping.name() }}</td>
-                <td>
-                    {{ form_start(item.moveUpForm, {attr: {class: 'd-inline'}}) }}{{ form_widget(item.moveUpForm.submit) }}{{ form_end(item.moveUpForm) }}
-                    {{ form_start(item.moveDownForm, {attr: {class: 'd-inline'}}) }}{{ form_widget(item.moveDownForm.submit) }}{{ form_end(item.moveDownForm) }}
-                    {{ form_start(item.deleteForm, {attr: {class: 'd-inline'}}) }}{{ form_widget(item.deleteForm.submit) }}{{ form_end(item.deleteForm) }}
-                </td>
-            </tr>
-        {% else %}
-            <tr><td colspan="4">{{ _('No mappings configured.') }}</td></tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <twig:Panel title="{{ _('Mappings') }}" icon="fa-list-ol" class="mt-3">
+        <div class="table-responsive">
+            <table class="table mb-0">
+                <thead><tr><th>{{ _('Priority') }}</th><th>{{ _('UniFi group') }}</th><th>{{ _('Name') }}</th><th class="text-right">{{ _('Actions') }}</th></tr></thead>
+                <tbody>
+                {% for item in mappings %}
+                    <tr>
+                        <td>{{ item.mapping.priority() }}</td><td>{{ item.mapping.id() }}</td><td>{{ item.mapping.name() }}</td>
+                        <td class="text-right text-nowrap">
+                            {{ form_start(item.moveUpForm, {attr: {class: 'd-inline'}}) }}{{ form_widget(item.moveUpForm.submit) }}{{ form_end(item.moveUpForm) }}
+                            {{ form_start(item.moveDownForm, {attr: {class: 'd-inline'}}) }}{{ form_widget(item.moveDownForm.submit) }}{{ form_end(item.moveDownForm) }}
+                            {{ form_start(item.deleteForm, {attr: {class: 'd-inline'}}) }}{{ form_widget(item.deleteForm.submit) }}{{ form_end(item.deleteForm) }}
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr><td colspan="4">{{ _('No mappings configured.') }}</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </twig:Panel>
 
-    {{ form_start(mappingForm) }}
-    {{ form_row(mappingForm.id) }}
-    {{ form_row(mappingForm.name) }}
-    {{ form_row(mappingForm.priority) }}
-    {{ form_row(mappingForm.subjects) }}
-    {{ form_row(mappingForm.save) }}
-    {{ form_end(mappingForm) }}
+    <twig:Panel title="{{ _('Add mapping') }}" icon="fa-plus" class="mt-3">
+        {{ form_start(mappingForm) }}
+        {{ form_row(mappingForm.id) }}
+        {{ form_row(mappingForm.name) }}
+        {{ form_row(mappingForm.priority) }}
+        {{ form_row(mappingForm.subjects) }}
+        {{ form_row(mappingForm.save) }}
+        {{ form_end(mappingForm) }}
+    </twig:Panel>
 {% endblock %}

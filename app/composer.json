@@ -27,6 +27,7 @@
     "iserv/module-response": "^2.5",
     "iserv/module-response-symfony-bridge": "^1.3",
     "iserv/translation-gettext-bundle": "^1.15",
+    "iserv/twig-components-bundle": "^0.8",
     "nyholm/psr7": "^1.8",
     "symfony/asset": "^6.4",
     "symfony/console": "^6.4",

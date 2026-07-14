@@ -78,9 +78,9 @@ final class ConfigurationController extends AbstractAdminController
         foreach ($mappings->findBy([], ['priority' => 'ASC']) as $mapping) {
             $mappingViews[] = [
                 'mapping' => $mapping,
-                'moveUpForm' => $this->createActionForm($forms, 'move_up_' . $mapping->id(), $mapping->id(), _('Move up'), 'arrow-up', 'up', $request),
-                'moveDownForm' => $this->createActionForm($forms, 'move_down_' . $mapping->id(), $mapping->id(), _('Move down'), 'arrow-down', 'down', $request),
-                'deleteForm' => $this->createActionForm($forms, 'delete_' . $mapping->id(), $mapping->id(), _('Delete'), 'trash', null, $request),
+                'moveUpForm' => $this->createActionForm($forms, 'move_up_' . $mapping->id(), $mapping->id(), _('Move up'), 'fa-arrow-up', 'up', $request),
+                'moveDownForm' => $this->createActionForm($forms, 'move_down_' . $mapping->id(), $mapping->id(), _('Move down'), 'fa-arrow-down', 'down', $request),
+                'deleteForm' => $this->createActionForm($forms, 'delete_' . $mapping->id(), $mapping->id(), _('Delete'), 'fa-trash', null, $request),
             ];
         }
         foreach ($mappingViews as $item) {

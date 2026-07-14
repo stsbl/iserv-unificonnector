@@ -39,7 +39,7 @@ final class MappingSettingsType extends AbstractType
             ])
             ->add('save', SubmitType::class, [
                 'label' => _('Add mapping'),
-                'attr' => ['icon' => 'plus'],
+                'attr' => ['icon' => 'fa-plus'],
             ]);
     }
 

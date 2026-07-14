@@ -21,11 +21,11 @@ final class ConnectionSettingsType extends AbstractType
         $builder
             ->add('url', TextType::class, ['label' => _('UniFi URL')])
             ->add('authenticationMode', ChoiceType::class, ['label' => _('Authentication'), 'choices' => [_('Username and password') => 'password', _('API key') => 'api_key']])
-            ->add('username', TextType::class, ['label' => _('Username'), 'required' => false])
-            ->add('password', PasswordType::class, ['label' => _('Password'), 'required' => false])
-            ->add('apiKey', PasswordType::class, ['label' => _('API key'), 'required' => false])
+            ->add('username', TextType::class, ['label' => _('Username'), 'required' => false, 'empty_data' => ''])
+            ->add('password', PasswordType::class, ['label' => _('Password'), 'required' => false, 'empty_data' => ''])
+            ->add('apiKey', PasswordType::class, ['label' => _('API key'), 'required' => false, 'empty_data' => ''])
             ->add('fallbackGroup', TextType::class, ['label' => _('Fallback group')])
-            ->add('save', SubmitType::class, ['label' => _('Save'), 'icon' => 'ok', 'attr' => ['class' => 'btn-success']])
+            ->add('save', SubmitType::class, ['label' => _('Save'), 'attr' => ['class' => 'btn-success', 'icon' => 'fa-floppy-disk']])
         ;
     }
 
