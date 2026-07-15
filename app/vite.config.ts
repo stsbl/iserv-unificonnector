@@ -2,9 +2,26 @@ import { defineConfig } from 'vite';
 import { resolve } from 'path';
 import { viteFontawesomeProvider, viteWebAssetsInputs } from '@iserv/web-assets-integration/vite';
 import { fileURLToPath } from 'url';
+import fs from 'fs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = resolve(__filename, '..');
+
+function processStaticAssets(files: string[]) {
+    return {
+        name: 'process-static-assets',
+        buildEnd() {
+            files.forEach(file => {
+                const output = file.startsWith('assets/') ? file.slice(7) : file;
+                this.emitFile({
+                    type: 'asset',
+                    name: output,
+                    source: fs.readFileSync(file),
+                });
+            });
+        }
+    };
+}
 
 export default defineConfig(({ mode }) => {
     const prod = mode !== 'development';
@@ -16,6 +33,7 @@ export default defineConfig(({ mode }) => {
                 inputName: '@iserv/web-assets',
                 entries: ['@iserv/web-assets-integration/components', '@iserv/web-assets-integration/styles'],
             }),
+            processStaticAssets(['assets/img/unificonnector.svg']),
         ],
         base: '/iserv/unificonnector/static/',
         build: {
@@ -30,6 +48,7 @@ export default defineConfig(({ mode }) => {
                 input: [
                     'assets/css/unificonnector.less',
                     'assets/js/main.js',
+                    'assets/img/unificonnector.svg',
                 ],
             },
         },

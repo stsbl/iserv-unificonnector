@@ -6,13 +6,14 @@ namespace IServ\UnifiConnector\Infrastructure\Form;
 
 use IServ\Bundle\Autocomplete\Domain\AutocompleteType;
 use IServ\Bundle\Autocomplete\Form\Type\AutocompleteTagsType;
+use IServ\Bundle\Form\Form\Type\ComboboxType;
 use IServ\UnifiConnector\Application\Mapping\MappingSettings;
 use IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextType as CoreTextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Routing\RouterInterface;
@@ -27,8 +28,8 @@ final class MappingSettingsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('id', ChoiceType::class, ['label' => _('UniFi group'), 'choices' => $this->groupChoices(), 'placeholder' => _('Choose a UniFi group'), 'attr' => ['data-live-search' => 'true']])
-            ->add('name', TextType::class, ['label' => _('Name'), 'required' => true])
+            ->add('id', ComboboxType::class, ['label' => _('UniFi group'), 'choices' => $this->groupChoices(), 'placeholder' => _('Choose a UniFi group')])
+            ->add('name', CoreTextType::class, ['label' => _('Name'), 'required' => true])
             ->add('priority', IntegerType::class, ['label' => _('Priority'), 'required' => true])
             ->add('subjects', AutocompleteTagsType::class, [
                 'label' => _('Users and groups'),
@@ -42,13 +43,13 @@ final class MappingSettingsType extends AbstractType
             ->add('save', SubmitType::class, ['label' => _('Add mapping')]);
     }
 
-    /** @return array<string, string> */
+    /** @return list<string> */
     private function groupChoices(): array
     {
         try {
             $choices = [];
             foreach ($this->userGroups->all() as $group) {
-                $choices[$group->getName()] = $group->getName();
+                $choices[] = $group->getName();
             }
 
             return $choices;

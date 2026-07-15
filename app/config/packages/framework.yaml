@@ -16,7 +16,9 @@ framework:
         gc_probability: 0
 
     assets:
-        version_strategy: 'IServ\UnifiConnector\Asset\ViteAssetVersionStrategy'
+        packages:
+            unificonnector:
+                version_strategy: 'IServ\UnifiConnector\Asset\ViteAssetVersionStrategy'
 
     php_errors:
         log: "%kernel.debug%" # Write PHP errors incl. deprecations into the app log only on DEV.

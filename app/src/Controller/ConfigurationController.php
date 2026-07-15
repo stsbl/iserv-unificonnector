@@ -122,9 +122,10 @@ final class ConfigurationController extends AbstractAdminController
             ->addBreadcrumb(_('UniFi Connector'))
             ->addStylesheet($packages->getUrl('js/form.css', 'iserv-form'))
             ->addStylesheet($packages->getUrl('js/autocomplete.css', 'iserv-autocomplete'))
+            ->addStylesheet($packages->getUrl('assets/css/unificonnector.less', 'unificonnector'))
             ->addScript($packages->getUrl('js/form.js', 'iserv-form'))
             ->addScript($packages->getUrl('js/autocomplete.js', 'iserv-autocomplete'))
-            ->addScript($packages->getUrl('js/unificonnector.js'));
+            ->addScript($packages->getUrl('assets/js/main.js', 'unificonnector'));
         $translationAssets->loadIntoBuilder($response, ['iserv-js', 'iserv-bootstrap', 'iserv-form', 'iserv-autocomplete']);
 
         return $response->getResponseContent();
