@@ -54,10 +54,10 @@ final class ApiClientFactory
                 throw new \RuntimeException('UniFi API key is not configured.');
             }
 
-            return new ApiKeyClient('https://' . $configuration->url, $configuration->apiKey);
+            return new ApiKeyClient(UnifiUrl::fromString($configuration->url)->value, $configuration->apiKey);
         }
 
-        $client = new Client($configuration->username, $configuration->password, 'https://' . $configuration->url, '', '', true);
+        $client = new Client($configuration->username, $configuration->password, UnifiUrl::fromString($configuration->url)->value, '', '', true);
         if (false === $client->login()) {
             throw new \RuntimeException('Login failed.');
         }

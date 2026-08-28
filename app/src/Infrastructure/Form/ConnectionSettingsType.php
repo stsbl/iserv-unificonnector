@@ -26,7 +26,7 @@ final class ConnectionSettingsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('url', UrlType::class, ['label' => _('UniFi URL')])
+            ->add('url', UrlType::class, ['label' => _('UniFi URL'), 'default_protocol' => 'https'])
             ->add('authenticationMode', ChoiceType::class, ['label' => _('Authentication'), 'choices' => [_('Username and password') => 'password', _('API key') => 'api_key']])
             ->add('username', TextType::class, ['label' => _('Username'), 'required' => false, 'empty_data' => ''])
             ->add('password', PasswordType::class, ['label' => _('Password'), 'required' => false, 'empty_data' => ''])
@@ -35,6 +35,7 @@ final class ConnectionSettingsType extends AbstractType
                 'label' => _('Fallback group'),
                 'choices' => $this->groupChoices(),
                 'placeholder' => _('Choose a UniFi group'),
+                'required' => false,
             ])
             ->add('save', SubmitType::class, ['label' => _('Save'), 'attr' => ['class' => 'btn-success']])
         ;

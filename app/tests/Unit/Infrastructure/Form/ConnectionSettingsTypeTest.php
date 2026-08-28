@@ -50,4 +50,21 @@ final class ConnectionSettingsTypeTest extends TypeTestCase
         self::assertSame('', $settings->username);
         self::assertSame('', $settings->password);
     }
+
+    public function testUsesHttpsAndAllowsOmittingFallbackGroup(): void
+    {
+        $form = $this->factory->create(ConnectionSettingsType::class, new ConnectionSettings());
+        $form->submit([
+            'url' => 'unifi.example.test',
+            'authenticationMode' => 'api_key',
+            'apiKey' => 'secret',
+        ]);
+
+        self::assertTrue($form->isSynchronized());
+        self::assertTrue($form->isValid());
+        /** @var ConnectionSettings $settings */
+        $settings = $form->getData();
+        self::assertSame('https://unifi.example.test', $settings->url);
+        self::assertSame('', $settings->fallbackGroup);
+    }
 }
