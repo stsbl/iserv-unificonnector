@@ -1,3 +1,9 @@
+stsbl-iserv-unificonnector (26.08.29.3) stable; urgency=medium
+
+  * Fix UniFi API and admin assets
+
+ -- Felix Jacobi <felix.jacobi@iserv.eu>  Sat, 29 Aug 2026 01:38:27 +0200
+
 stsbl-iserv-unificonnector (26.08.29.2) stable; urgency=medium
 
   * Fix UniFi connection URL handling
