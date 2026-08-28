@@ -88,10 +88,13 @@ final class User
     }
 
     /**
-     * @param array{_id: string, name?: string, mac: string, usergroup_id?: string} $user
+     * @param array{_id: string, name?: string, mac: string, usergroup_id?: string}|object $user
      */
-    public static function fromApiResponse(array $user): self
+    public static function fromApiResponse(array|object $user): self
     {
+        /** @var array{_id: string, name?: string, mac: string, usergroup_id?: string} $user */
+        $user = (array) $user;
+
         return new self(
             $user['_id'],
             $user['name'] ?? null,

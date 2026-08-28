@@ -58,10 +58,13 @@ final class UserGroup
     }
 
     /**
-     * @param array{_id: string, site_id: string, name: string} $userGroup
+     * @param array{_id: string, site_id: string, name: string}|object $userGroup
      */
-    public static function fromApiResponse(array $userGroup): self
+    public static function fromApiResponse(array|object $userGroup): self
     {
+        /** @var array{_id: string, site_id: string, name: string} $userGroup */
+        $userGroup = (array) $userGroup;
+
         return new self(
             $userGroup['_id'],
             $userGroup['site_id'],

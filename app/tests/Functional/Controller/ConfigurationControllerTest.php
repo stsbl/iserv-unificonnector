@@ -49,5 +49,10 @@ final class ConfigurationControllerTest extends WebTestCase
         self::assertResponseIsSuccessful();
         self::assertStringContainsString('Connection', (string) $client->getResponse()->getContent());
         self::assertStringContainsString('Start synchronization', (string) $client->getResponse()->getContent());
+        $scripts = urldecode(implode("\n", $client->getResponse()->headers->all('X-IServ-Response-Script')));
+        self::assertStringContainsString('/iserv/js/static/', $scripts);
+        self::assertStringNotContainsString('/iserv/unificonnector/js/polyfill.min.js', $scripts);
+        self::assertStringNotContainsString('/iserv/js/static/js/polyfill.min.js', $scripts);
+        self::assertStringNotContainsString('/iserv/unificonnector/js/lang/de.js', $scripts);
     }
 }

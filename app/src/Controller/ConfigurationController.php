@@ -7,6 +7,7 @@ namespace IServ\UnifiConnector\Controller;
 use IServ\Bundle\AdminIntegration\Controller\AbstractAdminController;
 use IServ\Bundle\AdminIntegration\Menu\AdminBreadcrumbs;
 use IServ\Bundle\TranslationGettext\Asset\TranslationAssetLoader;
+use IServ\Library\ModuleResponse\ResponseContentBuilder;
 use IServ\Library\ModuleResponse\ResponseContent;
 use IServ\UnifiConnector\Application\Configuration\ConnectionSettings;
 use IServ\UnifiConnector\Application\Mapping\MappingSettings;
@@ -30,6 +31,26 @@ use Symfony\Component\Routing\Attribute\Route;
 #[Route('/admin/unificonnector')]
 final class ConfigurationController extends AbstractAdminController
 {
+    protected function createResponseBuilder(string $content): ResponseContentBuilder
+    {
+        /**
+         * @phpstan-var Packages $packages
+         * @psalm-suppress UnnecessaryVarAnnotation
+         */
+        $packages = $this->container->get(Packages::class);
+
+        $builder = ResponseContentBuilder::createFromContent($content, ResponseContent::TYPE_MODULE)
+            ->addStylesheet($packages->getUrl('js/iserv.css', 'iserv-js'))
+            ->addStylesheet($packages->getUrl('css/bootstrap.css', 'iserv-bootstrap'))
+            ->addScript($packages->getUrl('js/jquery.js', 'iserv-js'))
+            ->addScript($packages->getUrl('js/bootstrap.js', 'iserv-js'))
+            ->addScript($packages->getUrl('js/iserv.js', 'iserv-js'))
+            ->addScript($packages->getUrl('js/bootstrap.js', 'iserv-bootstrap'))
+            ->addScript($packages->getUrl('js/components.js', 'iserv-twig-components'));
+
+        return $builder;
+    }
+
     #[Route('/', name: 'unificonnector_configuration', methods: ['GET', 'POST'])]
     public function index(
         Request $request,
@@ -125,7 +146,7 @@ final class ConfigurationController extends AbstractAdminController
             ->addScript($packages->getUrl('js/form.js', 'iserv-form'))
             ->addScript($packages->getUrl('js/autocomplete.js', 'iserv-autocomplete'))
             ->addScript($packages->getUrl('assets/js/main.js', 'unificonnector'));
-        $translationAssets->loadIntoBuilder($response, ['iserv-js', 'iserv-bootstrap', 'iserv-form', 'iserv-autocomplete']);
+        $translationAssets->loadIntoBuilder($response, ['iserv-js', 'iserv-form']);
 
         return $response->getResponseContent();
     }

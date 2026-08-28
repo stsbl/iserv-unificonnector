@@ -44,7 +44,7 @@ final class ApiUserGroupRepository implements UserGroupRepository
     /** @return iterable<UserGroup> */
     public function all(): iterable
     {
-        /** @var list<array{_id: string, site_id: string, name: string}>|false $userGroupData */
+        /** @var list<array{_id: string, site_id: string, name: string}|object>|false $userGroupData */
         $userGroupData = $this->apiClient->list_usergroups();
 
         if (false === $userGroupData) {
@@ -56,7 +56,7 @@ final class ApiUserGroupRepository implements UserGroupRepository
 
     public function findByName(string $name): ?UserGroup
     {
-        /** @var list<array{_id: string, site_id: string, name: string}>|false $userGroupData */
+        /** @var list<array{_id: string, site_id: string, name: string}|object>|false $userGroupData */
         $userGroupData = $this->apiClient->list_usergroups();
 
         if (false === $userGroupData) {

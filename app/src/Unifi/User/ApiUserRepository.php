@@ -43,7 +43,7 @@ final class ApiUserRepository implements UserRepository
 
     public function findAll(): iterable
     {
-        /** @var list<array{_id: string, mac: string, name?: string, usergroup_id?: string}>|false $userData */
+        /** @var list<array{_id: string, mac: string, name?: string, usergroup_id?: string}|object>|false $userData */
         $userData = $this->apiClient->list_users();
 
         if (false === $userData) {

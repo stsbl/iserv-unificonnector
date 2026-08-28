@@ -1,3 +1,5 @@
+import '@iserv/polyfill';
+
 const authenticationMode = document.querySelector('[name="connection_settings[authenticationMode]"]');
 
 if (authenticationMode) {
