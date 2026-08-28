@@ -48,5 +48,6 @@ final class ConfigurationControllerTest extends WebTestCase
 
         self::assertResponseIsSuccessful();
         self::assertStringContainsString('Connection', (string) $client->getResponse()->getContent());
+        self::assertStringContainsString('Start synchronization', (string) $client->getResponse()->getContent());
     }
 }

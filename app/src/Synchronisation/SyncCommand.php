@@ -68,8 +68,10 @@ final class SyncCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $output->writeln(_('Starting UniFi synchronization.'));
         /** @var User[] $existingClients */
         $existingClients = [];
+        $synchronizedHosts = 0;
         $configuration = $this->configurationRepository->find();
         if (null === $configuration) {
             throw new \RuntimeException('UniFi Connector is not configured.');
@@ -109,8 +111,11 @@ final class SyncCommand extends Command
                 $saveClient->updateFrom($client);
 
                 $this->userRepository->save($saveClient);
+                ++$synchronizedHosts;
             }
         }
+
+        $output->writeln(sprintf(_('Synchronization completed. %d host(s) updated.'), $synchronizedHosts));
 
         return 0;
     }

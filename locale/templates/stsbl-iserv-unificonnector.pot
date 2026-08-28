@@ -33,12 +33,13 @@ msgstr ""
 msgid "Authentication"
 msgstr ""
 
+#: app/src/Infrastructure/Form/ConnectionSettingsType.php
 #: app/src/Infrastructure/Form/MappingSettingsType.php
 msgid "Choose a UniFi group"
 msgstr ""
 
 #: app/src/Controller/ConfigurationController.php
-msgid "Configuration saved and synchronization started."
+msgid "Configuration saved."
 msgstr ""
 
 #: priv/unificonnector
@@ -111,6 +112,23 @@ msgstr ""
 msgid ""
 "Selected users and members of selected groups are synchronized to this UniFi "
 "group."
+msgstr ""
+
+#: app/src/Infrastructure/Form/SyncActionType.php
+msgid "Start synchronization"
+msgstr ""
+
+#: app/src/Synchronisation/SyncCommand.php
+msgid "Starting UniFi synchronization."
+msgstr ""
+
+#: app/templates/configuration/index.html.twig.php
+msgid "Synchronization"
+msgstr ""
+
+#: app/src/Synchronisation/SyncCommand.php
+#, php-format
+msgid "Synchronization completed. %d host(s) updated."
 msgstr ""
 
 #: priv/unificonnector app/src/Controller/ConfigurationController.php

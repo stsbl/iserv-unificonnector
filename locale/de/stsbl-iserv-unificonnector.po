@@ -26,19 +26,22 @@ msgstr "Zuordnung hinzufügen"
 
 #: priv/unificonnector
 msgid "Allows configuring UniFi synchronization and group mappings."
-msgstr "Ermöglicht die Konfiguration der UniFi-Synchronisation und Gruppen-Zuordnungen."
+msgstr ""
+"Ermöglicht die Konfiguration der UniFi-Synchronisation und Gruppen-"
+"Zuordnungen."
 
 #: app/src/Infrastructure/Form/ConnectionSettingsType.php
 msgid "Authentication"
 msgstr "Authentifizierung"
 
+#: app/src/Infrastructure/Form/ConnectionSettingsType.php
 #: app/src/Infrastructure/Form/MappingSettingsType.php
 msgid "Choose a UniFi group"
 msgstr "Wählen Sie eine UniFi-Gruppe"
 
 #: app/src/Controller/ConfigurationController.php
-msgid "Configuration saved and synchronization started."
-msgstr "Konfiguration gespeichert und Synchronisation gestartet."
+msgid "Configuration saved."
+msgstr "Konfiguration gespeichert."
 
 #: priv/unificonnector
 msgid "Configure UniFi Connector"
@@ -95,7 +98,9 @@ msgstr "Passwort"
 
 #: app/src/Controller/ConfigurationController.php
 msgid "Please provide credentials for the selected authentication method."
-msgstr "Bitte geben Sie Anmeldedaten für die ausgewählte Authentifizierungsmethode an."
+msgstr ""
+"Bitte geben Sie Anmeldedaten für die ausgewählte Authentifizierungsmethode "
+"an."
 
 #: app/src/Infrastructure/Form/MappingSettingsType.php
 #: app/templates/configuration/index.html.twig.php
@@ -110,7 +115,26 @@ msgstr "Speichern"
 msgid ""
 "Selected users and members of selected groups are synchronized to this UniFi "
 "group."
-msgstr "Ausgewählte Benutzer und Mitglieder ausgewählter Gruppen werden mit dieser UniFi-Gruppe synchronisiert."
+msgstr ""
+"Ausgewählte Benutzer und Mitglieder ausgewählter Gruppen werden mit dieser "
+"UniFi-Gruppe synchronisiert."
+
+#: app/src/Infrastructure/Form/SyncActionType.php
+msgid "Start synchronization"
+msgstr "Synchronisierung starten"
+
+#: app/src/Synchronisation/SyncCommand.php
+msgid "Starting UniFi synchronization."
+msgstr "UniFi-Synchronisierung wird gestartet."
+
+#: app/templates/configuration/index.html.twig.php
+msgid "Synchronization"
+msgstr "Synchronisierung"
+
+#: app/src/Synchronisation/SyncCommand.php
+#, php-format
+msgid "Synchronization completed. %d host(s) updated."
+msgstr "Synchronisierung abgeschlossen. %d Host(s) aktualisiert."
 
 #: priv/unificonnector app/src/Controller/ConfigurationController.php
 #: app/translations/messages.php

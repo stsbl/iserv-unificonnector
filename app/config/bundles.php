@@ -23,4 +23,5 @@ return [
     IServ\Bundle\Form\IServFormBundle::class => ['all' => true],
     IServ\Bundle\Autocomplete\IServAutocompleteBundle::class => ['all' => true],
     IServ\Bundle\TestBrowser\IServTestBrowserBundle::class => ['test' => true],
+    IServ\Bundle\Vite\IServViteBundle::class => ['all' => true],
 ];

@@ -1,0 +1,9 @@
+framework:
+    assets:
+        packages:
+            unificonnector:
+                version_strategy: 'iserv_vite.version_strategy'
+
+iserv_vite:
+    manifest_path: '%kernel.project_dir%/public/static/.vite/manifest.json'
+    base_path: '/iserv/unificonnector/static/'

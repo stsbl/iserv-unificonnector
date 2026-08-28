@@ -168,6 +168,9 @@
     "iserv/user-token": {
         "version": "v1.0"
     },
+    "iserv/vite-bundle": {
+        "version": "0.1.0"
+    },
     "iserv/zeit": {
         "version": "v1.0"
     },

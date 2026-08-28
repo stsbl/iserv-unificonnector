@@ -17,9 +17,9 @@ use IServ\UnifiConnector\Entity\UniFiGroupMapping;
 use IServ\UnifiConnector\Infrastructure\Form\ConnectionSettingsType;
 use IServ\UnifiConnector\Infrastructure\Form\MappingActionType;
 use IServ\UnifiConnector\Infrastructure\Form\MappingSettingsType;
+use IServ\UnifiConnector\Infrastructure\Form\SyncActionType;
 use IServ\UnifiConnector\Repository\UniFiGroupMappingRepository;
 use IServ\UnifiConnector\Security\AdminAuthenticatedVoter;
-use IServ\UnifiConnector\Synchronisation\SyncRunner;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -36,7 +36,6 @@ final class ConfigurationController extends AbstractAdminController
         FileConfigurationRepository $configurationRepository,
         UniFiGroupMappingRepository $mappings,
         MappingManager $mappingManager,
-        SyncRunner $syncRunner,
         AdminBreadcrumbs $breadcrumbs,
         Packages $packages,
         TranslationAssetLoader $translationAssets,
@@ -56,8 +55,7 @@ final class ConfigurationController extends AbstractAdminController
                 $this->addFlash('error', _('Please provide credentials for the selected authentication method.'));
             } else {
                 $configurationRepository->store(new ConnectionConfiguration($settings->url, $settings->username, $settings->password, $settings->fallbackGroup, $settings->authenticationMode, $settings->apiKey));
-                $syncRunner->run();
-                $this->addFlash('success', _('Configuration saved and synchronization started.'));
+                $this->addFlash('success', _('Configuration saved.'));
 
                 return $this->redirectToRoute('unificonnector_configuration');
             }
@@ -108,6 +106,7 @@ final class ConfigurationController extends AbstractAdminController
         $content = $this->renderView('configuration/index.html.twig', [
             'connectionForm' => $connectionForm->createView(),
             'mappingForm' => $mappingForm->createView(),
+            'syncForm' => $forms->createNamed('unificonnector_sync', SyncActionType::class, options: ['action' => $this->generateUrl('unificonnector_sync')])->createView(),
             'mappings' => array_map(static fn(array $item): array => [
                 'mapping' => $item['mapping'],
                 'moveUpForm' => $item['moveUpForm']->createView(),

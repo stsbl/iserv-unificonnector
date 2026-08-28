@@ -40,6 +40,13 @@
         </div>
     </twig:Panel>
 
+    <twig:Panel title="{{ _('Synchronization') }}" icon="fa-arrows-rotate" class="mt-3">
+        {{ form_start(syncForm, {attr: {'data-unificonnector-sync-form': ''}}) }}
+        {{ form_widget(syncForm.submit, {icon: 'fa-arrows-rotate'}) }}
+        {{ form_end(syncForm) }}
+        <pre class="mt-3 mb-0 d-none" data-unificonnector-sync-output aria-live="polite"></pre>
+    </twig:Panel>
+
     <twig:Panel title="{{ _('Add mapping') }}" icon="fa-plus" class="mt-3">
         {{ form_start(mappingForm) }}
         {{ form_row(mappingForm.id) }}

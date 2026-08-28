@@ -8,16 +8,25 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = resolve(__filename, '..');
 
 function processStaticAssets(files: string[]) {
+    const assets = new Map<string, string>();
+
     return {
         name: 'process-static-assets',
-        buildEnd() {
+        buildStart() {
             files.forEach(file => {
                 const output = file.startsWith('assets/') ? file.slice(7) : file;
-                this.emitFile({
+                assets.set(file, this.emitFile({
                     type: 'asset',
                     name: output,
                     source: fs.readFileSync(file),
-                });
+                }));
+            });
+        },
+        generateBundle() {
+            this.emitFile({
+                type: 'asset',
+                fileName: 'manifest.json',
+                source: JSON.stringify(Object.fromEntries([...assets].map(([path, reference]) => [path, `static/${this.getFileName(reference)}`]))),
             });
         }
     };
@@ -48,7 +57,6 @@ export default defineConfig(({ mode }) => {
                 input: [
                     'assets/css/unificonnector.less',
                     'assets/js/main.js',
-                    'assets/img/unificonnector.svg',
                 ],
             },
         },
