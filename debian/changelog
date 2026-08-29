@@ -1,3 +1,9 @@
+stsbl-iserv-unificonnector (26.08.29.5) stable; urgency=medium
+
+  * Fix modern IDM role synchronization
+
+ -- Felix Jacobi <felix.jacobi@iserv.eu>  Sat, 29 Aug 2026 16:23:36 +0200
+
 stsbl-iserv-unificonnector (26.08.29.4) stable; urgency=medium
 
   * Fix Host API server-modules URL
