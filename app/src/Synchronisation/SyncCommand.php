@@ -99,7 +99,7 @@ final class SyncCommand extends Command
                 if (!$roles instanceof UserRolesDto) {
                     throw new \LogicException('User roles fetcher returned an unexpected DTO.');
                 }
-                $roleUuids = $roles->roles();
+                $roleUuids = array_values($roles->roles);
             }
             $configuredGroup = $this->mappingRepository->groupForMemberships($ownerUuid, $groupUuids, $roleUuids);
             $userGroup = null === $configuredGroup ? $fallbackGroup : $this->userGroupRepository->findByName($configuredGroup);

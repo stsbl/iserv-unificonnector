@@ -16,6 +16,7 @@ use IServ\UnifiConnector\Configuration\ConnectionConfiguration;
 use IServ\UnifiConnector\Configuration\FileConfigurationRepository;
 use IServ\UnifiConnector\Entity\UniFiGroupMapping;
 use IServ\UnifiConnector\Infrastructure\Form\ConnectionSettingsType;
+use IServ\UnifiConnector\Infrastructure\Form\DeleteApiKeyActionType;
 use IServ\UnifiConnector\Infrastructure\Form\MappingActionType;
 use IServ\UnifiConnector\Infrastructure\Form\MappingSettingsType;
 use IServ\UnifiConnector\Infrastructure\Form\SyncActionType;
@@ -64,11 +65,20 @@ final class ConfigurationController extends AbstractAdminController
     ): ResponseContent|RedirectResponse {
         $this->denyAccessUnlessGranted(AdminAuthenticatedVoter::ATTR_IS_ADMIN);
 
+        $existing = $configurationRepository->find();
+        $deleteApiKeyForm = $forms->createNamed('unificonnector_delete_api_key', DeleteApiKeyActionType::class, options: ['action' => $this->generateUrl('unificonnector_configuration')]);
+        $deleteApiKeyForm->handleRequest($request);
+        if ($deleteApiKeyForm->isSubmitted() && $deleteApiKeyForm->isValid() && null !== $existing) {
+            $configurationRepository->store(new ConnectionConfiguration($existing->url, $existing->username, $existing->password, $existing->fallbackGroup, 'password'));
+            $this->addFlash('success', _('Stored API key deleted.'));
+
+            return $this->redirectToRoute('unificonnector_configuration');
+        }
+
         $connectionForm = $this->createConnectionForm($configurationRepository, $request);
         if ($connectionForm->isSubmitted() && $connectionForm->isValid()) {
             /** @var ConnectionSettings $settings */
             $settings = $connectionForm->getData();
-            $existing = $configurationRepository->find();
             if ('api_key' === $settings->authenticationMode && '' === $settings->apiKey && null !== $existing) {
                 $settings->apiKey = $existing->apiKey;
             }
@@ -126,6 +136,8 @@ final class ConfigurationController extends AbstractAdminController
 
         $content = $this->renderView('configuration/index.html.twig', [
             'connectionForm' => $connectionForm->createView(),
+            'deleteApiKeyForm' => $deleteApiKeyForm->createView(),
+            'apiKeyStored' => null !== $existing && '' !== $existing->apiKey,
             'mappingForm' => $mappingForm->createView(),
             'syncForm' => $forms->createNamed('unificonnector_sync', SyncActionType::class, options: ['action' => $this->generateUrl('unificonnector_sync')])->createView(),
             'mappings' => array_map(static fn(array $item): array => [

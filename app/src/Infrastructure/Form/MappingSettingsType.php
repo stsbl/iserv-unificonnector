@@ -31,10 +31,10 @@ final class MappingSettingsType extends AbstractType
             ->add('name', CoreTextType::class, ['label' => _('Name'), 'required' => true])
             ->add('priority', IntegerType::class, ['label' => _('Priority'), 'required' => true])
             ->add('subjects', AutocompleteTagsType::class, [
-                'label' => _('Users and groups'),
-                'help' => _('Selected users and members of selected groups are synchronized to this UniFi group.'),
+                'label' => _('Users, groups and roles'),
+                'help' => _('Selected users, members of selected groups and users with selected roles are synchronized to this UniFi group.'),
                 'autocomplete_types' => [AutocompleteType::USER_UUID, AutocompleteType::GROUP_UUID],
-                'tag_source' => $this->router->generate('unificonnector_admin_autocomplete') . '?type=userid%2Cgroupid',
+                'tag_source' => $this->router->generate('unificonnector_admin_autocomplete') . '?type=userid%2Cgroupid%2Croleid',
                 'autocomplete_lookup_url' => $this->router->generate('unificonnector_admin_autocomplete'),
                 'multiple' => true,
                 'required' => false,

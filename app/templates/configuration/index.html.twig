@@ -16,6 +16,12 @@
         {{ form_row(connectionForm.fallbackGroup) }}
         {{ form_widget(connectionForm.save, {icon: 'fa-floppy-disk'}) }}
         {{ form_end(connectionForm) }}
+        {% if apiKeyStored %}
+            <div class="alert alert-info mt-3" role="status">{{ _('An API key is stored. It is not displayed for security reasons.') }}</div>
+            {{ form_start(deleteApiKeyForm) }}
+            {{ form_widget(deleteApiKeyForm.submit, {icon: 'fa-trash'}) }}
+            {{ form_end(deleteApiKeyForm) }}
+        {% endif %}
     </twig:Panel>
 
     <twig:Panel title="{{ _('Mappings') }}" icon="fa-list-ol" class="mt-3">

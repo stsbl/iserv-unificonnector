@@ -12,6 +12,8 @@ use IServ\Library\Avatar\Renderer\AvatarRenderStyle;
 use IServ\Library\Avatar\UrlGenerator\AvatarPlaceholderStyle;
 use IServ\Library\Uuid\Uuid;
 use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteGroup;
+use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRole;
+use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRoleProvider;
 use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteUser;
 use IServ\UnifiConnector\Security\AdminAuthenticatedVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -24,13 +26,13 @@ use Symfony\Component\Routing\Attribute\Route;
 final class AdminAutocompleteController extends AbstractController
 {
     #[Route('', name: 'unificonnector_admin_autocomplete', methods: ['GET'])]
-    public function autocomplete(Request $request, IdmUserFetcher $users, IdmGroupFetcher $groups, AvatarRendererInterface $avatars): JsonResponse
+    public function autocomplete(Request $request, IdmUserFetcher $users, IdmGroupFetcher $groups, AutocompleteRoleProvider $roles, AvatarRendererInterface $avatars): JsonResponse
     {
         $this->denyAccessUnlessGranted(AdminAuthenticatedVoter::ATTR_IS_ADMIN);
         $types = explode(',', (string) $request->query->get('type', ''));
 
         if ($request->query->has('values')) {
-            return new JsonResponse($this->lookup((string) $request->query->get('values'), $users, $groups, $avatars));
+            return new JsonResponse($this->lookup((string) $request->query->get('values'), $users, $groups, $roles, $avatars));
         }
 
         $query = trim((string) $request->query->get('query', ''));
@@ -51,17 +53,30 @@ final class AdminAutocompleteController extends AbstractController
                 $suggestions['groupid:' . $group->uuid] = self::groupSuggestion($group, $avatars);
             }
         }
+        if (in_array('roleid', $types, true)) {
+            foreach ($roles->search($query) as $role) {
+                $suggestions['roleid:' . $role->uuid] = self::roleSuggestion($role);
+            }
+        }
 
         return new JsonResponse(array_values($suggestions));
     }
 
     /** @return list<array{label: string, value: string, source: string, avatarHtml: string, extra: string}> */
-    private function lookup(string $values, IdmUserFetcher $users, IdmGroupFetcher $groups, AvatarRendererInterface $avatars): array
+    private function lookup(string $values, IdmUserFetcher $users, IdmGroupFetcher $groups, AutocompleteRoleProvider $roles, AvatarRendererInterface $avatars): array
     {
         $suggestions = [];
         foreach (explode(',', $values) as $value) {
             [$source, $id] = array_pad(explode(':', $value, 2), 2, null);
-            if (!is_string($id) || !in_array($source, ['userid', 'groupid'], true)) {
+            if (!is_string($id) || !in_array($source, ['userid', 'groupid', 'roleid'], true)) {
+                continue;
+            }
+            if ('roleid' === $source) {
+                $role = $roles->get($id);
+                if ($role instanceof AutocompleteRole) {
+                    $suggestions[] = self::roleSuggestion($role);
+                }
+
                 continue;
             }
             $uuid = Uuid::createFromString($id);
@@ -106,6 +121,18 @@ final class AdminAutocompleteController extends AbstractController
             'source' => 'groupid',
             'avatarHtml' => $avatars->renderPlaceholder($name, AvatarSize::default(), AvatarRenderStyle::ROUNDED, AvatarPlaceholderStyle::GROUP),
             'extra' => $group->account ?? '',
+        ];
+    }
+
+    /** @return array{label: string, value: string, source: string, avatarHtml: string, extra: string} */
+    private static function roleSuggestion(AutocompleteRole $role): array
+    {
+        return [
+            'label' => $role->displayName(),
+            'value' => 'roleid:' . $role->uuid,
+            'source' => 'roleid',
+            'avatarHtml' => '',
+            'extra' => implode(' · ', array_filter([$role->role, $role->module])),
         ];
     }
 }

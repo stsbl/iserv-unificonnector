@@ -26,6 +26,7 @@ final readonly class MappingManager
             match ($subject->getSource()) {
                 'userid' => $mapping->addUserAssignment($id),
                 'groupid' => $mapping->addGroupAssignment($id),
+                'roleid' => $mapping->addRoleAssignment($id),
                 default => null,
             };
         }

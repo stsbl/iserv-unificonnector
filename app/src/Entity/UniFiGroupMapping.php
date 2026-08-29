@@ -70,6 +70,10 @@ class UniFiGroupMapping
     {
         $this->groupAssignments->add(new GroupAssignment($this, $groupUuid));
     }
+    public function addRoleAssignment(string $roleUuid): void
+    {
+        $this->roleAssignments->add(new RoleAssignment($this, $roleUuid));
+    }
     public function addUserAssignment(string $userUuid): void
     {
         $this->userAssignments->add(new UserAssignment($this, $userUuid));
