@@ -17,7 +17,7 @@ final readonly class HostApiRepository implements HostRepository
     public function findAll(): iterable
     {
         /** @var list<array{id: string, name: string, ip: string, mac?: string|null, ownerId?: string|null}> $hosts */
-        $hosts = $this->client->request('GET', 'http://localhost:982/api/v0/hosts', ['query' => ['limit' => 1000], 'auth_bearer' => $this->tokenProvider->token()])->toArray();
+        $hosts = $this->client->request('GET', 'http://localhost:982/iserv/host/api/v0/hosts', ['query' => ['limit' => 1000], 'auth_bearer' => $this->tokenProvider->token()])->toArray();
 
         foreach ($hosts as $host) {
             yield Host::fromDatabaseRow([
