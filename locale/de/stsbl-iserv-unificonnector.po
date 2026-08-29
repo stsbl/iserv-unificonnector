@@ -30,6 +30,10 @@ msgstr ""
 "Ermöglicht die Konfiguration der UniFi-Synchronisation und Gruppen-"
 "Zuordnungen."
 
+#: app/templates/configuration/index.html.twig.php
+msgid "An API key is stored. It is not displayed for security reasons."
+msgstr "Ein API-Schlüssel ist gespeichert. Aus Sicherheitsgründen wird er nicht angezeigt."
+
 #: app/src/Infrastructure/Form/ConnectionSettingsType.php
 msgid "Authentication"
 msgstr "Authentifizierung"
@@ -54,6 +58,10 @@ msgstr "Verbindung"
 #: app/src/Controller/ConfigurationController.php
 msgid "Delete"
 msgstr "Löschen"
+
+#: app/src/Infrastructure/Form/DeleteApiKeyActionType.php
+msgid "Delete stored API key"
+msgstr "Gespeicherten API-Schlüssel löschen"
 
 #: app/src/Infrastructure/Form/ConnectionSettingsType.php
 msgid "Fallback group"
@@ -112,10 +120,13 @@ msgid "Save"
 msgstr "Speichern"
 
 #: app/src/Infrastructure/Form/MappingSettingsType.php
+#, fuzzy
 msgid ""
-"Selected users and members of selected groups are synchronized to this UniFi "
-"group."
+"Selected users, members of selected groups and users with selected roles are "
+"synchronized to this UniFi group."
 msgstr ""
+"Ausgewählte Benutzer, Mitglieder ausgewählter Gruppen und Benutzer mit "
+"ausgewählten Rollen werden mit dieser UniFi-Gruppe synchronisiert."
 "Ausgewählte Benutzer und Mitglieder ausgewählter Gruppen werden mit dieser "
 "UniFi-Gruppe synchronisiert."
 
@@ -126,6 +137,10 @@ msgstr "Synchronisierung starten"
 #: app/src/Synchronisation/SyncCommand.php
 msgid "Starting UniFi synchronization."
 msgstr "UniFi-Synchronisierung wird gestartet."
+
+#: app/src/Controller/ConfigurationController.php
+msgid "Stored API key deleted."
+msgstr "Gespeicherter API-Schlüssel gelöscht."
 
 #: app/templates/configuration/index.html.twig.php
 msgid "Synchronization"
@@ -160,5 +175,5 @@ msgid "Username and password"
 msgstr "Benutzername und Passwort"
 
 #: app/src/Infrastructure/Form/MappingSettingsType.php
-msgid "Users and groups"
-msgstr "Benutzer und Gruppen"
+msgid "Users, groups and roles"
+msgstr "Benutzer, Gruppen und Rollen"

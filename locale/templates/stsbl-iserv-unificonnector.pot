@@ -29,6 +29,10 @@ msgstr ""
 msgid "Allows configuring UniFi synchronization and group mappings."
 msgstr ""
 
+#: app/templates/configuration/index.html.twig.php
+msgid "An API key is stored. It is not displayed for security reasons."
+msgstr ""
+
 #: app/src/Infrastructure/Form/ConnectionSettingsType.php
 msgid "Authentication"
 msgstr ""
@@ -52,6 +56,10 @@ msgstr ""
 
 #: app/src/Controller/ConfigurationController.php
 msgid "Delete"
+msgstr ""
+
+#: app/src/Infrastructure/Form/DeleteApiKeyActionType.php
+msgid "Delete stored API key"
 msgstr ""
 
 #: app/src/Infrastructure/Form/ConnectionSettingsType.php
@@ -110,8 +118,8 @@ msgstr ""
 
 #: app/src/Infrastructure/Form/MappingSettingsType.php
 msgid ""
-"Selected users and members of selected groups are synchronized to this UniFi "
-"group."
+"Selected users, members of selected groups and users with selected roles are "
+"synchronized to this UniFi group."
 msgstr ""
 
 #: app/src/Infrastructure/Form/SyncActionType.php
@@ -120,6 +128,10 @@ msgstr ""
 
 #: app/src/Synchronisation/SyncCommand.php
 msgid "Starting UniFi synchronization."
+msgstr ""
+
+#: app/src/Controller/ConfigurationController.php
+msgid "Stored API key deleted."
 msgstr ""
 
 #: app/templates/configuration/index.html.twig.php
@@ -155,5 +167,5 @@ msgid "Username and password"
 msgstr ""
 
 #: app/src/Infrastructure/Form/MappingSettingsType.php
-msgid "Users and groups"
+msgid "Users, groups and roles"
 msgstr ""
