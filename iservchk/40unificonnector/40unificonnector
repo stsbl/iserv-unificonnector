@@ -3,4 +3,4 @@ Touch /var/lib/iserv/unificonnector/config.json
 ChPerm 0660 iserv-unificonnector:iserv-unificonnector /var/lib/iserv/unificonnector/config.json
 
 Shell "clear administration menu cache"
-  iservunificonnector-console cache:pool:clear --quiet --no-interaction cache.app
+  runuser -u iserv-unificonnector -- iservunificonnector-console cache:pool:clear --quiet --no-interaction cache.app

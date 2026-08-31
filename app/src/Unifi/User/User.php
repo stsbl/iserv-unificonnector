@@ -94,12 +94,16 @@ final class User
     {
         /** @var array{_id: string, name?: string, mac: string, usergroup_id?: string} $user */
         $user = (array) $user;
+        $groupId = $user['usergroup_id'] ?? null;
+        if ('' === $groupId) {
+            $groupId = null;
+        }
 
         return new self(
             $user['_id'],
             $user['name'] ?? null,
             $user['mac'],
-            $user['usergroup_id'] ?? null,
+            $groupId,
         );
     }
 }

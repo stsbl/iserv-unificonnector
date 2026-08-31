@@ -23,6 +23,9 @@ final class SyncRunner
 
     private function createProcess(): Process
     {
-        return new Process(['/usr/bin/iservunificonnector-console', 'unificonnector:sync', '--no-interaction', '--verbose']);
+        $process = new Process(['/usr/bin/iservunificonnector-console', 'unificonnector:sync', '--no-interaction', '--verbose']);
+        $process->setTimeout(null);
+
+        return $process;
     }
 }

@@ -19,4 +19,11 @@ final class UserTest extends TestCase
         self::assertSame('John Doe', $user->getName());
         self::assertSame('group-id', $user->getGroupId());
     }
+
+    public function testTreatsEmptyApiGroupAsNoGroup(): void
+    {
+        $user = User::fromApiResponse(['_id' => 'user-id', 'mac' => 'aa:bb:cc:dd:ee:ff', 'usergroup_id' => '']);
+
+        self::assertTrue($user->equals(new User(null, null, 'aa:bb:cc:dd:ee:ff')));
+    }
 }

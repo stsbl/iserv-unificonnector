@@ -12,6 +12,9 @@ cat<<EOT
 MkDir 0755 root:root /var/cache/iserv/unificonnector
 MkDir 2770 iserv-unificonnector:iserv-unificonnector /var/cache/iserv/unificonnector/app
 MkDir 2770 iserv-unificonnector:iserv-unificonnector $CACHE_DIR
-MkDir 2770 iserv-unificonnector:iserv-unificonnector $CACHE_DIR/{pools,templates}
+MkDir 2770 iserv-unificonnector:iserv-unificonnector $CACHE_DIR/pools
+MkDir 2770 iserv-unificonnector:iserv-unificonnector $CACHE_DIR/pools/app
+MkDir 2770 iserv-unificonnector:iserv-unificonnector $CACHE_DIR/pools/system
+MkDir 2770 iserv-unificonnector:iserv-unificonnector $CACHE_DIR/templates
 
 EOT
