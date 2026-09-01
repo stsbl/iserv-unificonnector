@@ -71,4 +71,19 @@ final class HostTest extends TestCase
         $this->assertSame('6.6.6.6', $host->getIp(), 'IP is correct');
         $this->assertNull($host->getMac(), 'MAC is correct');
     }
+
+    public function testExposesOwnerAndCreatesUniFiClient(): void
+    {
+        $host = new Host('f2b47e1b-a20f-40e0-b9c1-f79782401d07', 'Schubidu', '1.2.3.4', 'af:af:af:af:af:af', 'f2b47e1b-a20f-40e0-b9c1-f79782401d08');
+
+        self::assertSame('f2b47e1b-a20f-40e0-b9c1-f79782401d07', $host->getUuid());
+        self::assertSame('f2b47e1b-a20f-40e0-b9c1-f79782401d08', $host->getOwnerUuid());
+        self::assertSame('af:af:af:af:af:af', $host->toClient()->getMac());
+    }
+
+    public function testCannotCreateClientWithoutMac(): void
+    {
+        $this->expectException(\RuntimeException::class);
+        (new Host('id', 'name', 'ip', null))->toClient();
+    }
 }
