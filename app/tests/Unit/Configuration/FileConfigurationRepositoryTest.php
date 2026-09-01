@@ -43,4 +43,12 @@ final class FileConfigurationRepositoryTest extends TestCase
 
         self::assertSame('password', (new FileConfigurationRepository($this->path))->find()?->authenticationMode);
     }
+
+    public function testReportsUnwritableConfigurationPath(): void
+    {
+        $repository = new FileConfigurationRepository(sys_get_temp_dir() . '/missing-unificonnector-directory/config.json');
+
+        $this->expectExceptionMessage('Cannot write');
+        $repository->store(new ConnectionConfiguration('https://unifi.example', 'admin', 'secret', 'fallback'));
+    }
 }

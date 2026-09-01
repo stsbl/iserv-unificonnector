@@ -8,7 +8,7 @@ use IServ\Library\IdmApiClient\Hydrator\CallbackHydrator;
 use IServ\Library\IdmApiClient\IdmClientInterface;
 
 /** Queries IDM roles live: the DataBroker only provides cached roles for a specific user. */
-final readonly class AutocompleteRoleProvider
+final readonly class AutocompleteRoleProvider implements AutocompleteRoleProviderInterface
 {
     /** @psalm-suppress PossiblyUnusedMethod Constructed through Symfony autowiring. */
     public function __construct(private IdmClientInterface $client)

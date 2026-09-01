@@ -7,7 +7,7 @@ namespace IServ\UnifiConnector\Mapping;
 use IServ\UnifiConnector\Repository\UniFiGroupMappingRepository;
 
 /** Resolves the first matching UniFi group using the module's Doctrine entities. */
-final readonly class MappingRepository
+final readonly class MappingRepository implements MappingResolver
 {
     public function __construct(private UniFiGroupMappingRepository $mappings)
     {

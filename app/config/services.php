@@ -9,6 +9,22 @@ use IServ\Library\IdmApiClient\IdmClientInterface;
 use IServ\Library\Zeit\Clock\Clock;
 use IServ\Library\Zeit\Clock\SystemClock;
 use IServ\UnifiConnector\OAuth\OAuthCredentials;
+use IServ\UnifiConnector\OAuth\AccessTokenProvider;
+use IServ\UnifiConnector\OAuth\OAuthTokenProvider;
+use IServ\UnifiConnector\Unifi\NativePasswordClientFactory;
+use IServ\UnifiConnector\Unifi\PasswordClientFactory;
+use IServ\UnifiConnector\Synchronisation\SyncRunner;
+use IServ\UnifiConnector\Synchronisation\SyncRunnerInterface;
+use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRoleProvider;
+use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRoleProviderInterface;
+use IServ\UnifiConnector\Mapping\MappingRepository;
+use IServ\UnifiConnector\Mapping\MappingResolver;
+use IServ\UnifiConnector\Synchronisation\IdmMembershipFetcher;
+use IServ\UnifiConnector\Synchronisation\IdmRoleFetcher;
+use IServ\UnifiConnector\Synchronisation\MembershipFetcher;
+use IServ\UnifiConnector\Synchronisation\RoleFetcher;
+use IServ\Library\Shell\Shell;
+use IServ\Library\Shell\SystemShell;
 use Psr\Clock\ClockInterface;
 
 // This file is the entry point to configure your own services.
@@ -52,6 +68,15 @@ return static function (ContainerConfigurator $configurator): void {
     ;
 
     $services->alias(IdmClientInterface::class, IdmClient::class);
+    $services->alias(AccessTokenProvider::class, OAuthTokenProvider::class);
+    $services->alias(PasswordClientFactory::class, NativePasswordClientFactory::class);
+    $services->alias(SyncRunnerInterface::class, SyncRunner::class);
+    $services->alias(AutocompleteRoleProviderInterface::class, AutocompleteRoleProvider::class);
+    $services->alias(MappingResolver::class, MappingRepository::class);
+    $services->alias(MembershipFetcher::class, IdmMembershipFetcher::class);
+    $services->alias(RoleFetcher::class, IdmRoleFetcher::class);
+    $services->set(SystemShell::class);
+    $services->alias(Shell::class, SystemShell::class);
 
     $services->alias(\IServ\UnifiConnector\Host\HostRepository::class, \IServ\UnifiConnector\Host\HostApiRepository::class);
 

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace IServ\UnifiConnector\Host;
 
-use IServ\UnifiConnector\OAuth\OAuthTokenProvider;
+use IServ\UnifiConnector\OAuth\AccessTokenProvider;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /** Uses the Host module API because IDM's host projection can be stale. */
 final readonly class HostApiRepository implements HostRepository
 {
-    public function __construct(private HttpClientInterface $client, private OAuthTokenProvider $tokenProvider)
+    public function __construct(private HttpClientInterface $client, private AccessTokenProvider $tokenProvider)
     {
     }
 

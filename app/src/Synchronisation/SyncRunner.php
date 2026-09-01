@@ -4,28 +4,26 @@ declare(strict_types=1);
 
 namespace IServ\UnifiConnector\Synchronisation;
 
-use Symfony\Component\Process\Process;
+use IServ\Library\Shell\Shell;
+use IServ\Library\Shell\Stream\CallbackStream;
 
-final class SyncRunner
+final class SyncRunner implements SyncRunnerInterface
 {
+    public function __construct(private readonly Shell $shell)
+    {
+    }
+
     /** @param callable(string): void $write */
     public function stream(callable $write): void
     {
-        $process = $this->createProcess();
-        $process->run(static function (string $type, string $buffer) use ($write): void {
-            $write($buffer);
-        });
+        $result = $this->shell->execute(
+            '/usr/bin/iservunificonnector-console',
+            ['unificonnector:sync', '--no-interaction', '--verbose'],
+            stream: new CallbackStream($write, $write),
+        );
 
-        if (!$process->isSuccessful()) {
-            $write(sprintf("Synchronization failed with exit code %d.\n", $process->getExitCode() ?? -1));
+        if (!$result->isSuccessful()) {
+            $write(sprintf("Synchronization failed with exit code %d.\n", $result->getExitCode()));
         }
-    }
-
-    private function createProcess(): Process
-    {
-        $process = new Process(['/usr/bin/iservunificonnector-console', 'unificonnector:sync', '--no-interaction', '--verbose']);
-        $process->setTimeout(null);
-
-        return $process;
     }
 }

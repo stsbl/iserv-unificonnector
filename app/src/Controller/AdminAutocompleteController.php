@@ -13,7 +13,7 @@ use IServ\Library\Avatar\UrlGenerator\AvatarPlaceholderStyle;
 use IServ\Library\Uuid\Uuid;
 use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteGroup;
 use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRole;
-use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRoleProvider;
+use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRoleProviderInterface;
 use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteUser;
 use IServ\UnifiConnector\Security\AdminAuthenticatedVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -26,7 +26,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class AdminAutocompleteController extends AbstractController
 {
     #[Route('', name: 'unificonnector_admin_autocomplete', methods: ['GET'])]
-    public function autocomplete(Request $request, IdmUserFetcher $users, IdmGroupFetcher $groups, AutocompleteRoleProvider $roles, AvatarRendererInterface $avatars): JsonResponse
+    public function autocomplete(Request $request, IdmUserFetcher $users, IdmGroupFetcher $groups, AutocompleteRoleProviderInterface $roles, AvatarRendererInterface $avatars): JsonResponse
     {
         $this->denyAccessUnlessGranted(AdminAuthenticatedVoter::ATTR_IS_ADMIN);
         $types = explode(',', (string) $request->query->get('type', ''));
@@ -63,7 +63,7 @@ final class AdminAutocompleteController extends AbstractController
     }
 
     /** @return list<array{label: string, value: string, source: string, avatarHtml: string, extra: string}> */
-    private function lookup(string $values, IdmUserFetcher $users, IdmGroupFetcher $groups, AutocompleteRoleProvider $roles, AvatarRendererInterface $avatars): array
+    private function lookup(string $values, IdmUserFetcher $users, IdmGroupFetcher $groups, AutocompleteRoleProviderInterface $roles, AvatarRendererInterface $avatars): array
     {
         $suggestions = [];
         foreach (explode(',', $values) as $value) {

@@ -17,10 +17,21 @@ final class UserTest extends TestCase
         $updated = new User('id', 'New', 'aa:bb:cc:dd:ee:ff', 'group');
         $user->updateFrom($updated);
         $user->setMac('aa:bb:cc:dd:ee:ff');
+        $user->setGroupId('staff');
 
         self::assertSame('id', $user->getId());
         self::assertSame('New', $user->getName());
-        self::assertSame('group', $user->getGroupId());
+        self::assertSame('staff', $user->getGroupId());
+        $user->setGroupId('group');
         self::assertTrue($user->equals($updated));
+    }
+
+    public function testKeepsDistinctNamesAndGroupsUnequal(): void
+    {
+        $user = new User(null, 'Printer', 'aa:bb:cc:dd:ee:ff', 'staff');
+
+        self::assertFalse($user->equals(new User(null, 'Other printer', 'aa:bb:cc:dd:ee:ff', 'staff')));
+        self::assertFalse($user->equals(new User(null, 'Printer', 'ff:ee:dd:cc:bb:aa', 'staff')));
+        self::assertFalse($user->equals(new User(null, 'Printer', 'aa:bb:cc:dd:ee:ff', 'students')));
     }
 }

@@ -7,6 +7,7 @@ namespace IServ\UnifiConnector\Tests\Unit\Infrastructure\Form;
 use IServ\UnifiConnector\Application\Configuration\ConnectionSettings;
 use IServ\UnifiConnector\Infrastructure\Form\ConnectionSettingsType;
 use IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
+use IServ\UnifiConnector\Unifi\UserGroup\UserGroup;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\PreloadedExtension;
@@ -20,7 +21,7 @@ final class ConnectionSettingsTypeTest extends TypeTestCase
     protected function setUp(): void
     {
         $this->userGroups = $this->createMock(UserGroupRepository::class);
-        $this->userGroups->method('all')->willReturn([]);
+        $this->userGroups->method('all')->willReturn([new UserGroup('default', 'default', 'Default')]);
 
         parent::setUp();
     }
@@ -66,5 +67,15 @@ final class ConnectionSettingsTypeTest extends TypeTestCase
         $settings = $form->getData();
         self::assertSame('https://unifi.example.test', $settings->url);
         self::assertSame('', $settings->fallbackGroup);
+    }
+
+    public function testBuildsWhenUniFiGroupsCannotBeLoaded(): void
+    {
+        $this->userGroups->method('all')->willThrowException(new \RuntimeException('Unavailable'));
+
+        $form = $this->factory->create(ConnectionSettingsType::class, new ConnectionSettings());
+
+        self::assertTrue($form->has('fallbackGroup'));
+        self::assertSame([], $form->get('fallbackGroup')->getConfig()->getOption('choices'));
     }
 }

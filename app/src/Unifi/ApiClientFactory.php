@@ -39,6 +39,7 @@ final class ApiClientFactory
 {
     public function __construct(
         private readonly FileConfigurationRepository $configurationRepository,
+        private readonly PasswordClientFactory $passwordClients,
     ) {
     }
 
@@ -57,7 +58,7 @@ final class ApiClientFactory
             return new ApiKeyClient(UnifiUrl::fromString($configuration->url)->value, $configuration->apiKey);
         }
 
-        $client = new Client($configuration->username, $configuration->password, UnifiUrl::fromString($configuration->url)->value, '', '', true);
+        $client = $this->passwordClients->create($configuration->username, $configuration->password, UnifiUrl::fromString($configuration->url)->value);
         if (false === $client->login()) {
             throw new \RuntimeException('Login failed.');
         }

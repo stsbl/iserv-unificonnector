@@ -14,7 +14,7 @@ use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\Service\ResetInterface;
 use Symfony\Contracts\Service\Attribute\SubscribedService;
 
-final class OAuthTokenProvider implements ResetInterface
+final class OAuthTokenProvider implements AccessTokenProvider, ResetInterface
 {
     private ?string $token = null;
     private ?\DateTimeImmutable $expiresAt = null;
@@ -24,6 +24,7 @@ final class OAuthTokenProvider implements ResetInterface
         private readonly ClockInterface $clock,
         #[AutowireLocator([new SubscribedService(type: Config::class)])]
         private readonly ContainerInterface $locator,
+        private readonly string $credentialsPath = '/var/lib/iserv/auth/credentials/iserv_unificonnector.json',
     ) {
     }
 
@@ -67,7 +68,7 @@ final class OAuthTokenProvider implements ResetInterface
     private function credentials(): array
     {
         /** @var array{clientId: string, clientSecret: string} $credentials */
-        $credentials = json_decode((string) file_get_contents('/var/lib/iserv/auth/credentials/iserv_unificonnector.json'), true, 512, JSON_THROW_ON_ERROR);
+        $credentials = json_decode((string) file_get_contents($this->credentialsPath), true, 512, JSON_THROW_ON_ERROR);
 
         return $credentials;
     }

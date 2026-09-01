@@ -6,10 +6,7 @@ namespace IServ\UnifiConnector\Synchronisation;
 
 use IServ\UnifiConnector\Configuration\FileConfigurationRepository;
 use IServ\UnifiConnector\Host\HostRepository;
-use IServ\UnifiConnector\Mapping\MappingRepository;
-use IServ\Bundle\IdmDataBroker\Service\UserGroupMembershipFetcher;
-use IServ\Bundle\IdmDataBroker\Service\UserRolesFetcher;
-use IServ\Bundle\IdmDataBroker\Dto\UserRolesDto;
+use IServ\UnifiConnector\Mapping\MappingResolver;
 use IServ\Library\Uuid\Uuid;
 use IServ\UnifiConnector\Unifi\User\User;
 use IServ\UnifiConnector\Unifi\User\UserRepository;
@@ -54,10 +51,10 @@ final class SyncCommand extends Command
         private readonly UserGroupRepository $userGroupRepository,
         private readonly HostRepository $hostRepository,
         private readonly UserRepository $userRepository,
-        private readonly MappingRepository $mappingRepository,
+        private readonly MappingResolver $mappingRepository,
         private readonly FileConfigurationRepository $configurationRepository,
-        private readonly UserGroupMembershipFetcher $groupMemberships,
-        private readonly UserRolesFetcher $roles,
+        private readonly MembershipFetcher $groupMemberships,
+        private readonly RoleFetcher $roles,
     ) {
 
         parent::__construct();
@@ -96,9 +93,6 @@ final class SyncCommand extends Command
                 $owner = Uuid::createFromString($ownerUuid);
                 $groupUuids = array_map(static fn($uuid): string => $uuid->toNormalizedString(), $this->groupMemberships->fetch($owner)->groupUuids);
                 $roles = $this->roles->getUserRoles($owner);
-                if (!$roles instanceof UserRolesDto) {
-                    throw new \LogicException('User roles fetcher returned an unexpected DTO.');
-                }
                 $roleUuids = array_values($roles->roles);
             }
             $configuredGroup = $this->mappingRepository->groupForMemberships($ownerUuid, $groupUuids, $roleUuids);

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "21a7c551e61ddafa6a534d37fd58f05b",
+    "content-hash": "72783ad1759b7403e5f0a54cb2108bf9",
     "packages": [
         {
             "name": "art-of-wifi/unifi-api-client",
@@ -1919,6 +1919,28 @@
             "autoload-dev": {
                 "psr-4": {
                     "IServ\\Library\\Phackson\\Tests\\": "tests/"
+                }
+            }
+        },
+        {
+            "name": "iserv/shell",
+            "version": "1.1",
+            "dist": {
+                "type": "zip",
+                "url": "https://repoflow.iserv.eu/api/composer/iserv/composer-internal/iserv/shell/1.1.zip"
+            },
+            "require": {
+                "php": ">=8.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "IServ\\Library\\Shell\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "IServ\\Library\\Shell\\Tests\\": "tests/"
                 }
             }
         },
@@ -5428,70 +5450,6 @@
                 }
             ],
             "time": "2026-05-26T12:51:13+00:00"
-        },
-        {
-            "name": "symfony/process",
-            "version": "v6.4.41",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/process.git",
-                "reference": "c8fc09bdfe9fde9aaa89b415a4477feaccec16a7"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://repoflow.iserv.eu/api/composer/iserv/packagist/symfony/process/eyJvcmlnaW5hbFVybCI6Imh0dHBzOi8vYXBpLmdpdGh1Yi5jb20vcmVwb3Mvc3ltZm9ueS9wcm9jZXNzL3ppcGJhbGwvYzhmYzA5YmRmZTlmZGU5YWFhODliNDE1YTQ0NzdmZWFjY2VjMTZhNyIsInZlcnNpb24iOiJ2Ni40LjQxIiwiZmlsZVR5cGUiOiJ6aXAifQ==",
-                "reference": "c8fc09bdfe9fde9aaa89b415a4477feaccec16a7",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Symfony\\Component\\Process\\": ""
-                },
-                "exclude-from-classmap": [
-                    "/Tests/"
-                ]
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://symfony.com/contributors"
-                }
-            ],
-            "description": "Executes commands in sub-processes",
-            "homepage": "https://symfony.com",
-            "support": {
-                "source": "https://github.com/symfony/process/tree/v6.4.41"
-            },
-            "funding": [
-                {
-                    "url": "https://symfony.com/sponsor",
-                    "type": "custom"
-                },
-                {
-                    "url": "https://github.com/fabpot",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/nicolas-grekas",
-                    "type": "github"
-                },
-                {
-                    "url": "https://tidelift.com/funding/github/packagist/symfony/symfony",
-                    "type": "tidelift"
-                }
-            ],
-            "time": "2026-05-23T13:47:21+00:00"
         },
         {
             "name": "symfony/property-access",

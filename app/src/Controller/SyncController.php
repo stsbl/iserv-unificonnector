@@ -6,7 +6,7 @@ namespace IServ\UnifiConnector\Controller;
 
 use IServ\UnifiConnector\Infrastructure\Form\SyncActionType;
 use IServ\UnifiConnector\Security\AdminAuthenticatedVoter;
-use IServ\UnifiConnector\Synchronisation\SyncRunner;
+use IServ\UnifiConnector\Synchronisation\SyncRunnerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,7 +17,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class SyncController extends AbstractController
 {
     #[Route('', name: 'unificonnector_sync', methods: ['POST'])]
-    public function sync(Request $request, FormFactoryInterface $forms, SyncRunner $runner): StreamedResponse
+    public function sync(Request $request, FormFactoryInterface $forms, SyncRunnerInterface $runner): StreamedResponse
     {
         $this->denyAccessUnlessGranted(AdminAuthenticatedVoter::ATTR_IS_ADMIN);
         $form = $forms->createNamed('unificonnector_sync', SyncActionType::class, options: [

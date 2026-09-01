@@ -26,4 +26,16 @@ final class UserTest extends TestCase
 
         self::assertTrue($user->equals(new User(null, null, 'aa:bb:cc:dd:ee:ff')));
     }
+
+    public function testUpdatesMutableFieldsAndComparesMacAddressesCaseInsensitively(): void
+    {
+        $user = new User('id', 'Old', 'AA:BB:CC:DD:EE:FF');
+        $user->setMac('aa:bb:cc:dd:ee:ff');
+        $user->setGroupId('group');
+        $user->updateFrom(new User('other', 'New', 'aa:bb:cc:dd:ee:ff', null));
+
+        self::assertSame('New', $user->getName());
+        self::assertNull($user->getGroupId());
+        self::assertTrue($user->equals(new User(null, 'New', 'AA:BB:CC:DD:EE:FF')));
+    }
 }
