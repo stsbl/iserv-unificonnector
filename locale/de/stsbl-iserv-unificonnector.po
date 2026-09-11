@@ -120,15 +120,12 @@ msgid "Save"
 msgstr "Speichern"
 
 #: app/src/Infrastructure/Form/MappingSettingsType.php
-#, fuzzy
 msgid ""
 "Selected users, members of selected groups and users with selected roles are "
 "synchronized to this UniFi group."
 msgstr ""
 "Ausgewählte Benutzer, Mitglieder ausgewählter Gruppen und Benutzer mit "
 "ausgewählten Rollen werden mit dieser UniFi-Gruppe synchronisiert."
-"Ausgewählte Benutzer und Mitglieder ausgewählter Gruppen werden mit dieser "
-"UniFi-Gruppe synchronisiert."
 
 #: app/src/Infrastructure/Form/SyncActionType.php
 msgid "Start synchronization"
