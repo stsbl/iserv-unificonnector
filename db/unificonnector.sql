@@ -1,5 +1,5 @@
 CREATE USER "stsbl-iserv-unificonnector";
-DROP ROLE IF EXISTS "iserv-unificonnector";
+DROP ROLE "iserv-unificonnector";
 
 CREATE TABLE unificonnector_usergroup (
     id              TEXT PRIMARY KEY,
