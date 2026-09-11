@@ -1,3 +1,10 @@
+stsbl-iserv-unificonnector (26.09.11.2) stable; urgency=medium
+
+  * Fix: complete German UniFi mapping translation
+  * Fix: rename active legacy UniFi user
+
+ -- Felix Jacobi <felix.jacobi@iserv.eu>  Fri, 11 Sep 2026 15:33:59 +0200
+
 stsbl-iserv-unificonnector (26.09.11.1) stable; urgency=medium
 
   * Update UniFi Connector translations
