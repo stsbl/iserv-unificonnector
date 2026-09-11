@@ -1,7 +1,7 @@
 Source: stsbl-iserv-unificonnector
 Section: non-free/misc
 Priority: optional
-Maintainer: IServ <info@iserv.eu>
+Maintainer: Stadtteilschule Blankenese <repository@stsbl.de>
 Build-Depends:
   debhelper-compat (= 13),
   dh-sequence-iserv,
@@ -26,6 +26,6 @@ Depends: ${misc:Depends},
   php-mbstring (>= 0),
   php-pgsql (>= 0),
   php-xml (>= 0),
-Description: IServ UniFi connector
- Synchronisiert die verwalteten IServ-Geraete mit einem UniFi-Controller.
+Description: UniFi-Connector für IServ
+ Synchronisiert die verwalteten IServ-Geräte mit einem UniFi-Controller.
 Tag: suite::iserv, suite::iserv:bundle-cloud, suite::iserv:bundle-full, suite::iserv:portal, role::plugin

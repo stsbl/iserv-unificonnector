@@ -14,6 +14,7 @@ use IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /*
@@ -60,19 +61,34 @@ final class SyncCommand extends Command
         parent::__construct();
     }
 
+    protected function configure(): void
+    {
+        $this->addOption(
+            'if-configured',
+            null,
+            InputOption::VALUE_NONE,
+            'Exit successfully without synchronizing when the connector is not configured.',
+        );
+    }
+
     /**
      * {@inheritDoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+        $configuration = $this->configurationRepository->find();
+        if (null === $configuration) {
+            if ($input->getOption('if-configured')) {
+                return Command::SUCCESS;
+            }
+
+            throw new \RuntimeException('UniFi Connector is not configured.');
+        }
+
         $output->writeln(_('Starting UniFi synchronization.'));
         /** @var User[] $existingClients */
         $existingClients = [];
         $synchronizedHosts = 0;
-        $configuration = $this->configurationRepository->find();
-        if (null === $configuration) {
-            throw new \RuntimeException('UniFi Connector is not configured.');
-        }
 
         $fallbackGroup = $this->userGroupRepository->findByName($configuration->fallbackGroup);
 

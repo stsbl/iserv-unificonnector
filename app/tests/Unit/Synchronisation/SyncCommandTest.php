@@ -89,4 +89,13 @@ final class SyncCommandTest extends TestCase
         $this->expectExceptionMessage('UniFi Connector is not configured.');
         (new CommandTester($command))->execute([]);
     }
+
+    public function testSkipsUnconfiguredSynchronizationWhenRequested(): void
+    {
+        $command = new SyncCommand($this->createMock(UserGroupRepository::class), $this->createMock(HostRepository::class), $this->createMock(UserRepository::class), $this->createMock(MappingResolver::class), new FileConfigurationRepository($this->configurationPath), $this->createMock(MembershipFetcher::class), $this->createMock(RoleFetcher::class));
+        $tester = new CommandTester($command);
+
+        self::assertSame(0, $tester->execute(['--if-configured' => true]));
+        self::assertSame('', $tester->getDisplay());
+    }
 }
