@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Entity;
+namespace Stsbl\IServ\UnifiConnector\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 

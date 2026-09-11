@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Synchronisation;
+namespace Stsbl\IServ\UnifiConnector\Synchronisation;
 
 use IServ\Library\Shell\Shell;
 use IServ\Library\Shell\Stream\CallbackStream;

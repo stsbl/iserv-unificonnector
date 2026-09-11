@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Mapping;
+namespace Stsbl\IServ\UnifiConnector\Mapping;
 
 interface MappingResolver
 {

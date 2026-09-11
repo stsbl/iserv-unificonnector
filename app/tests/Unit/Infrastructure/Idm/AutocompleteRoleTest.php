@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\Infrastructure\Idm;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\Infrastructure\Idm;
 
-use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRole;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRole;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

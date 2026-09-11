@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\Host;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\Host;
 
-use IServ\UnifiConnector\Host\HostApiRepository;
-use IServ\UnifiConnector\OAuth\AccessTokenProvider;
+use Stsbl\IServ\UnifiConnector\Host\HostApiRepository;
+use Stsbl\IServ\UnifiConnector\OAuth\AccessTokenProvider;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Contracts\HttpClient\HttpClientInterface;

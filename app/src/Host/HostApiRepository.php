@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Host;
+namespace Stsbl\IServ\UnifiConnector\Host;
 
-use IServ\UnifiConnector\OAuth\AccessTokenProvider;
+use Stsbl\IServ\UnifiConnector\OAuth\AccessTokenProvider;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 /** Uses the Host module API because IDM's host projection can be stale. */

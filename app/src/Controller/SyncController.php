@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Controller;
+namespace Stsbl\IServ\UnifiConnector\Controller;
 
-use IServ\UnifiConnector\Infrastructure\Form\SyncActionType;
-use IServ\UnifiConnector\Security\AdminAuthenticatedVoter;
-use IServ\UnifiConnector\Synchronisation\SyncRunnerInterface;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Form\SyncActionType;
+use Stsbl\IServ\UnifiConnector\Security\AdminAuthenticatedVoter;
+use Stsbl\IServ\UnifiConnector\Synchronisation\SyncRunnerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;

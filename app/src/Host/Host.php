@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Host;
+namespace Stsbl\IServ\UnifiConnector\Host;
 
 /*
  * The MIT License
@@ -28,7 +28,7 @@ namespace IServ\UnifiConnector\Host;
  * THE SOFTWARE.
  */
 
-use IServ\UnifiConnector\Unifi\User\User;
+use Stsbl\IServ\UnifiConnector\Unifi\User\User;
 
 /**
  * @author Felix Jacobi <felix.jacobi@stsbl.de>

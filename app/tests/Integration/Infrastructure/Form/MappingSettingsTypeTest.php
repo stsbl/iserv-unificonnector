@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Integration\Infrastructure\Form;
+namespace Stsbl\IServ\UnifiConnector\Tests\Integration\Infrastructure\Form;
 
-use IServ\UnifiConnector\Application\Mapping\MappingSettings;
-use IServ\UnifiConnector\Infrastructure\Form\MappingSettingsType;
+use Stsbl\IServ\UnifiConnector\Application\Mapping\MappingSettings;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Form\MappingSettingsType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Form\FormFactoryInterface;

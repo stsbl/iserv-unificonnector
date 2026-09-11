@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\Unifi\User;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\Unifi\User;
 
-use IServ\UnifiConnector\Unifi\User\User;
+use Stsbl\IServ\UnifiConnector\Unifi\User\User;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

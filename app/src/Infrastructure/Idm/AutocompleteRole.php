@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Infrastructure\Idm;
+namespace Stsbl\IServ\UnifiConnector\Infrastructure\Idm;
 
 /** Read-only representation of an IDM role used by the administration autocomplete. */
 final readonly class AutocompleteRole

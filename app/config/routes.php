@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use IServ\UnifiConnector\Controller\HomeController;
+use Stsbl\IServ\UnifiConnector\Controller\HomeController;
 use Symfony\Component\Routing\Loader\Configurator\RoutingConfigurator;
 
 return static function (RoutingConfigurator $routes): void {

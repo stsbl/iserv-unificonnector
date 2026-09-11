@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Synchronisation;
+namespace Stsbl\IServ\UnifiConnector\Synchronisation;
 
 use IServ\Bundle\IdmDataBroker\Dto\UserRolesDto;
 use IServ\Library\Uuid\UuidInterface;

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Controller;
+namespace Stsbl\IServ\UnifiConnector\Controller;
 
 use IServ\Bundle\IdmDataBroker\Contract\IdmGroupFetcher;
 use IServ\Bundle\IdmDataBroker\Contract\IdmUserFetcher;
@@ -11,11 +11,11 @@ use IServ\Library\Avatar\Renderer\AvatarRendererInterface;
 use IServ\Library\Avatar\Renderer\AvatarRenderStyle;
 use IServ\Library\Avatar\UrlGenerator\AvatarPlaceholderStyle;
 use IServ\Library\Uuid\Uuid;
-use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteGroup;
-use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRole;
-use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRoleProviderInterface;
-use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteUser;
-use IServ\UnifiConnector\Security\AdminAuthenticatedVoter;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Idm\AutocompleteGroup;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRole;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRoleProviderInterface;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Idm\AutocompleteUser;
+use Stsbl\IServ\UnifiConnector\Security\AdminAuthenticatedVoter;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,14 +42,12 @@ final class AdminAutocompleteController extends AbstractController
 
         $suggestions = [];
         if (in_array('userid', $types, true)) {
-            foreach (['user', 'firstname', 'lastname'] as $field) {
-                foreach ($users->getFilteredUsers([$field . '[icontains]' => $query, 'deleted' => 'false'], AutocompleteUser::class) as $user) {
-                    $suggestions['userid:' . $user->uuid] = self::userSuggestion($user, $avatars);
-                }
+            foreach ($roles->searchUsers($query) as $user) {
+                $suggestions['userid:' . $user->uuid] = self::userSuggestion($user, $avatars);
             }
         }
         if (in_array('groupid', $types, true)) {
-            foreach ($groups->getFilteredGroups(['name[icontains]' => $query], AutocompleteGroup::class) as $group) {
+            foreach ($roles->searchGroups($query) as $group) {
                 $suggestions['groupid:' . $group->uuid] = self::groupSuggestion($group, $avatars);
             }
         }
@@ -132,7 +130,7 @@ final class AdminAutocompleteController extends AbstractController
             'value' => 'roleid:' . $role->uuid,
             'source' => 'roleid',
             'avatarHtml' => '',
-            'extra' => implode(' · ', array_filter([$role->role, $role->module])),
+            'extra' => $role->module ?? '',
         ];
     }
 }

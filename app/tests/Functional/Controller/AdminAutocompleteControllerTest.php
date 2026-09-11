@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Functional\Controller;
+namespace Stsbl\IServ\UnifiConnector\Tests\Functional\Controller;
 
 use IServ\Bundle\TestBrowser\Test\TestBrowser;
 use IServ\Bundle\IdmDataBroker\Contract\IdmGroupFetcher;
@@ -10,12 +10,12 @@ use IServ\Bundle\IdmDataBroker\Contract\IdmUserFetcher;
 use IServ\Library\Avatar\Renderer\AvatarRendererInterface;
 use IServ\Library\UserToken\Test\User\TestUserBuilder;
 use IServ\Library\Uuid\Uuid;
-use IServ\UnifiConnector\Controller\AdminAutocompleteController;
-use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteGroup;
-use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRole;
-use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRoleProviderInterface;
-use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteUser;
-use IServ\UnifiConnector\Security\Privileges;
+use Stsbl\IServ\UnifiConnector\Controller\AdminAutocompleteController;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Idm\AutocompleteGroup;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRole;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRoleProviderInterface;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Idm\AutocompleteUser;
+use Stsbl\IServ\UnifiConnector\Security\Privileges;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -47,14 +47,10 @@ final class AdminAutocompleteControllerTest extends WebTestCase
     public function testAutocompleteReturnsDeduplicatedUserGroupAndRoleSuggestions(): void
     {
         $users = $this->createMock(IdmUserFetcher::class);
-        $users->expects(self::exactly(3))->method('getFilteredUsers')->willReturn([
-            'user' => new AutocompleteUser('e5897a99-0f09-4563-8a17-93567f7a58b8', 'ada', 'Ada', 'Lovelace', 'Mathematics'),
-        ]);
         $groups = $this->createMock(IdmGroupFetcher::class);
-        $groups->expects(self::once())->method('getFilteredGroups')->willReturn([
-            'group' => new AutocompleteGroup('e9b5542e-4f55-46d9-8cd8-b4ff826d55a4', 'Teachers', 'teachers'),
-        ]);
         $roles = $this->createMock(AutocompleteRoleProviderInterface::class);
+        $roles->expects(self::once())->method('searchUsers')->with('ada')->willReturn([new AutocompleteUser('e5897a99-0f09-4563-8a17-93567f7a58b8', 'ada', 'Ada', 'Lovelace', 'Mathematics')]);
+        $roles->expects(self::once())->method('searchGroups')->with('ada')->willReturn([new AutocompleteGroup('e9b5542e-4f55-46d9-8cd8-b4ff826d55a4', 'Teachers', 'teachers')]);
         $roles->expects(self::once())->method('search')->with('ada')->willReturn([
             new AutocompleteRole('c5ac939a-2d74-4630-af64-7093f0cbd251', 'ROLE_TEACHER', 'Teacher', 'core'),
         ]);
@@ -77,7 +73,7 @@ final class AdminAutocompleteControllerTest extends WebTestCase
         self::assertJsonStringEqualsJsonString(json_encode([
             ['label' => 'Ada Lovelace', 'value' => 'userid:e5897a99-0f09-4563-8a17-93567f7a58b8', 'source' => 'userid', 'avatarHtml' => '<img>', 'extra' => 'ada · Mathematics'],
             ['label' => 'Teachers', 'value' => 'groupid:e9b5542e-4f55-46d9-8cd8-b4ff826d55a4', 'source' => 'groupid', 'avatarHtml' => '<span>', 'extra' => 'teachers'],
-            ['label' => 'Teacher', 'value' => 'roleid:c5ac939a-2d74-4630-af64-7093f0cbd251', 'source' => 'roleid', 'avatarHtml' => '', 'extra' => 'ROLE_TEACHER · core'],
+            ['label' => 'Teacher', 'value' => 'roleid:c5ac939a-2d74-4630-af64-7093f0cbd251', 'source' => 'roleid', 'avatarHtml' => '', 'extra' => 'core'],
         ], JSON_THROW_ON_ERROR), (string) $client->getResponse()->getContent());
     }
 
@@ -115,15 +111,15 @@ final class AdminAutocompleteControllerTest extends WebTestCase
     public function testAutocompleteUsesPlaceholderForMalformedUnnamedGroup(): void
     {
         $groups = $this->createMock(IdmGroupFetcher::class);
-        $groups->expects(self::once())->method('getFilteredGroups')->willReturn([
-            'group' => new AutocompleteGroup('', null, null),
-        ]);
+        $roles = $this->createMock(AutocompleteRoleProviderInterface::class);
+        $roles->expects(self::once())->method('searchGroups')->with('group')->willReturn([new AutocompleteGroup('', null, null)]);
         $avatars = $this->createMock(AvatarRendererInterface::class);
         $avatars->method('renderPlaceholder')->willReturn('<span>');
         /** @var TestBrowser $client */
         $client = self::createClient();
         $client->disableReboot();
         self::getContainer()->set(IdmGroupFetcher::class, $groups);
+        self::getContainer()->set(AutocompleteRoleProviderInterface::class, $roles);
         self::getContainer()->set(AvatarRendererInterface::class, $avatars);
         $client->loginAdmin(TestUserBuilder::create(Uuid::createFromString('f2b47e1b-a20f-40e0-b9c1-f79782401d07'))
             ->privilege(Privileges::ADMIN)

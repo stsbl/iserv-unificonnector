@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Unifi\UserGroup;
+namespace Stsbl\IServ\UnifiConnector\Unifi\UserGroup;
 
 /*
  * The MIT License

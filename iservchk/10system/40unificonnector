@@ -1,7 +1,7 @@
-Test "user iserv-unificonnector"
-  getent passwd iserv-unificonnector
+Test "user stsbl-iserv-unificonnector"
+  getent passwd stsbl-iserv-unificonnector
   ---
   adduser --system --group --disabled-password \
     --home /var/lib/iserv/unificonnector --no-create-home \
     --shell /usr/sbin/nologin \
-    iserv-unificonnector
+    stsbl-iserv-unificonnector

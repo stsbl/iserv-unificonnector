@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\Infrastructure\Idm;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\Infrastructure\Idm;
 
-use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteGroup;
-use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteUser;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Idm\AutocompleteGroup;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Idm\AutocompleteUser;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -18,6 +18,14 @@ final class AutocompleteUserGroupTest extends TestCase
         self::assertSame('Ada Lovelace', (new AutocompleteUser('uuid', 'ada', 'Ada', 'Lovelace', null))->displayName());
         self::assertSame('ada', (new AutocompleteUser('uuid', 'ada', null, null, null))->displayName());
         self::assertSame('uuid', (new AutocompleteUser('uuid', null, null, null, null))->displayName());
+    }
+
+    public function testHydratesLookupResponses(): void
+    {
+        self::assertSame('Ada Lovelace', AutocompleteUser::fromApiResponse(['hexUuid' => 'uuid', 'user' => 'ada', 'firstname' => 'Ada', 'lastname' => 'Lovelace'])?->displayName());
+        self::assertSame('Teachers', AutocompleteGroup::fromApiResponse(['hexUuid' => 'uuid', 'group' => 'teachers', 'name' => 'Teachers'])?->displayName());
+        self::assertNull(AutocompleteUser::fromApiResponse(['user' => 'ada']));
+        self::assertNull(AutocompleteGroup::fromApiResponse(['group' => 'teachers']));
     }
 
     public function testUsesGroupNameAndFallsBackToAccountOrUuid(): void

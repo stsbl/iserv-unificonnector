@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Security;
+namespace Stsbl\IServ\UnifiConnector\Security;
 
 use IServ\Bundle\Module\Authorization\AdminVoter;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

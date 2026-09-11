@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\OAuth;
+namespace Stsbl\IServ\UnifiConnector\OAuth;
 
 use IServ\Library\IdmApiClient\Authentication\Credentials;
 use Psr\Http\Message\RequestInterface;

@@ -12,8 +12,14 @@ CACHE_DIR_CURRENT="$CACHE_DIR/$CURRENT_VERSION"
 
 if [ "$1" = "configure" ]
 then
-  adduser --system --group --disabled-password --home /usr/share/iserv/stsbl-iserv-unificonnector \
-  --no-create-home --shell /bin/false iserv-unificonnector ||:
+  # Preserve the legacy account for iservchk's clean UID-preserving rename.
+  if ! getent passwd stsbl-iserv-unificonnector >/dev/null && ! getent passwd iserv-unificonnector >/dev/null
+  then
+    adduser --system --group --disabled-password \
+      --home /var/lib/iserv/unificonnector --no-create-home \
+      --shell /usr/sbin/nologin \
+      stsbl-iserv-unificonnector ||:
+  fi
 
   LAST_VERSION="$2"
   CACHE_DIR_LAST="$CACHE_DIR/$LAST_VERSION"
@@ -44,7 +50,7 @@ then
     rm -rf "$TEMP_DIR" ||:
   fi
 
-  install -d -o iserv-unificonnector -g iserv-unificonnector -m 2770 "$CACHE_DIR_CURRENT" "$CACHE_DIR_CURRENT/pools" "$CACHE_DIR_CURRENT/templates"
+  install -d -m 0755 "$CACHE_DIR_CURRENT" "$CACHE_DIR_CURRENT/pools" "$CACHE_DIR_CURRENT/templates"
   deb-systemd-invoke reload php-fpm ||:
   echo "$CACHE_DIR_CURRENT" >"$CACHE_MARKER"
 fi

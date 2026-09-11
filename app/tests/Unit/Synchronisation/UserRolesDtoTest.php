@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\Synchronisation;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\Synchronisation;
 
 use IServ\Bundle\IdmDataBroker\Dto\UserRolesDto;
 use PHPUnit\Framework\Attributes\CoversNothing;

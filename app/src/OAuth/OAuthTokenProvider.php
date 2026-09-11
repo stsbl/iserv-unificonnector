@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\OAuth;
+namespace Stsbl\IServ\UnifiConnector\OAuth;
 
 use IServ\Library\Config\Config;
 use Psr\Clock\ClockInterface;
@@ -24,7 +24,7 @@ final class OAuthTokenProvider implements AccessTokenProvider, ResetInterface
         private readonly ClockInterface $clock,
         #[AutowireLocator([new SubscribedService(type: Config::class)])]
         private readonly ContainerInterface $locator,
-        private readonly string $credentialsPath = '/var/lib/iserv/auth/credentials/iserv_unificonnector.json',
+        private readonly string $credentialsPath = '/var/lib/iserv/auth/credentials/stsbl_iserv_unificonnector.json',
     ) {
     }
 

@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\Unifi;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\Unifi;
 
-use IServ\UnifiConnector\Configuration\ConnectionConfiguration;
-use IServ\UnifiConnector\Configuration\FileConfigurationRepository;
-use IServ\UnifiConnector\Unifi\ApiClientFactory;
-use IServ\UnifiConnector\Unifi\ApiKeyClient;
-use IServ\UnifiConnector\Unifi\PasswordClientFactory;
+use Stsbl\IServ\UnifiConnector\Configuration\ConnectionConfiguration;
+use Stsbl\IServ\UnifiConnector\Configuration\FileConfigurationRepository;
+use Stsbl\IServ\UnifiConnector\Unifi\ApiClientFactory;
+use Stsbl\IServ\UnifiConnector\Unifi\ApiKeyClient;
+use Stsbl\IServ\UnifiConnector\Unifi\PasswordClientFactory;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

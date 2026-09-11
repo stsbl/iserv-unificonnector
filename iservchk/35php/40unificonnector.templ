@@ -1,15 +1,15 @@
 MkDir 0755 root:root /var/lib/iserv/unificonnector
-MkDir 2770 iserv-unificonnector:iserv-unificonnector /var/lib/iserv/unificonnector/app
-MkDir 2770 iserv-unificonnector:iserv-unificonnector /var/lib/iserv/unificonnector/pwd
-MkDir 0300 iserv-unificonnector:iserv-unificonnector /var/lib/iserv/unificonnector/sessions
+MkDir 2770 stsbl-iserv-unificonnector:stsbl-iserv-unificonnector /var/lib/iserv/unificonnector/app
+MkDir 2770 stsbl-iserv-unificonnector:stsbl-iserv-unificonnector /var/lib/iserv/unificonnector/pwd
+MkDir 0300 stsbl-iserv-unificonnector:stsbl-iserv-unificonnector /var/lib/iserv/unificonnector/sessions
 
 Touch /var/lib/iserv/unificonnector/pwd/symfony.secret
-ChPerm 0440 root:iserv-unificonnector /var/lib/iserv/unificonnector/pwd/symfony.secret
+ChPerm 0440 root:stsbl-iserv-unificonnector /var/lib/iserv/unificonnector/pwd/symfony.secret
 
 Test "generate symfony secret"
   [ -s /var/lib/iserv/unificonnector/pwd/symfony.secret ]
   ---
   pwgen -snc 32 1 | tr -d '\n' >/var/lib/iserv/unificonnector/pwd/symfony.secret
 
-Check /etc/php/current/fpm/pool-config/iserv-module-unificonnector.conf
-Check /etc/php/$(/usr/lib/iserv/php_version)/fpm/pool.d/iserv-module-unificonnector.conf
+Check /etc/php/current/fpm/pool-config/iserv-module-stsbl-iserv-unificonnector.conf
+Check /etc/php/$(/usr/lib/iserv/php_version)/fpm/pool.d/iserv-module-stsbl-iserv-unificonnector.conf

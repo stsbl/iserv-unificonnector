@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Configuration;
+namespace Stsbl\IServ\UnifiConnector\Configuration;
 
 final readonly class ConnectionConfiguration
 {

@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Mapping;
+namespace Stsbl\IServ\UnifiConnector\Mapping;
 
-use IServ\UnifiConnector\Repository\UniFiGroupMappingRepository;
+use Stsbl\IServ\UnifiConnector\Repository\UniFiGroupMappingRepository;
 
 /** Resolves the first matching UniFi group using the module's Doctrine entities. */
 final readonly class MappingRepository implements MappingResolver

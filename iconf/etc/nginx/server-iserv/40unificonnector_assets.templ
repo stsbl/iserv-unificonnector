@@ -1,4 +1,4 @@
-location ^~ /iserv/unificonnector/static/ {
+location ^~ /iserv/stsbl/unificonnector/static/ {
     alias /usr/share/iserv/stsbl-iserv-unificonnector/app/public/static/;
 
     location ~* "\.(?:ico|png|svg|woff|woff2|ttf)$" {
@@ -18,7 +18,7 @@ location ^~ /iserv/unificonnector/static/ {
     }
 }
 
-location ^~ /iserv/unificonnector/bundles/ {
+location ^~ /iserv/stsbl/unificonnector/bundles/ {
     alias /usr/share/iserv/stsbl-iserv-unificonnector/app/public/bundles/;
 
     location ~* "\.(?:ico|png|svg|woff|woff2|ttf)$" {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector;
+namespace Stsbl\IServ\UnifiConnector;
 
 use IServ\Library\AppKernel\Kernel as BaseKernel;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;

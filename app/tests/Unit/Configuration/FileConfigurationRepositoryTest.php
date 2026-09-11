@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\Configuration;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\Configuration;
 
-use IServ\UnifiConnector\Configuration\ConnectionConfiguration;
-use IServ\UnifiConnector\Configuration\FileConfigurationRepository;
+use Stsbl\IServ\UnifiConnector\Configuration\ConnectionConfiguration;
+use Stsbl\IServ\UnifiConnector\Configuration\FileConfigurationRepository;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

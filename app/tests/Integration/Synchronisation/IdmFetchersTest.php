@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Integration\Synchronisation;
+namespace Stsbl\IServ\UnifiConnector\Tests\Integration\Synchronisation;
 
 use IServ\Bundle\IdmDataBroker\Contract\IdmUserGroupMembershipProvider;
 use IServ\Bundle\IdmDataBroker\Key\CacheKeyBuilder;
@@ -11,8 +11,8 @@ use IServ\Bundle\IdmDataBroker\Service\UserGroupMembershipFetcher;
 use IServ\Bundle\IdmDataBroker\Service\UserRolesFetcher;
 use IServ\Bundle\IdmDataBroker\Service\UserRolesProvider;
 use IServ\Library\Uuid\Uuid;
-use IServ\UnifiConnector\Synchronisation\IdmMembershipFetcher;
-use IServ\UnifiConnector\Synchronisation\IdmRoleFetcher;
+use Stsbl\IServ\UnifiConnector\Synchronisation\IdmMembershipFetcher;
+use Stsbl\IServ\UnifiConnector\Synchronisation\IdmRoleFetcher;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Cache\Adapter\ArrayAdapter;

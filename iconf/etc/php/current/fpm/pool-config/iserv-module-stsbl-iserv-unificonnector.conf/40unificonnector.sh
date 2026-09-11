@@ -27,6 +27,10 @@ cat << EOF
 ;pm.max_requests = 200
 ;pm.status_path = /status
 
+; The pool identifier follows the module package name; the Unix account does not.
+user = stsbl-iserv-unificonnector
+group = stsbl-iserv-unificonnector
+
 ; Dev and Prod environment have different memory limits
 ; Adjust the production limit if the UniFi Connector workload requires it.
 php_value[memory_limit] = ${FPM_MEMORY_LIMIT}

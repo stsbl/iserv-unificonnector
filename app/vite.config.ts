@@ -44,7 +44,7 @@ export default defineConfig(({ mode }) => {
             }),
             processStaticAssets(['assets/img/unificonnector.svg']),
         ],
-        base: '/iserv/unificonnector/static/',
+        base: '/iserv/stsbl/unificonnector/static/',
         build: {
             outDir: './public/static',
             assetsDir: './assets',

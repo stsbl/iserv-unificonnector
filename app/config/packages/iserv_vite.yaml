@@ -6,4 +6,4 @@ framework:
 
 iserv_vite:
     manifest_path: '%kernel.project_dir%/public/static/.vite/manifest.json'
-    base_path: '/iserv/unificonnector/static/'
+    base_path: '/iserv/stsbl/unificonnector/static/'

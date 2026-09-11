@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\Security;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\Security;
 
 use IServ\Bundle\Module\Authorization\AdminVoter;
-use IServ\UnifiConnector\Security\AdminAuthenticatedVoter;
-use IServ\UnifiConnector\Security\Privileges;
+use Stsbl\IServ\UnifiConnector\Security\AdminAuthenticatedVoter;
+use Stsbl\IServ\UnifiConnector\Security\Privileges;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

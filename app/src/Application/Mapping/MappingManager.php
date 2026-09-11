@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Application\Mapping;
+namespace Stsbl\IServ\UnifiConnector\Application\Mapping;
 
 use Doctrine\ORM\EntityManagerInterface;
 use IServ\Bundle\Autocomplete\Form\Data\AutocompleteTagsData;
-use IServ\UnifiConnector\Entity\UniFiGroupMapping;
-use IServ\UnifiConnector\Repository\UniFiGroupMappingRepository;
+use Stsbl\IServ\UnifiConnector\Entity\UniFiGroupMapping;
+use Stsbl\IServ\UnifiConnector\Repository\UniFiGroupMappingRepository;
 
 /** Application service for the ordered mapping aggregate. */
 final readonly class MappingManager

@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\OAuth;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\OAuth;
 
-use IServ\UnifiConnector\OAuth\AccessTokenProvider;
-use IServ\UnifiConnector\OAuth\OAuthCredentials;
+use Stsbl\IServ\UnifiConnector\OAuth\AccessTokenProvider;
+use Stsbl\IServ\UnifiConnector\OAuth\OAuthCredentials;
 use Nyholm\Psr7\Request;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;

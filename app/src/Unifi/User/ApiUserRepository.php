@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Unifi\User;
+namespace Stsbl\IServ\UnifiConnector\Unifi\User;
 
 use UniFi_API\Client as UniFiApiClient;
 

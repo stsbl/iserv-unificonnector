@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\Entity;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\Entity;
 
-use IServ\UnifiConnector\Entity\GroupAssignment;
-use IServ\UnifiConnector\Entity\RoleAssignment;
-use IServ\UnifiConnector\Entity\UniFiGroupMapping;
-use IServ\UnifiConnector\Entity\UserAssignment;
+use Stsbl\IServ\UnifiConnector\Entity\GroupAssignment;
+use Stsbl\IServ\UnifiConnector\Entity\RoleAssignment;
+use Stsbl\IServ\UnifiConnector\Entity\UniFiGroupMapping;
+use Stsbl\IServ\UnifiConnector\Entity\UserAssignment;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

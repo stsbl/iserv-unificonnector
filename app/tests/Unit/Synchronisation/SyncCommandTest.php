@@ -2,23 +2,23 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\Synchronisation;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\Synchronisation;
 
 use IServ\Bundle\IdmDataBroker\Dto\UserGroupMembershipDto;
 use IServ\Bundle\IdmDataBroker\Dto\UserRolesDto;
 use IServ\Library\Uuid\Uuid;
-use IServ\UnifiConnector\Configuration\ConnectionConfiguration;
-use IServ\UnifiConnector\Configuration\FileConfigurationRepository;
-use IServ\UnifiConnector\Host\Host;
-use IServ\UnifiConnector\Host\HostRepository;
-use IServ\UnifiConnector\Mapping\MappingResolver;
-use IServ\UnifiConnector\Synchronisation\MembershipFetcher;
-use IServ\UnifiConnector\Synchronisation\RoleFetcher;
-use IServ\UnifiConnector\Synchronisation\SyncCommand;
-use IServ\UnifiConnector\Unifi\User\User;
-use IServ\UnifiConnector\Unifi\User\UserRepository;
-use IServ\UnifiConnector\Unifi\UserGroup\UserGroup;
-use IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
+use Stsbl\IServ\UnifiConnector\Configuration\ConnectionConfiguration;
+use Stsbl\IServ\UnifiConnector\Configuration\FileConfigurationRepository;
+use Stsbl\IServ\UnifiConnector\Host\Host;
+use Stsbl\IServ\UnifiConnector\Host\HostRepository;
+use Stsbl\IServ\UnifiConnector\Mapping\MappingResolver;
+use Stsbl\IServ\UnifiConnector\Synchronisation\MembershipFetcher;
+use Stsbl\IServ\UnifiConnector\Synchronisation\RoleFetcher;
+use Stsbl\IServ\UnifiConnector\Synchronisation\SyncCommand;
+use Stsbl\IServ\UnifiConnector\Unifi\User\User;
+use Stsbl\IServ\UnifiConnector\Unifi\User\UserRepository;
+use Stsbl\IServ\UnifiConnector\Unifi\UserGroup\UserGroup;
+use Stsbl\IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\Console\Tester\CommandTester;

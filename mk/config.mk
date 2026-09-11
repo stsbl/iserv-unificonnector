@@ -6,6 +6,6 @@ WEBPACK_FLAGS=run build:iservmake --
 WEBPACK_INTERNAL_ARGS=
 ASSETS_MANIFEST=app/public/static/.vite/manifest.json
 ASSETS_SRC=app/vite.config.ts $(shell find app/assets -type f)
-SYMFONY_USER=iserv-unificonnector
+SYMFONY_USER=stsbl-iserv-unificonnector
 
 LOCALE_DISABLE_POOTLE_DOWNLOAD=1

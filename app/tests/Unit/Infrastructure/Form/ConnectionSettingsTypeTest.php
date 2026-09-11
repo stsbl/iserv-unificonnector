@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\Infrastructure\Form;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\Infrastructure\Form;
 
-use IServ\UnifiConnector\Application\Configuration\ConnectionSettings;
-use IServ\UnifiConnector\Infrastructure\Form\ConnectionSettingsType;
-use IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
-use IServ\UnifiConnector\Unifi\UserGroup\UserGroup;
+use Stsbl\IServ\UnifiConnector\Application\Configuration\ConnectionSettings;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Form\ConnectionSettingsType;
+use Stsbl\IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
+use Stsbl\IServ\UnifiConnector\Unifi\UserGroup\UserGroup;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Form\PreloadedExtension;

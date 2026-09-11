@@ -1,4 +1,5 @@
-CREATE USER "iserv-unificonnector";
+CREATE USER "stsbl-iserv-unificonnector";
+DROP ROLE IF EXISTS "iserv-unificonnector";
 
 CREATE TABLE unificonnector_usergroup (
     id              TEXT PRIMARY KEY,
@@ -28,4 +29,4 @@ CREATE INDEX unificonnector_usergroup_group_group_uuid_key ON unificonnector_use
 CREATE INDEX unificonnector_usergroup_user_user_uuid_key ON unificonnector_usergroup_user (user_uuid);
 CREATE INDEX unificonnector_usergroup_role_role_uuid_key ON unificonnector_usergroup_role (role_uuid);
 
-GRANT SELECT, INSERT, UPDATE, DELETE ON unificonnector_usergroup, unificonnector_usergroup_group, unificonnector_usergroup_user, unificonnector_usergroup_role TO "iserv-unificonnector";
+GRANT SELECT, INSERT, UPDATE, DELETE ON unificonnector_usergroup, unificonnector_usergroup_group, unificonnector_usergroup_user, unificonnector_usergroup_role TO "stsbl-iserv-unificonnector";

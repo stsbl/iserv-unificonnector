@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use IServ\UnifiConnector\Kernel;
+use Stsbl\IServ\UnifiConnector\Kernel;
 
 require_once dirname(__DIR__) . '/vendor/autoload_runtime.php';
 

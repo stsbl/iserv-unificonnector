@@ -2,26 +2,26 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Controller;
+namespace Stsbl\IServ\UnifiConnector\Controller;
 
 use IServ\Bundle\AdminIntegration\Controller\AbstractAdminController;
 use IServ\Bundle\AdminIntegration\Menu\AdminBreadcrumbs;
 use IServ\Bundle\TranslationGettext\Asset\TranslationAssetLoader;
 use IServ\Library\ModuleResponse\ResponseContentBuilder;
 use IServ\Library\ModuleResponse\ResponseContent;
-use IServ\UnifiConnector\Application\Configuration\ConnectionSettings;
-use IServ\UnifiConnector\Application\Mapping\MappingSettings;
-use IServ\UnifiConnector\Application\Mapping\MappingManager;
-use IServ\UnifiConnector\Configuration\ConnectionConfiguration;
-use IServ\UnifiConnector\Configuration\FileConfigurationRepository;
-use IServ\UnifiConnector\Entity\UniFiGroupMapping;
-use IServ\UnifiConnector\Infrastructure\Form\ConnectionSettingsType;
-use IServ\UnifiConnector\Infrastructure\Form\DeleteApiKeyActionType;
-use IServ\UnifiConnector\Infrastructure\Form\MappingActionType;
-use IServ\UnifiConnector\Infrastructure\Form\MappingSettingsType;
-use IServ\UnifiConnector\Infrastructure\Form\SyncActionType;
-use IServ\UnifiConnector\Repository\UniFiGroupMappingRepository;
-use IServ\UnifiConnector\Security\AdminAuthenticatedVoter;
+use Stsbl\IServ\UnifiConnector\Application\Configuration\ConnectionSettings;
+use Stsbl\IServ\UnifiConnector\Application\Mapping\MappingSettings;
+use Stsbl\IServ\UnifiConnector\Application\Mapping\MappingManager;
+use Stsbl\IServ\UnifiConnector\Configuration\ConnectionConfiguration;
+use Stsbl\IServ\UnifiConnector\Configuration\FileConfigurationRepository;
+use Stsbl\IServ\UnifiConnector\Entity\UniFiGroupMapping;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Form\ConnectionSettingsType;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Form\DeleteApiKeyActionType;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Form\MappingActionType;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Form\MappingSettingsType;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Form\SyncActionType;
+use Stsbl\IServ\UnifiConnector\Repository\UniFiGroupMappingRepository;
+use Stsbl\IServ\UnifiConnector\Security\AdminAuthenticatedVoter;
 use Symfony\Component\Asset\Packages;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\Form\FormFactoryInterface;

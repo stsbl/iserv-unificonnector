@@ -1,7 +1,7 @@
 controllers:
     resource:
         path: ../../src/Controller/
-        namespace: IServ\UnifiConnector\Controller
+        namespace: Stsbl\IServ\UnifiConnector\Controller
     type: attribute
     stateless: false
 

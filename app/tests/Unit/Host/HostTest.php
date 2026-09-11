@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\Host;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\Host;
 
-use IServ\UnifiConnector\Host\Host;
+use Stsbl\IServ\UnifiConnector\Host\Host;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 
@@ -36,7 +36,7 @@ use PHPUnit\Framework\TestCase;
  * @author Felix Jacobi <felix.jacobi@stsbl.de>
  * @license MIT license <https://opensource.org/licenses/MIT>
  *
- * @covers \IServ\UnifiConnector\Host\Host
+ * @covers \Stsbl\IServ\UnifiConnector\Host\Host
  */
 
 #[CoversClass(Host::class)]

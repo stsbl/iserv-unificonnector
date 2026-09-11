@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Integration;
+namespace Stsbl\IServ\UnifiConnector\Tests\Integration;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
-use IServ\UnifiConnector\Entity\UniFiGroupMapping;
+use Stsbl\IServ\UnifiConnector\Entity\UniFiGroupMapping;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 

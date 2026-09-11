@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Security;
+namespace Stsbl\IServ\UnifiConnector\Security;
 
 final class Privileges
 {

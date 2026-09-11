@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\Infrastructure\Form;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\Infrastructure\Form;
 
-use IServ\UnifiConnector\Infrastructure\Form\DeleteApiKeyActionType;
-use IServ\UnifiConnector\Infrastructure\Form\MappingActionType;
-use IServ\UnifiConnector\Infrastructure\Form\SyncActionType;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Form\DeleteApiKeyActionType;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Form\MappingActionType;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Form\SyncActionType;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Form\Test\TypeTestCase;
 

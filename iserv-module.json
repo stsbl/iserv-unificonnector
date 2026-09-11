@@ -1,8 +1,8 @@
 {
   "module": {
-    "id": "iserv/unificonnector",
+    "id": "stsbl/unificonnector",
     "name": "UniFi Connector",
-    "location": "http://localhost:982/iserv/unificonnector",
+    "location": "http://localhost:982/iserv/stsbl/unificonnector",
     "assets": {
       "manifestFile": "app/public/static/.vite/manifest.json"
     }

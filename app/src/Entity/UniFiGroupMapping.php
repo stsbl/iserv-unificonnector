@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Entity;
+namespace Stsbl\IServ\UnifiConnector\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use IServ\UnifiConnector\Repository\UniFiGroupMappingRepository;
+use Stsbl\IServ\UnifiConnector\Repository\UniFiGroupMappingRepository;
 
 /** @psalm-suppress ClassMustBeFinal Doctrine creates proxies for entities. */
 #[ORM\Entity(repositoryClass: UniFiGroupMappingRepository::class)]

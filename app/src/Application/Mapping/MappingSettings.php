@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Application\Mapping;
+namespace Stsbl\IServ\UnifiConnector\Application\Mapping;
 
 /** Data entered when an administrator creates a UniFi group mapping. */
 final class MappingSettings

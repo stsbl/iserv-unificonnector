@@ -8,21 +8,21 @@ use IServ\Library\IdmApiClient\IdmClient;
 use IServ\Library\IdmApiClient\IdmClientInterface;
 use IServ\Library\Zeit\Clock\Clock;
 use IServ\Library\Zeit\Clock\SystemClock;
-use IServ\UnifiConnector\OAuth\OAuthCredentials;
-use IServ\UnifiConnector\OAuth\AccessTokenProvider;
-use IServ\UnifiConnector\OAuth\OAuthTokenProvider;
-use IServ\UnifiConnector\Unifi\NativePasswordClientFactory;
-use IServ\UnifiConnector\Unifi\PasswordClientFactory;
-use IServ\UnifiConnector\Synchronisation\SyncRunner;
-use IServ\UnifiConnector\Synchronisation\SyncRunnerInterface;
-use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRoleProvider;
-use IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRoleProviderInterface;
-use IServ\UnifiConnector\Mapping\MappingRepository;
-use IServ\UnifiConnector\Mapping\MappingResolver;
-use IServ\UnifiConnector\Synchronisation\IdmMembershipFetcher;
-use IServ\UnifiConnector\Synchronisation\IdmRoleFetcher;
-use IServ\UnifiConnector\Synchronisation\MembershipFetcher;
-use IServ\UnifiConnector\Synchronisation\RoleFetcher;
+use Stsbl\IServ\UnifiConnector\OAuth\OAuthCredentials;
+use Stsbl\IServ\UnifiConnector\OAuth\AccessTokenProvider;
+use Stsbl\IServ\UnifiConnector\OAuth\OAuthTokenProvider;
+use Stsbl\IServ\UnifiConnector\Unifi\NativePasswordClientFactory;
+use Stsbl\IServ\UnifiConnector\Unifi\PasswordClientFactory;
+use Stsbl\IServ\UnifiConnector\Synchronisation\SyncRunner;
+use Stsbl\IServ\UnifiConnector\Synchronisation\SyncRunnerInterface;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRoleProvider;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Idm\AutocompleteRoleProviderInterface;
+use Stsbl\IServ\UnifiConnector\Mapping\MappingRepository;
+use Stsbl\IServ\UnifiConnector\Mapping\MappingResolver;
+use Stsbl\IServ\UnifiConnector\Synchronisation\IdmMembershipFetcher;
+use Stsbl\IServ\UnifiConnector\Synchronisation\IdmRoleFetcher;
+use Stsbl\IServ\UnifiConnector\Synchronisation\MembershipFetcher;
+use Stsbl\IServ\UnifiConnector\Synchronisation\RoleFetcher;
 use IServ\Library\Shell\Shell;
 use IServ\Library\Shell\SystemShell;
 use Psr\Clock\ClockInterface;
@@ -45,7 +45,7 @@ return static function (ContainerConfigurator $configurator): void {
 
     // makes classes in src/ available to be used as services
     // this creates a service per class whose id is the fully-qualified class name
-    $services->load('IServ\\UnifiConnector\\', '../src/*')
+    $services->load('Stsbl\\IServ\\UnifiConnector\\', '../src/*')
         ->exclude(['../src/{DependencyInjection,Entity,Tests}/', '../src/Kernel.php'])
     ;
 
@@ -55,7 +55,7 @@ return static function (ContainerConfigurator $configurator): void {
     $services->alias(ClockInterface::class, SystemClock::class);
 
     $services->set(\UniFi_API\Client::class)
-        ->factory([service(\IServ\UnifiConnector\Unifi\ApiClientFactory::class), 'createApiClient'])
+        ->factory([service(\Stsbl\IServ\UnifiConnector\Unifi\ApiClientFactory::class), 'createApiClient'])
         ->lazy()
     ;
 
@@ -78,7 +78,7 @@ return static function (ContainerConfigurator $configurator): void {
     $services->set(SystemShell::class);
     $services->alias(Shell::class, SystemShell::class);
 
-    $services->alias(\IServ\UnifiConnector\Host\HostRepository::class, \IServ\UnifiConnector\Host\HostApiRepository::class);
+    $services->alias(\Stsbl\IServ\UnifiConnector\Host\HostRepository::class, \Stsbl\IServ\UnifiConnector\Host\HostApiRepository::class);
 
     if ('test' === $configurator->env()) {
         $services->set(\IServ\Library\Config\Config::class)

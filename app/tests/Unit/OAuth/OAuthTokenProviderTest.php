@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\OAuth;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\OAuth;
 
 use IServ\Library\Config\Config;
 use IServ\Library\Zeit\Clock\FixedClock;
-use IServ\UnifiConnector\OAuth\OAuthTokenProvider;
+use Stsbl\IServ\UnifiConnector\OAuth\OAuthTokenProvider;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;

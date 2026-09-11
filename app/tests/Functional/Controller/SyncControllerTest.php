@@ -2,14 +2,14 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Functional\Controller;
+namespace Stsbl\IServ\UnifiConnector\Tests\Functional\Controller;
 
 use IServ\Bundle\TestBrowser\Test\TestBrowser;
 use IServ\Library\UserToken\Test\User\TestUserBuilder;
 use IServ\Library\Uuid\Uuid;
-use IServ\UnifiConnector\Controller\SyncController;
-use IServ\UnifiConnector\Security\Privileges;
-use IServ\UnifiConnector\Synchronisation\SyncRunnerInterface;
+use Stsbl\IServ\UnifiConnector\Controller\SyncController;
+use Stsbl\IServ\UnifiConnector\Security\Privileges;
+use Stsbl\IServ\UnifiConnector\Synchronisation\SyncRunnerInterface;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 

@@ -18,7 +18,7 @@
         <ini name="error_reporting" value="-1"/>
         <server name="APP_ENV" value="test" force="true"/>
         <server name="SHELL_VERBOSITY" value="-1"/>
-        <server name="KERNEL_CLASS" value="IServ\UnifiConnector\Kernel"/>
+        <server name="KERNEL_CLASS" value="Stsbl\IServ\UnifiConnector\Kernel"/>
     </php>
     <testsuites>
         <testsuite name="Project Test Suite">

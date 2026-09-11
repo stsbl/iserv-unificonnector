@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Repository;
+namespace Stsbl\IServ\UnifiConnector\Repository;
 
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use IServ\UnifiConnector\Entity\UniFiGroupMapping;
+use Stsbl\IServ\UnifiConnector\Entity\UniFiGroupMapping;
 
 /** @extends ServiceEntityRepository<UniFiGroupMapping> */
 final class UniFiGroupMappingRepository extends ServiceEntityRepository

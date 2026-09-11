@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Infrastructure\Form;
+namespace Stsbl\IServ\UnifiConnector\Infrastructure\Form;
 
 use IServ\Bundle\Autocomplete\Domain\AutocompleteType;
 use IServ\Bundle\Autocomplete\Form\Type\AutocompleteTagsType;
 use IServ\Bundle\Form\Form\Type\ComboboxType;
-use IServ\UnifiConnector\Application\Mapping\MappingSettings;
-use IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
+use Stsbl\IServ\UnifiConnector\Application\Mapping\MappingSettings;
+use Stsbl\IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;

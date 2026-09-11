@@ -4,7 +4,7 @@ doctrine:
         host: null
         port: null
         dbname: iserv
-        user: iserv-unificonnector
+        user: stsbl-iserv-unificonnector
         password: null
         charset:  UTF8
 
@@ -26,5 +26,5 @@ doctrine:
                 is_bundle: false
                 type: attribute
                 dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'IServ\UnifiConnector\Entity'
+                prefix: 'Stsbl\IServ\UnifiConnector\Entity'
                 alias: App

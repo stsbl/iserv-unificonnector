@@ -1,8 +1,8 @@
 {
-  "name": "iserv-unificonnector",
+  "name": "stsbl-iserv-unificonnector",
   "description": "IServ UniFi Connector",
   "author": "IServ GmbH <info@iserv.de>",
-  "homepage": "https://git.iserv.eu/iserv/unificonnector/",
+  "homepage": "https://git.iserv.eu/stsbl-iserv/unificonnector/",
   "license": "proprietary",
   "preferGlobal": true,
   "private": true,

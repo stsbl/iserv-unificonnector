@@ -4,7 +4,7 @@
 	dateyesterday
 	missingok
 	rotate 7
-	su iserv-unificonnector iserv-unificonnector
+	su stsbl-iserv-unificonnector stsbl-iserv-unificonnector
 	compress
-	create 644 iserv-unificonnector iserv-unificonnector
+	create 644 stsbl-iserv-unificonnector stsbl-iserv-unificonnector
 }

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Application\Configuration;
+namespace Stsbl\IServ\UnifiConnector\Application\Configuration;
 
 final class ConnectionSettings
 {

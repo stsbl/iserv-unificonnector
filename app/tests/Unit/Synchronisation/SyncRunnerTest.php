@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\Synchronisation;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\Synchronisation;
 
-use IServ\UnifiConnector\Synchronisation\SyncRunner;
+use Stsbl\IServ\UnifiConnector\Synchronisation\SyncRunner;
 use IServ\Library\Shell\ExecutionResult;
 use IServ\Library\Shell\Shell;
 use IServ\Library\Shell\Stream\OutputStream;

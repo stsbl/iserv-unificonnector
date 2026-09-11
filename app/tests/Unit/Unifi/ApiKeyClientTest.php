@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Unit\Unifi;
+namespace Stsbl\IServ\UnifiConnector\Tests\Unit\Unifi;
 
-use IServ\UnifiConnector\Unifi\ApiKeyClient;
+use Stsbl\IServ\UnifiConnector\Unifi\ApiKeyClient;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 

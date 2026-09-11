@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Synchronisation;
+namespace Stsbl\IServ\UnifiConnector\Synchronisation;
 
-use IServ\UnifiConnector\Configuration\FileConfigurationRepository;
-use IServ\UnifiConnector\Host\HostRepository;
-use IServ\UnifiConnector\Mapping\MappingResolver;
+use Stsbl\IServ\UnifiConnector\Configuration\FileConfigurationRepository;
+use Stsbl\IServ\UnifiConnector\Host\HostRepository;
+use Stsbl\IServ\UnifiConnector\Mapping\MappingResolver;
 use IServ\Library\Uuid\Uuid;
-use IServ\UnifiConnector\Unifi\User\User;
-use IServ\UnifiConnector\Unifi\User\UserRepository;
-use IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
+use Stsbl\IServ\UnifiConnector\Unifi\User\User;
+use Stsbl\IServ\UnifiConnector\Unifi\User\UserRepository;
+use Stsbl\IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -89,7 +89,6 @@ final class SyncCommand extends Command
         /** @var User[] $existingClients */
         $existingClients = [];
         $synchronizedHosts = 0;
-
         $fallbackGroup = $this->userGroupRepository->findByName($configuration->fallbackGroup);
 
         foreach ($this->userRepository->findAll() as $client) {

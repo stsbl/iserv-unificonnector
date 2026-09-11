@@ -15,7 +15,7 @@ return static function (MenuConfigurator $config): void {
             '/admin/unificonnector/',
             new MenuIcon('assets/img/unificonnector.svg', '/usr/share/iserv/stsbl-iserv-unificonnector/app/public/static/manifest.json'),
             'user.hasPrivilege("4ca1d38d-3ff8-4131-a6ef-a07f7994a3c1")',
-            'iserv/unificonnector',
+            'stsbl/unificonnector',
         )
     ;
 };

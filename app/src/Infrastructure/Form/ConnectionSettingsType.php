@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Infrastructure\Form;
+namespace Stsbl\IServ\UnifiConnector\Infrastructure\Form;
 
 use IServ\Bundle\Form\Form\Type\ComboboxType;
-use IServ\UnifiConnector\Application\Configuration\ConnectionSettings;
-use IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
+use Stsbl\IServ\UnifiConnector\Application\Configuration\ConnectionSettings;
+use Stsbl\IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;

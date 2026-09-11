@@ -1,5 +1,5 @@
 {
-  "name": "iserv/unificonnector",
+  "name": "stsbl-iserv/unificonnector",
   "description": "IServ UniFi Connector",
   "license": "proprietary",
   "type": "project",
@@ -87,15 +87,15 @@
   "prefer-stable": true,
   "autoload": {
     "psr-4": {
-      "IServ\\UnifiConnector\\": "src/"
+      "Stsbl\\IServ\\UnifiConnector\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "IServ\\UnifiConnector\\Tests\\Common\\": "tests/Common",
-      "IServ\\UnifiConnector\\Tests\\Unit\\": "tests/Unit",
-      "IServ\\UnifiConnector\\Tests\\Integration\\": "tests/Integration",
-      "IServ\\UnifiConnector\\Tests\\Functional\\": "tests/Functional"
+      "Stsbl\\IServ\\UnifiConnector\\Tests\\Common\\": "tests/Common",
+      "Stsbl\\IServ\\UnifiConnector\\Tests\\Unit\\": "tests/Unit",
+      "Stsbl\\IServ\\UnifiConnector\\Tests\\Integration\\": "tests/Integration",
+      "Stsbl\\IServ\\UnifiConnector\\Tests\\Functional\\": "tests/Functional"
     }
   },
   "config": {

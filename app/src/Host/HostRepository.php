@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Host;
+namespace Stsbl\IServ\UnifiConnector\Host;
 
 /*
  * The MIT License

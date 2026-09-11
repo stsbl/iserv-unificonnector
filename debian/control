@@ -5,6 +5,7 @@ Maintainer: Stadtteilschule Blankenese <repository@stsbl.de>
 Build-Depends:
   debhelper-compat (= 13),
   dh-sequence-iserv,
+  dh-sequence-stsbl,
   dpkg-dev,
 Standards-Version: 4.5.0
 Homepage: ${iserv:Homepage}
@@ -26,6 +27,7 @@ Depends: ${misc:Depends},
   php-mbstring (>= 0),
   php-pgsql (>= 0),
   php-xml (>= 0),
+  stsbl-iserv3-maintenance,
 Description: UniFi-Connector für IServ
  Synchronisiert die verwalteten IServ-Geräte mit einem UniFi-Controller.
 Tag: suite::iserv, suite::iserv:bundle-cloud, suite::iserv:bundle-full, suite::iserv:portal, role::plugin

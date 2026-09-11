@@ -2,15 +2,15 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Functional\Controller;
+namespace Stsbl\IServ\UnifiConnector\Tests\Functional\Controller;
 
-use IServ\UnifiConnector\Controller\ConfigurationController;
-use IServ\UnifiConnector\Configuration\FileConfigurationRepository;
-use IServ\UnifiConnector\Entity\UniFiGroupMapping;
-use IServ\UnifiConnector\Infrastructure\Form\MappingSettingsType;
-use IServ\UnifiConnector\Unifi\UserGroup\UserGroup;
-use IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
-use IServ\UnifiConnector\Security\Privileges;
+use Stsbl\IServ\UnifiConnector\Controller\ConfigurationController;
+use Stsbl\IServ\UnifiConnector\Configuration\FileConfigurationRepository;
+use Stsbl\IServ\UnifiConnector\Entity\UniFiGroupMapping;
+use Stsbl\IServ\UnifiConnector\Infrastructure\Form\MappingSettingsType;
+use Stsbl\IServ\UnifiConnector\Unifi\UserGroup\UserGroup;
+use Stsbl\IServ\UnifiConnector\Unifi\UserGroup\UserGroupRepository;
+use Stsbl\IServ\UnifiConnector\Security\Privileges;
 use IServ\Bundle\TestBrowser\Test\TestBrowser;
 use IServ\Library\UserToken\Test\User\TestUserBuilder;
 use IServ\Library\Uuid\Uuid;
@@ -66,9 +66,9 @@ final class ConfigurationControllerTest extends WebTestCase
         self::assertStringContainsString('Start synchronization', (string) $client->getResponse()->getContent());
         $scripts = urldecode(implode("\n", $client->getResponse()->headers->all('X-IServ-Response-Script')));
         self::assertStringContainsString('/iserv/js/static/', $scripts);
-        self::assertStringNotContainsString('/iserv/unificonnector/js/polyfill.min.js', $scripts);
+        self::assertStringNotContainsString('/iserv/stsbl/unificonnector/js/polyfill.min.js', $scripts);
         self::assertStringNotContainsString('/iserv/js/static/js/polyfill.min.js', $scripts);
-        self::assertStringNotContainsString('/iserv/unificonnector/js/lang/de.js', $scripts);
+        self::assertStringNotContainsString('/iserv/stsbl/unificonnector/js/lang/de.js', $scripts);
         self::assertCount(1, $client->getCrawler()->filterXpath('//form[@action="/admin/unificonnector/sync"]'));
         self::assertGreaterThanOrEqual(1, $client->getCrawler()->filterXpath('//form[@action="/admin/unificonnector/"]')->count());
     }
@@ -122,7 +122,7 @@ final class ConfigurationControllerTest extends WebTestCase
     public function testAuthenticatedAdminDeletesStoredApiKey(): void
     {
         $repository = new FileConfigurationRepository($this->configurationPath);
-        $repository->store(new \IServ\UnifiConnector\Configuration\ConnectionConfiguration('https://unifi.example.test', '', '', '', 'api_key', 'secret'));
+        $repository->store(new \Stsbl\IServ\UnifiConnector\Configuration\ConnectionConfiguration('https://unifi.example.test', '', '', '', 'api_key', 'secret'));
         /** @var TestBrowser $client */
         $client = self::createClient();
         $client->disableReboot();
@@ -140,7 +140,7 @@ final class ConfigurationControllerTest extends WebTestCase
     public function testAuthenticatedAdminRetainsStoredApiKeyWhenItIsNotResubmitted(): void
     {
         $repository = new FileConfigurationRepository($this->configurationPath);
-        $repository->store(new \IServ\UnifiConnector\Configuration\ConnectionConfiguration('https://unifi.example.test', '', '', '', 'api_key', 'secret'));
+        $repository->store(new \Stsbl\IServ\UnifiConnector\Configuration\ConnectionConfiguration('https://unifi.example.test', '', '', '', 'api_key', 'secret'));
         /** @var TestBrowser $client */
         $client = self::createClient();
         $client->disableReboot();
@@ -166,7 +166,7 @@ final class ConfigurationControllerTest extends WebTestCase
     public function testAuthenticatedAdminSeesStoredConnectionSettings(): void
     {
         $repository = new FileConfigurationRepository($this->configurationPath);
-        $repository->store(new \IServ\UnifiConnector\Configuration\ConnectionConfiguration('https://unifi.example.test', 'admin', 'password', 'Fallback', 'password'));
+        $repository->store(new \Stsbl\IServ\UnifiConnector\Configuration\ConnectionConfiguration('https://unifi.example.test', 'admin', 'password', 'Fallback', 'password'));
         /** @var TestBrowser $client */
         $client = self::createClient();
         $client->disableReboot();

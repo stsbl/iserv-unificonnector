@@ -2,16 +2,16 @@
 
 declare(strict_types=1);
 
-namespace IServ\UnifiConnector\Tests\Integration\Application\Mapping;
+namespace Stsbl\IServ\UnifiConnector\Tests\Integration\Application\Mapping;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\SchemaTool;
 use IServ\Bundle\Autocomplete\Form\Data\AutocompleteTagsData;
-use IServ\UnifiConnector\Application\Mapping\MappingManager;
-use IServ\UnifiConnector\Application\Mapping\MappingSettings;
-use IServ\UnifiConnector\Entity\UniFiGroupMapping;
-use IServ\UnifiConnector\Mapping\MappingRepository;
-use IServ\UnifiConnector\Repository\UniFiGroupMappingRepository;
+use Stsbl\IServ\UnifiConnector\Application\Mapping\MappingManager;
+use Stsbl\IServ\UnifiConnector\Application\Mapping\MappingSettings;
+use Stsbl\IServ\UnifiConnector\Entity\UniFiGroupMapping;
+use Stsbl\IServ\UnifiConnector\Mapping\MappingRepository;
+use Stsbl\IServ\UnifiConnector\Repository\UniFiGroupMappingRepository;
 use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
