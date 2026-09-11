@@ -1,3 +1,9 @@
+stsbl-iserv-unificonnector (26.09.11.3) stable; urgency=medium
+
+  * Fix: use chkdb-compatible role removal
+
+ -- Felix Jacobi <felix.jacobi@iserv.eu>  Fri, 11 Sep 2026 15:48:45 +0200
+
 stsbl-iserv-unificonnector (26.09.11.2) stable; urgency=medium
 
   * Fix: complete German UniFi mapping translation
