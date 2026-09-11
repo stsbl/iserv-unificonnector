@@ -1,27 +1,37 @@
+stsbl-iserv-unificonnector (26.09.11.1) stable; urgency=medium
+
+  * Update UniFi Connector translations
+  * Fix UniFi background synchronization
+  * Expand UniFi Connector test coverage
+  * Fix: skip unconfigured UniFi synchronization
+  * Refactor: migrate UniFi Connector to STSBL
+
+ -- Felix Jacobi <Felix@jacobi-hamburg.net>  Fri, 11 Sep 2026 15:15:35 +0200
+
 stsbl-iserv-unificonnector (26.08.29.5) stable; urgency=medium
 
   * Fix modern IDM role synchronization
 
- -- Felix Jacobi <felix.jacobi@iserv.eu>  Sat, 29 Aug 2026 16:23:36 +0200
+ -- Felix Jacobi <Felix@jacobi-hamburg.net>  Sat, 29 Aug 2026 16:23:36 +0200
 
 stsbl-iserv-unificonnector (26.08.29.4) stable; urgency=medium
 
   * Fix Host API server-modules URL
   * Fix UniFi state directory ownership
 
- -- Felix Jacobi <felix.jacobi@iserv.eu>  Sat, 29 Aug 2026 12:51:15 +0200
+ -- Felix Jacobi <Felix@jacobi-hamburg.net>  Sat, 29 Aug 2026 12:51:15 +0200
 
 stsbl-iserv-unificonnector (26.08.29.3) stable; urgency=medium
 
   * Fix UniFi API and admin assets
 
- -- Felix Jacobi <felix.jacobi@iserv.eu>  Sat, 29 Aug 2026 01:38:27 +0200
+ -- Felix Jacobi <Felix@jacobi-hamburg.net>  Sat, 29 Aug 2026 01:38:27 +0200
 
 stsbl-iserv-unificonnector (26.08.29.2) stable; urgency=medium
 
   * Fix UniFi connection URL handling
 
- -- Felix Jacobi <felix.jacobi@iserv.eu>  Sat, 29 Aug 2026 00:34:36 +0200
+ -- Felix Jacobi <Felix@jacobi-hamburg.net>  Sat, 29 Aug 2026 00:34:36 +0200
 
 stsbl-iserv-unificonnector (26.08.29.1) stable; urgency=medium
 
